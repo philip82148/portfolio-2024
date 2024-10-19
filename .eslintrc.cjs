@@ -23,6 +23,23 @@ module.exports = {
 
   // Base config
   extends: ["eslint:recommended"],
+  plugins: ["unused-imports"],
+
+  rules: {
+    "import/order": [
+      "error",
+      {
+        "newlines-between": "always",
+        alphabetize: {
+          order: "asc",
+        },
+      },
+    ],
+    "import/newline-after-import": "error",
+    "import/no-anonymous-default-export": "error",
+    "unused-imports/no-unused-imports": "error",
+    "@typescript-eslint/consistent-type-imports": ["error", { prefer: "type-imports" }],
+  },
 
   overrides: [
     // React
