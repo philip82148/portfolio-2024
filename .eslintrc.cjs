@@ -39,6 +39,17 @@ module.exports = {
     "import/no-anonymous-default-export": "error",
     "unused-imports/no-unused-imports": "error",
     "@typescript-eslint/consistent-type-imports": ["error", { prefer: "type-imports" }],
+    "no-unused-vars": [
+      "error",
+      {
+        args: "all",
+        caughtErrors: "all",
+        varsIgnorePattern: "^_",
+        argsIgnorePattern: "^_",
+        caughtErrorsIgnorePattern: "^_",
+        destructuredArrayIgnorePattern: "^_",
+      },
+    ],
   },
 
   overrides: [
@@ -52,6 +63,9 @@ module.exports = {
         "plugin:react-hooks/recommended",
         "plugin:jsx-a11y/recommended",
       ],
+      rules: {
+        "react/prop-types": "off",
+      },
       settings: {
         react: {
           version: "detect",

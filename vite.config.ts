@@ -27,6 +27,7 @@ export default defineConfig({
       buildEnd(args) {
         if (!args.viteConfig.isProduction) return;
         const { outDir } = args.viteConfig.build;
+        // TODO: check http code
         copyFileSync(join(outDir, "index.html"), join(outDir, "404.html"));
       },
     }),
