@@ -4,9 +4,25 @@ import { useEffect, useRef, useState } from "react";
 export const MainVisual: React.FC = () => {
   return (
     <div className="flex items-center justify-center h-screen w-screen min-h-[600px]">
-      <div className="container flex justify-around">
-        <div className="w-96">
-          <img src="/portfolio/me.jpg" alt="Ryota Sasaki" className="w-full" />
+      <div className="container flex justify-around items-center">
+        <div className="w-96 flex flex-col">
+          <img
+            src="https://avatars.githubusercontent.com/u/92205270?v=4"
+            alt="Ryota Sasaki"
+            className="w-full"
+          />
+          <h1 className="font-bold text-4xl mt-3 mb-2">Ryota Sasaki</h1>
+          <p className="text-xl">
+            <span className="whitespace-nowrap">{"Web Developer"}</span>
+            {" | "}
+            <span className="whitespace-nowrap">{"Low-Level Programming Lover"}</span>
+            {" | "}
+            <span className="whitespace-nowrap">{"Competitive Programming Enthusiast"}</span>
+            {" | "}
+            <span className="whitespace-nowrap">
+              {"Master's Student at the University of Tokyo"}
+            </span>
+          </p>
         </div>
         <div className="w-1/2 flex flex-col gap-5">
           <Skills
@@ -19,7 +35,7 @@ export const MainVisual: React.FC = () => {
           />
           <Skills
             title="Other Web Technologies"
-            skills={["ts", "js", "nodejs", "docker", "php", "jquery", "wordpress"]}
+            skills={["ts", "js", "nodejs", "docker", "php", "wordpress", "jquery"]}
           />
           <Skills
             title="Other"
