@@ -2,5 +2,5 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
   },
-  "cSpell.words": ["daisyui", "Ryota", "Sasaki", "tailwindcss"]
+  "cSpell.words": ["clsx", "daisyui", "Ryota", "Sasaki", "tailwindcss"]
 }
