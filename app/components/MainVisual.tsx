@@ -73,9 +73,9 @@ const Skills: React.FC<{
   return (
     <div className="flex flex-col gap-1">
       <p className="font-bold text-2xl">{title}</p>
-      <div ref={scrollableDiv} className="overflow-x-auto">
+      <div ref={scrollableDiv} className="overflow-x-auto flex">
         <div
-          className="flex gap-3 w-fit"
+          className="flex gap-3 w-fit mr-20"
           style={{
             backgroundImage: `url(https://go-skill-icons.vercel.app/api/icons?i=${skills.join(
               ","
@@ -93,6 +93,13 @@ const Skills: React.FC<{
             />
           ))}
         </div>
+        <div
+          className={clsx(
+            "sticky right-0 -ml-20 size-20 shrink-0 pointer-events-none",
+            "before:block before:absolute before:inset-0 before:size-20 before:bg-base-100 before:[mask-image:linear-gradient(90deg,rgba(0,0,0,0)_40%,rgba(0,0,0,0.5)_50%,rgba(0,0,0,0.8)_60%,rgba(0,0,0,0.95)_80%,rgba(0,0,0,0.98)_90%,rgba(0,0,0,1)_100%)]"
+            // "after:block after:absolute after:inset-0 after:backdrop-blur-lg after:[mask-image:linear-gradient(90deg,rgba(0,0,0,0)_60%,rgba(0,0,0,0.6)_80%,rgba(0,0,0,1)_100%)]"
+          )}
+        />
       </div>
     </div>
   );
