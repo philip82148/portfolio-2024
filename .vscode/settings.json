@@ -2,5 +2,17 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
   },
-  "cSpell.words": ["clsx", "daisyui", "Ryota", "Sasaki", "tailwindcss"]
+  "cSpell.words": [
+    "atcoder",
+    "clsx",
+    "daisyui",
+    "qiita",
+    "Ryota",
+    "Sasaki",
+    "sassan",
+    "tailwindcss",
+    "wantedly",
+    "zenn"
+  ],
+  "svg.preview.background": "editor"
 }
