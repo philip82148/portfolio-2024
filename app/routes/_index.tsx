@@ -1,6 +1,7 @@
 import type { MetaFunction } from "@remix-run/node";
 
 import { Accounts } from "~/components/Accounts";
+import { Education } from "~/components/Education";
 import { Header } from "~/components/Header";
 import { Profile } from "~/components/Profile";
 
@@ -18,8 +19,8 @@ export default function Index() {
       <div className="container mx-auto flex flex-col gap-10">
         <Profile />
         <Accounts />
-        {/*<Education />
-        <Internships />
+        <Education />
+        {/*<Internships />
         <Projects /> */}
       </div>
     </>
