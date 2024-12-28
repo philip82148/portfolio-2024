@@ -9,18 +9,18 @@ export const Education: React.FC = () => {
           <div className="ml-2 flex flex-col items-center">
             <div className={clsx("h-8 w-1", i !== 0 && "bg-primary-content")} />
             <div className="rounded-full bg-primary-content">
-              <div className="size-16 bg-white [mask-image:url(ornaments/school.png)] [mask-size:30px] [mask-position:center] [mask-repeat:no-repeat]" />
+              <div className="size-16 bg-white [mask-image:url(/portfolio-2024/ornaments/school.png)] [mask-size:30px] [mask-position:center] [mask-repeat:no-repeat]" />
             </div>
             <div className={clsx("h-8 w-1", i !== schools.length - 1 && "bg-primary-content")} />
           </div>
-          <div className="text-xs">
+          <div className="text-xs font-bold">
             <div className="text-sm">{end}</div>
             <div>―</div>
             <div className="text-sm">{start}</div>
           </div>
           <div>
-            <div className="font-bold text-xl">{name}</div>
-            <div className="text-base">{description}</div>
+            <h3 className="font-bold text-xl">{name}</h3>
+            <p className="text-base">{description}</p>
           </div>
         </div>
       ))}
