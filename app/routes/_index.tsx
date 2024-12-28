@@ -5,7 +5,10 @@ import { Header } from "~/components/Header";
 import { Profile } from "~/components/Profile";
 
 export const meta: MetaFunction = () => {
-  return [{ title: "New Remix App" }, { name: "description", content: "Welcome to Remix!" }];
+  return [
+    { title: "Ryota Sasaki's Portfolio" },
+    { name: "description", content: "This is a portfolio site of Ryota Sasaki." },
+  ];
 };
 
 export default function Index() {
