@@ -2,7 +2,7 @@ import clsx from "clsx";
 
 export const Education: React.FC = () => {
   return (
-    <div className="mt-8">
+    <div className="mb-8">
       <h2 className="font-bold text-3xl mb-2">Education</h2>
       {schools.map(({ name, start, end, description }, i) => (
         <div key={name} className="flex items-center gap-8">

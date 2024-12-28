@@ -2,7 +2,7 @@ import clsx from "clsx";
 
 export const Accounts: React.FC = () => {
   return (
-    <div>
+    <div className="mb-8">
       <h2 className="font-bold text-3xl mb-8">Accounts</h2>
       <div className="grid grid-cols-4 gap-5">
         {accounts.map(({ siteName, id, href, iconSrc, colorAdjust, iconSizeAdjust }) => (
