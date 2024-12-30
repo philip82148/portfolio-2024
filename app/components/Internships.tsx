@@ -5,7 +5,7 @@ export const Internships: React.FC = () => {
     <div className="mb-8">
       <h2 className="font-bold text-3xl mb-8">Internships</h2>
       <div className="grid grid-cols-[auto_auto_1fr] items-center gap-x-8 pl-2">
-        {internships.map(({ name, start, end, descriptions }, i) => (
+        {internships.map(({ name, occupation, start, end, descriptions }, i) => (
           <Fragment key={name}>
             <div className="col-start-1 size-16 rounded-full bg-primary-content mask [mask-image:url(ornaments/company.png)] [mask-size:3rem]" />
             <div className="col-start-2 flex flex-col text-sm font-bold">
@@ -13,7 +13,10 @@ export const Internships: React.FC = () => {
               <span className="text-xs">―</span>
               <span>{start}</span>
             </div>
-            <h3 className="col-start-3 font-bold text-2xl">{name}</h3>
+            <div className="col-start-3 flex flex-col justify-center font-bold">
+              <h3 className="text-2xl">{name}</h3>
+              <div>{occupation}</div>
+            </div>
             <div className="col-start-1 flex justify-center h-full py-4">
               {i !== internships.length - 1 && <div className="w-1 min-h-10 bg-primary-content" />}
             </div>
@@ -34,21 +37,21 @@ export const Internships: React.FC = () => {
 
 const internships: {
   name: string;
+  occupation: string;
   start: string;
   end: string;
   descriptions: string[];
 }[] = [
   {
     name: "Sky株式会社",
+    occupation: "フロントエンド兼バックエンドエンジニア",
     start: "2024/06",
     end: "Present",
-    descriptions: [
-      "フロントエンド兼バックエンドエンジニアとして従事。",
-      "詳細は守秘義務により割愛。",
-    ],
+    descriptions: ["詳細は守秘義務により割愛。"],
   },
   {
     name: "アイザック株式会社",
+    occupation: "フロントエンド兼バックエンドエンジニア",
     start: "2023/02",
     end: "2023/04",
     descriptions: [
@@ -58,6 +61,7 @@ const internships: {
   },
   {
     name: "株式会社飛竜企画",
+    occupation: "ソフトウェアエンジニア",
     start: "2022/02",
     end: "2023/02",
     descriptions: [
