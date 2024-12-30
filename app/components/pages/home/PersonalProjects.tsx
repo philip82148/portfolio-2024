@@ -51,13 +51,13 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
                   <h4 className="card-title">{project.title}</h4>
                   <div className="text-sm text-slate-500">{project.shortDescription}</div>
                   <div className="flex flex-wrap items-center gap-5 text-sm text-slate-500">
-                    {project.starCount && (
+                    {!!project.starCount && (
                       <span>
                         <FontAwesomeIcon icon={faStar} className="mr-2" />
                         {project.starCount}
                       </span>
                     )}
-                    {project.techStacks && (
+                    {!!project.techStacks && (
                       <span>
                         <FontAwesomeIcon icon={faCode} className="mr-2.5" />
                         {project.techStacks.join(" / ")}
@@ -73,7 +73,7 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
                     </span>
                   </div>
                 </div>
-                {project.imgSrc && (
+                {!!project.imgSrc && (
                   <figure className="max-w-[230px]">
                     <img
                       src={project.imgSrc}
@@ -114,7 +114,7 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
                 {modalProject?.shortDescription}
                 <span className="font-bold">Description</span>
                 <p>{modalProject?.description}</p>
-                {modalProject?.techStacks && (
+                {!!modalProject?.techStacks && (
                   <>
                     <span className="font-bold">Tech Stacks</span>
                     <span>{modalProject?.techStacks?.join(" / ")}</span>
@@ -130,7 +130,7 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
                 ))}
               </div>
             </div>
-            {modalProject?.imgSrc && (
+            {!!modalProject?.imgSrc && (
               <figure className="max-w-[50%]">
                 <img src={modalProject?.imgSrc} alt={modalProject?.title} />
               </figure>
