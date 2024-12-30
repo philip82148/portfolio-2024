@@ -7,15 +7,15 @@ export const Internships: React.FC = () => {
       <div className="grid grid-cols-[auto_auto_1fr] items-center gap-x-8 pl-2">
         {internships.map(({ name, occupation, start, end, descriptions }, i) => (
           <Fragment key={name}>
-            <div className="col-start-1 size-16 rounded-full bg-primary-content mask [mask-image:url(ornaments/company.png)] [mask-size:3rem]" />
+            <div className="col-start-1 size-16 rounded-full bg-primary-content mask [mask-image:url(/portfolio-2024/ornaments/company.png)] [mask-size:3rem]" />
             <div className="col-start-2 flex flex-col text-sm font-bold">
               <span>{end}</span>
               <span className="text-xs">―</span>
               <span>{start}</span>
             </div>
-            <div className="col-start-3 flex flex-col justify-center font-bold">
-              <h3 className="text-2xl">{name}</h3>
-              <div>{occupation}</div>
+            <div className="col-start-3 flex flex-col">
+              <h3 className="font-bold text-xl">{name}</h3>
+              <div className="font-semibold">{occupation}</div>
             </div>
             <div className="col-start-1 flex justify-center h-full py-4">
               {i !== internships.length - 1 && <div className="w-1 min-h-10 bg-primary-content" />}

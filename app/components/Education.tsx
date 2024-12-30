@@ -7,15 +7,15 @@ export const Education: React.FC = () => {
       <div className="grid grid-cols-[auto_auto_1fr] items-center gap-x-8 pl-2">
         {schools.map(({ name, start, end, major }, i) => (
           <Fragment key={name}>
-            <div className="col-start-1 size-16 rounded-full bg-primary-content mask [mask-image:url(ornaments/school.png)]" />
+            <div className="col-start-1 size-16 rounded-full bg-primary-content mask [mask-image:url(/portfolio-2024/ornaments/school.png)]" />
             <div className="col-start-2 flex flex-col text-sm font-bold">
               <span>{end}</span>
               <span className="text-xs">―</span>
               <span>{start}</span>
             </div>
             <div className="col-start-3 flex flex-col">
-              <h3 className="font-bold text-2xl">{name}</h3>
-              <div>{major}</div>
+              <h3 className="font-bold text-xl">{name}</h3>
+              <div className="font-semibold">{major}</div>
             </div>
             <div className="col-start-1 flex justify-center h-full py-4">
               {i !== schools.length - 1 && <div className="w-1 min-h-10 bg-primary-content" />}
