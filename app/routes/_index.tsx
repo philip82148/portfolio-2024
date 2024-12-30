@@ -1,8 +1,7 @@
-import type { MetaFunction } from "@remix-run/node";
+import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/cloudflare";
 import { useLoaderData } from "@remix-run/react";
 
 import type { Project } from "~/api/interface";
-import { getStarCount } from "~/api/server";
 import {
   Accounts,
   Education,
@@ -19,18 +18,25 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export const loader = async () => {
+export const loader = async ({ context }: LoaderFunctionArgs) => {
   const projects: Project[] = await Promise.all(
     PROJECTS_PARTIAL.map(async (project) => {
-      const githubLink = project.links?.find((link) =>
-        link.href.startsWith("https://github.com/philip82148/")
-      )?.href;
-      const repoName = githubLink?.match(/https:\/\/github.com\/philip82148\/(?<repo>.*)/)?.groups
-        ?.repo;
-      if (!repoName) return project;
+      try {
+        const githubLink = project.links?.find((link) =>
+          link.href.startsWith("https://github.com/philip82148/")
+        )?.href;
+        const repo = githubLink?.match(/https:\/\/github.com\/philip82148\/(?<repo>.*)/)?.groups
+          ?.repo;
+        if (!repo) return project;
 
-      const starCount = await getStarCount(repoName);
-      return { ...project, starCount };
+        const res = await fetch(`${context.cloudflare.env.ORIGIN}/api/starcount/${repo}`);
+        if (!res.ok) return project;
+
+        const starCount = (await res.json()) as number;
+        return { ...project, starCount };
+      } catch {
+        return project;
+      }
     })
   );
   return { projects };
