@@ -92,41 +92,43 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
           <div className="flex justify-between items-end">
             <h3 className="font-bold text-2xl">{modalProject?.title}</h3>
             <form method="dialog">
-              <button className="btn btn-square btn-sm">
-                <FontAwesomeIcon icon={faX} />
+              <button className="btn btn-square btn-ghost -mb-[100%]">
+                <FontAwesomeIcon icon={faX} size="lg" />
               </button>
             </form>
           </div>
-          <div className="flex gap-5 my-5">
-            <span>
-              <FontAwesomeIcon icon={faCalendarDays} className="mr-2" />
-              {modalProject?.year}
-            </span>
-            <span>
-              <FontAwesomeIcon icon={faMicrochip} className="mr-2" />
-              {modalProject?.genre}
-            </span>
-          </div>
-          <div className="flex gap-10">
-            <div className="grid grid-cols-[auto_1fr] gap-x-10 h-min gap-y-2">
-              <span className="font-bold">Short Description</span>
-              {modalProject?.shortDescription}
-              <span className="font-bold">Description</span>
-              <p>{modalProject?.description}</p>
-              {modalProject?.techStacks && (
-                <>
-                  <span className="font-bold">Tech Stacks</span>
-                  <span>{modalProject?.techStacks?.join(" / ")}</span>
-                </>
-              )}
-              {modalProject?.links?.map(({ label, href }) => (
-                <Fragment key={label}>
-                  <span className="font-bold">{label}</span>
-                  <a href={href} target="_blank" rel="noreferrer" className="link">
-                    {href}
-                  </a>
-                </Fragment>
-              ))}
+          <div className="flex gap-10 mt-5">
+            <div>
+              <div className="flex gap-5">
+                <span>
+                  <FontAwesomeIcon icon={faCalendarDays} className="mr-2" />
+                  {modalProject?.year}
+                </span>
+                <span>
+                  <FontAwesomeIcon icon={faMicrochip} className="mr-2" />
+                  {modalProject?.genre}
+                </span>
+              </div>
+              <div className="grid grid-cols-[auto_1fr] gap-x-10 h-min gap-y-2 mt-5">
+                <span className="font-bold">Short Description</span>
+                {modalProject?.shortDescription}
+                <span className="font-bold">Description</span>
+                <p>{modalProject?.description}</p>
+                {modalProject?.techStacks && (
+                  <>
+                    <span className="font-bold">Tech Stacks</span>
+                    <span>{modalProject?.techStacks?.join(" / ")}</span>
+                  </>
+                )}
+                {modalProject?.links?.map(({ label, href }) => (
+                  <Fragment key={label}>
+                    <span className="font-bold">{label}</span>
+                    <a href={href} target="_blank" rel="noreferrer" className="link">
+                      {href}
+                    </a>
+                  </Fragment>
+                ))}
+              </div>
             </div>
             {modalProject?.imgSrc && (
               <figure className="max-w-[50%]">
