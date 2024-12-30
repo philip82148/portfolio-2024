@@ -2,7 +2,7 @@ import type { LinksFunction } from "@remix-run/node";
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
 
 import "./tailwind.css";
-import { Header } from "./components/layout";
+import { Footer, Header } from "./components/layout";
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -33,6 +33,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
+        {/* children will be the root Component, ErrorBoundary, or HydrateFallback */}
         {children}
         <ScrollRestoration />
         <Scripts />
@@ -46,6 +47,7 @@ export default function App() {
     <>
       <Header />
       <Outlet />
+      <Footer />
     </>
   );
 }
