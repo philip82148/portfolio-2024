@@ -8,8 +8,8 @@ export const PROJECTS_PARTIAL: Omit<Project, "starCount">[] = [
     shortDescription: "このポートフォリオ",
     techStacks: ["Remix", "TypeScript"],
     links: [
-      { label: "GitHub", href: "https://github.com/philip82148/portfolio-2024/" },
-      { label: "Demo", href: "https://philip82148.github.io/portfolio-2024/" },
+      { label: "GitHub", href: "https://github.com/philip82148/" },
+      { label: "Demo", href: "https://philip82148.dev/" },
     ],
   },
   {

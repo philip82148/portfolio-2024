@@ -9,7 +9,7 @@ export const Education: React.FC<{ schools: School[] }> = ({ schools }) => {
       <div className="grid grid-cols-[auto_auto_1fr] items-center gap-x-8 pl-2">
         {schools.map(({ name, start, end, major }, i) => (
           <Fragment key={name}>
-            <div className="col-start-1 size-16 rounded-full bg-primary-content mask [mask-image:url(/portfolio-2024/ornaments/school.png)]" />
+            <div className="col-start-1 size-16 rounded-full bg-primary-content mask [mask-image:url(/ornaments/school.png)]" />
             <div className="col-start-2 flex flex-col text-sm font-bold">
               <span>{end}</span>
               <span className="text-xs">―</span>
