@@ -1,11 +1,12 @@
 import type { MetaFunction } from "@remix-run/node";
 
-import { Accounts } from "~/components/Accounts";
-import { Education } from "~/components/Education";
-import { Header } from "~/components/Header";
-import { Internships } from "~/components/Internships";
-import { PersonalProjects } from "~/components/PersonalProjects";
-import { Profile } from "~/components/Profile";
+import {
+  Accounts,
+  Education,
+  Internships,
+  PersonalProjects,
+  Profile,
+} from "~/components/pages/home";
 import { ACCOUNTS, INTERNSHIPS, PROJECTS_PARTIAL, SCHOOLS } from "~/static-data";
 
 export const meta: MetaFunction = () => {
@@ -37,15 +38,12 @@ export const meta: MetaFunction = () => {
 export default function Index() {
   // const { projects } = useLoaderData<typeof loader>();
   return (
-    <>
-      <Header />
-      <div className="container mx-auto flex flex-col gap-10">
-        <Profile />
-        <Accounts accounts={ACCOUNTS} />
-        <Education schools={SCHOOLS} />
-        <Internships internships={INTERNSHIPS} />
-        <PersonalProjects projects={PROJECTS_PARTIAL} />
-      </div>
-    </>
+    <div className="container mx-auto flex flex-col gap-10">
+      <Profile />
+      <Accounts accounts={ACCOUNTS} />
+      <Education schools={SCHOOLS} />
+      <Internships internships={INTERNSHIPS} />
+      <PersonalProjects projects={PROJECTS_PARTIAL} />
+    </div>
   );
 }
