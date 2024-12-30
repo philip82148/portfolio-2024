@@ -12,3 +12,11 @@ body {
 
   font-family: "Noto Sans JP";
 }
+
+@media (hover: hover) {
+  @supports (color: oklch(0% 0 0)) {
+    .btn-ghost:hover {
+      background-color: rgba(203, 213, 225, 0.8);
+    }
+  }
+}
