@@ -4,6 +4,7 @@ import { Accounts } from "~/components/Accounts";
 import { Education } from "~/components/Education";
 import { Header } from "~/components/Header";
 import { Internships } from "~/components/Internships";
+import { PersonalProjects } from "~/components/PersonalProjects";
 import { Profile } from "~/components/Profile";
 
 export const meta: MetaFunction = () => {
@@ -22,7 +23,7 @@ export default function Index() {
         <Accounts />
         <Education />
         <Internships />
-        {/*<Projects /> */}
+        <PersonalProjects />
       </div>
     </>
   );
