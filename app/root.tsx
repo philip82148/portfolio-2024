@@ -1,5 +1,13 @@
 import type { LinksFunction } from "@remix-run/node";
-import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
+import {
+  isRouteErrorResponse,
+  Links,
+  Meta,
+  Outlet,
+  Scripts,
+  ScrollRestoration,
+  useRouteError,
+} from "@remix-run/react";
 
 import "./tailwind.css";
 import { Footer, Header } from "./components/layout";
@@ -49,5 +57,28 @@ export default function App() {
       <Outlet />
       <Footer />
     </>
+  );
+}
+
+export function ErrorBoundary() {
+  const error = useRouteError();
+  return (
+    <div className="grid min-h-screen place-content-center">
+      <div className="hero">
+        <div className="hero-content text-center">
+          <div className="max-w-md">
+            <h1 className="mb-5 text-5xl font-bold opacity-10 lg:text-7xl xl:text-9xl">Error</h1>
+            <p className="mb-5">
+              {isRouteErrorResponse(error)
+                ? `${error.status} ${error.statusText}`
+                : (error as Error | null)?.message ?? "Unknown error"}
+            </p>
+            <a className="btn btn-outline" href="/">
+              Go back
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
