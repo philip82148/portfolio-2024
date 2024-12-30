@@ -13,7 +13,10 @@ export const Accounts: React.FC<{ accounts: Account[] }> = ({ accounts }) => {
               href={href}
               target="_blank"
               rel="noopener noreferrer"
-              className={clsx("btn btn-ghost size-full justify-start gap-4", colorAdjust)}
+              className={clsx(
+                "btn btn-ghost size-full justify-start gap-4",
+                colorAdjust ?? "hover:bg-slate-100"
+              )}
             >
               <div className="w-10 flex items-center justify-center">
                 <img src={iconSrc} alt={siteName} className={iconSizeAdjust} />

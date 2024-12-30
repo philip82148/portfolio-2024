@@ -21,7 +21,7 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
           return yearToProjects;
         }, new Map<string, Project[]>())
       ).map(([period, projects]) => ({ period, projects })),
-    []
+    [projects]
   );
 
   const [modalProject, setModalProject] = useState<Project>();
@@ -84,7 +84,6 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
                 )}
               </div>
             ))}
-            <div className="gradient-blur -ml-20 w-20" />
           </div>
         </Fragment>
       ))}

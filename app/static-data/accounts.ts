@@ -14,7 +14,7 @@ export const ACCOUNTS: Account[] = [
     id: "@sassan",
     href: "https://zenn.dev/sassan",
     iconSrc: "accounts/zenn.svg",
-    colorAdjust: "hover:[background-color:#3EA8FF44]",
+    colorAdjust: "hover:[background-color:#3EA8FF15]",
     iconSizeAdjust: "w-8",
   },
   {
@@ -48,7 +48,7 @@ export const ACCOUNTS: Account[] = [
     id: "@philip82148",
     href: "https://qiita.com/philip82148",
     iconSrc: "accounts/qiita.png",
-    colorAdjust: "hover:[background-color:#55C50044]",
+    colorAdjust: "hover:[background-color:#55C50015]",
     iconSizeAdjust: "w-8",
   },
   {
@@ -56,7 +56,7 @@ export const ACCOUNTS: Account[] = [
     id: "@ryota-sasaki-philip82148",
     href: "https://www.linkedin.com/in/ryota-sasaki-philip82148",
     iconSrc: "accounts/linkedin.png",
-    colorAdjust: "hover:[background-color:#0077B533]",
+    colorAdjust: "hover:[background-color:#0077B515]",
     iconSizeAdjust: "w-8",
   },
 ];
