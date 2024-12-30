@@ -1,6 +1,3 @@
-import { copyFileSync } from "node:fs";
-import { join } from "node:path";
-
 import { vitePlugin as remix } from "@remix-run/dev";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
@@ -20,13 +17,6 @@ export default defineConfig({
         v3_throwAbortReason: true,
         v3_singleFetch: true,
         v3_lazyRouteDiscovery: true,
-      },
-      ssr: false,
-      buildEnd(args) {
-        if (!args.viteConfig.isProduction) return;
-        const { outDir } = args.viteConfig.build;
-        // TODO: check http code
-        copyFileSync(join(outDir, "index.html"), join(outDir, "404.html"));
       },
     }),
     tsconfigPaths(),

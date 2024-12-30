@@ -1,5 +1,8 @@
 import type { MetaFunction } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
 
+import type { Project } from "~/api/interface";
+import { getStarCount } from "~/api/server";
 import {
   Accounts,
   Education,
@@ -16,34 +19,32 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-// export const loader = async () => {
-//   const projects: Project[] = await Promise.all(
-//     PROJECTS_PARTIAL.map(async (project) => {
-//       const githubLink = project.links?.find((link) =>
-//         link.href.startsWith("https://github.com/")
-//       )?.href;
-//       if (!githubLink) return project;
+export const loader = async () => {
+  const projects: Project[] = await Promise.all(
+    PROJECTS_PARTIAL.map(async (project) => {
+      const githubLink = project.links?.find((link) =>
+        link.href.startsWith("https://github.com/philip82148/")
+      )?.href;
+      const repoName = githubLink?.match(/https:\/\/github.com\/philip82148\/(?<repo>.*)/)?.groups
+        ?.repo;
+      if (!repoName) return project;
 
-//       const { owner, repo } =
-//         githubLink.match(/https:\/\/github.com\/(?<owner>)\/(?<repo>)/)?.groups ?? {};
-//       const res = await fetch(`https://api.github.com/repos/${owner}/${repo}`);
-//       if (!res.ok) return project;
-
-//       return { ...project, starCount: await res.json() };
-//     })
-//   );
-//   return { projects };
-// };
+      const starCount = await getStarCount(repoName);
+      return { ...project, starCount };
+    })
+  );
+  return { projects };
+};
 
 export default function Index() {
-  // const { projects } = useLoaderData<typeof loader>();
+  const { projects } = useLoaderData<typeof loader>();
   return (
     <div className="container mx-auto flex flex-col gap-10">
       <Profile />
       <Accounts accounts={ACCOUNTS} />
       <Education schools={SCHOOLS} />
       <Internships internships={INTERNSHIPS} />
-      <PersonalProjects projects={PROJECTS_PARTIAL} />
+      <PersonalProjects projects={projects} />
     </div>
   );
 }
