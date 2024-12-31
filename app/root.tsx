@@ -1,3 +1,4 @@
+import { config } from "@fortawesome/fontawesome-svg-core";
 import type { LinksFunction } from "@remix-run/cloudflare";
 import {
   isRouteErrorResponse,
@@ -9,8 +10,12 @@ import {
   useRouteError,
 } from "@remix-run/react";
 
-import "./tailwind.css";
 import { Footer, Header } from "./components/layout";
+
+import "./tailwind.css";
+import "@fortawesome/fontawesome-svg-core/styles.css";
+
+config.autoAddCss = false;
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
