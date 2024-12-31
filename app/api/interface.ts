@@ -27,7 +27,7 @@ export type Project = {
   year: number;
   period?: string;
   category: "Web" | "Book" | "Electronics" | "Other";
-  shortDescription: string;
+  summary: string;
   description?: string;
   techStacks?: string[];
   allTechStacks?: string[];
