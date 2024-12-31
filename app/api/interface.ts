@@ -34,5 +34,5 @@ export type Project = {
   links?: { label: string; href: string }[];
   imgSrc?: string;
   starCount?: number;
-  folkCount?: number;
+  forkCount?: number;
 };

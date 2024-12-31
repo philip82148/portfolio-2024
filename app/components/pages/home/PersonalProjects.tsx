@@ -4,6 +4,7 @@ import {
   faCalendarDays,
   faMicrochip,
   faX,
+  faCodeFork,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Fragment, useMemo, useRef, useState } from "react";
@@ -79,6 +80,12 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
                       <span>
                         <FontAwesomeIcon icon={faStar} className="mr-2" />
                         {project.starCount}
+                      </span>
+                    )}
+                    {!!project.forkCount && (
+                      <span>
+                        <FontAwesomeIcon icon={faCodeFork} className="mr-2" />
+                        {project.forkCount}
                       </span>
                     )}
                     {!!project.techStacks && (
@@ -159,7 +166,13 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
                 {!!modalProject?.starCount && (
                   <span>
                     <FontAwesomeIcon icon={faStar} className="mr-2" />
-                    {modalProject?.starCount}
+                    {modalProject.starCount}
+                  </span>
+                )}
+                {!!modalProject?.forkCount && (
+                  <span>
+                    <FontAwesomeIcon icon={faCodeFork} className="mr-2" />
+                    {modalProject.forkCount}
                   </span>
                 )}
                 {!!modalProject?.techStacks && (

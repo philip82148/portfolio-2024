@@ -1,6 +1,6 @@
 import type { Project } from "~/api/interface";
 
-export const PROJECTS_PARTIAL: Omit<Project, "starCount">[] = [
+export const PROJECTS_PARTIAL: Omit<Project, "starCount" | "forkCount">[] = [
   {
     title: "ポートフォリオ(2024年版)",
     year: 2024,

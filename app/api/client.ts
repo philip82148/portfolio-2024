@@ -51,7 +51,7 @@ export class BackendlessClient {
         if (!repoName) return project;
 
         const repo = await this.githubRepositoryCache.get(repoName);
-        return { ...project, starCount: repo?.stargazers_count, folkCount: repo?.forks_count };
+        return { ...project, starCount: repo?.stargazers_count, forkCount: repo?.forks_count };
       })
     );
     return projects;
