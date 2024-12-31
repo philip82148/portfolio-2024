@@ -60,7 +60,12 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
                     {!!project.techStacks && (
                       <span>
                         <FontAwesomeIcon icon={faCode} className="mr-2.5" />
-                        {project.techStacks.join(" / ")}
+                        {project.techStacks.map((stack, i) => (
+                          <Fragment key={stack}>
+                            {i !== 0 && <span className="mx-1">/</span>}
+                            <span>{stack}</span>
+                          </Fragment>
+                        ))}
                       </span>
                     )}
                     <span>
@@ -98,18 +103,32 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
             </form>
           </div>
           <p className="text-slate-500 mt-2.5">{modalProject?.shortDescription}</p>
-          <div className="flex gap-10 mt-5">
-            <div className="flex flex-col justify-between gap-6">
-              <div className="grid grid-cols-[auto_1fr] gap-x-10 h-min gap-y-2 mt-1">
+          <div className="flex gap-20 mt-5">
+            <div className="basis-0 flex-grow flex flex-col justify-between gap-6">
+              <div className="grid grid-cols-[auto_1fr] gap-x-8 h-min gap-y-2 mt-1">
                 {modalProject?.links?.map(({ label, href }) => (
                   <Fragment key={label}>
-                    <span className="font-bold">{label}</span>
+                    <span className="font-bold text-right">{label}</span>
                     <a href={href} target="_blank" rel="noreferrer" className="link">
                       {href}
                     </a>
                   </Fragment>
                 ))}
-                <span className="font-bold">Description</span>
+                {((techStacks) =>
+                  techStacks && (
+                    <>
+                      {<span className="font-bold text-right">All Tech Stacks</span>}
+                      <div>
+                        {techStacks.map((stack, i) => (
+                          <Fragment key={stack}>
+                            {i !== 0 && <span className="mx-1.5">/</span>}
+                            <span>{stack}</span>
+                          </Fragment>
+                        ))}
+                      </div>
+                    </>
+                  ))(modalProject?.allTechStacks || modalProject?.techStacks)}
+                <span className="font-bold text-right">Description</span>
                 <p>{modalProject?.description}</p>
               </div>
               <div className="flex gap-5">
@@ -122,7 +141,12 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
                 {!!modalProject?.techStacks && (
                   <span>
                     <FontAwesomeIcon icon={faCode} className="mr-2.5" />
-                    {modalProject.techStacks.join(" / ")}
+                    {modalProject.techStacks.map((stack, i) => (
+                      <Fragment key={stack}>
+                        {i !== 0 && <span className="mx-1.5">/</span>}
+                        <span>{stack}</span>
+                      </Fragment>
+                    ))}
                   </span>
                 )}
                 <span>
@@ -136,7 +160,7 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
               </div>
             </div>
             {!!modalProject?.imgSrc && (
-              <figure className="max-w-[50%]">
+              <figure className="basis-0 flex-grow">
                 <img src={modalProject?.imgSrc} alt={modalProject?.title} />
               </figure>
             )}

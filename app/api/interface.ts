@@ -30,6 +30,7 @@ export type Project = {
   shortDescription: string;
   description?: string;
   techStacks?: string[];
+  allTechStacks?: string[];
   links?: { label: string; href: string }[];
   imgSrc?: string;
   starCount?: number;

@@ -7,6 +7,15 @@ export const PROJECTS_PARTIAL: Omit<Project, "starCount">[] = [
     genre: "Web",
     shortDescription: "このポートフォリオ",
     techStacks: ["Remix", "TypeScript"],
+    allTechStacks: [
+      "Remix",
+      "React",
+      "daisyUI",
+      "Tailwind CSS",
+      "Vite",
+      "TypeScript",
+      "Cloudflare Pages",
+    ],
     links: [
       { label: "GitHub", href: "https://github.com/philip82148/portfolio-2024" },
       { label: "Demo", href: "https://philip82148.dev/" },
