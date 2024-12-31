@@ -22,8 +22,11 @@ export class GitHubRepositoryCache {
 
   async updateMany(arg: { name: string; data: GitHubRepository }[]): Promise<void> {
     await Promise.all(
-      arg.map(async ({ name, data }) => {
-        await this.env.GITHUB_REPOSITORIES.put(name, JSON.stringify(data));
+      arg.map(async ({ name, data: { stargazers_count, forks_count } }) => {
+        await this.env.GITHUB_REPOSITORIES.put(
+          name,
+          JSON.stringify({ stargazers_count, forks_count })
+        );
       })
     );
     await this.env.GITHUB_REPOSITORIES.put(
