@@ -49,7 +49,7 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
               >
                 <div className="card-body p-6 w-full justify-between">
                   <h4 className="card-title">{project.title}</h4>
-                  <div className="text-sm text-slate-500">{project.shortDescription}</div>
+                  <p className="text-sm text-slate-500">{project.shortDescription}</p>
                   <div className="flex flex-wrap items-center gap-5 text-sm text-slate-500">
                     {!!project.starCount && (
                       <span>
@@ -97,29 +97,10 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
               </button>
             </form>
           </div>
+          <p className="text-slate-500 mt-2.5">{modalProject?.shortDescription}</p>
           <div className="flex gap-10 mt-5">
-            <div>
-              <div className="flex gap-5">
-                <span>
-                  <FontAwesomeIcon icon={faCalendarDays} className="mr-2" />
-                  {modalProject?.year}
-                </span>
-                <span>
-                  <FontAwesomeIcon icon={faMicrochip} className="mr-2" />
-                  {modalProject?.genre}
-                </span>
-              </div>
-              <div className="grid grid-cols-[auto_1fr] gap-x-10 h-min gap-y-2 mt-5">
-                <span className="font-bold">Short Description</span>
-                {modalProject?.shortDescription}
-                <span className="font-bold">Description</span>
-                <p>{modalProject?.description}</p>
-                {!!modalProject?.techStacks && (
-                  <>
-                    <span className="font-bold">Tech Stacks</span>
-                    <span>{modalProject?.techStacks?.join(" / ")}</span>
-                  </>
-                )}
+            <div className="flex flex-col justify-between gap-6">
+              <div className="grid grid-cols-[auto_1fr] gap-x-10 h-min gap-y-2 mt-1">
                 {modalProject?.links?.map(({ label, href }) => (
                   <Fragment key={label}>
                     <span className="font-bold">{label}</span>
@@ -128,6 +109,30 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
                     </a>
                   </Fragment>
                 ))}
+                <span className="font-bold">Description</span>
+                <p>{modalProject?.description}</p>
+              </div>
+              <div className="flex gap-5">
+                {!!modalProject?.starCount && (
+                  <span>
+                    <FontAwesomeIcon icon={faStar} className="mr-2" />
+                    {modalProject?.starCount}
+                  </span>
+                )}
+                {!!modalProject?.techStacks && (
+                  <span>
+                    <FontAwesomeIcon icon={faCode} className="mr-2.5" />
+                    {modalProject.techStacks.join(" / ")}
+                  </span>
+                )}
+                <span>
+                  <FontAwesomeIcon icon={faCalendarDays} className="mr-2" />
+                  {modalProject?.year}
+                </span>
+                <span>
+                  <FontAwesomeIcon icon={faMicrochip} className="mr-2" />
+                  {modalProject?.genre}
+                </span>
               </div>
             </div>
             {!!modalProject?.imgSrc && (
