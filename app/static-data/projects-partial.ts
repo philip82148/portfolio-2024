@@ -4,7 +4,7 @@ export const PROJECTS_PARTIAL: Omit<Project, "starCount">[] = [
   {
     title: "ポートフォリオ(2024年版)",
     year: 2024,
-    genre: "Web",
+    category: "Web",
     shortDescription: "このポートフォリオ",
     techStacks: ["Remix", "TypeScript"],
     allTechStacks: [
@@ -24,7 +24,7 @@ export const PROJECTS_PARTIAL: Omit<Project, "starCount">[] = [
   {
     title: "環境構築と開発の手順",
     year: 2023,
-    genre: "Other",
+    category: "Other",
     shortDescription: "環境構築と開発の手順をまとめたマニュアル",
     description:
       "自分の研究室のプログラミングをしたことがない人向けに環境構築と開発の手順のマニュアルを作った。",
@@ -33,7 +33,7 @@ export const PROJECTS_PARTIAL: Omit<Project, "starCount">[] = [
   {
     title: "競プロ用デバッグツール「cpp-dump」",
     year: 2023,
-    genre: "Other",
+    category: "Other",
     shortDescription: "C++でどんな型でもプリントできる関数",
     description:
       "競プロをはじめたが、C++にダンプ関数がなかったので、あらゆる型の変数を文字列表現にして標準エラー出力に出力するダンプ関数を作った。",
@@ -44,7 +44,7 @@ export const PROJECTS_PARTIAL: Omit<Project, "starCount">[] = [
   {
     title: "Oh My Zshテーマ「simplerich-zsh-theme」",
     year: 2023,
-    genre: "Other",
+    category: "Other",
     techStacks: ["shell"],
     shortDescription: "Git Status等が一目でわかるOh My Zshテーマ",
     description:
@@ -54,7 +54,7 @@ export const PROJECTS_PARTIAL: Omit<Project, "starCount">[] = [
   {
     title: "ポートフォリオ(2023年版)",
     year: 2023,
-    genre: "Web",
+    category: "Web",
     shortDescription: "2023年に作ったポートフォリオ",
     description:
       "2023年に作ったポートフォリオ。デザインは拙いが、Historyのカードをクリックすると動くところはパフォーマンスチューニングしてあり、工夫点。",
@@ -67,7 +67,7 @@ export const PROJECTS_PARTIAL: Omit<Project, "starCount">[] = [
   {
     title: "名簿自動生成アプリ",
     year: 2023,
-    genre: "Web",
+    category: "Web",
     shortDescription: "自治寮の寮生名簿を自動生成するアプリ",
     description:
       "自分が住んでいた自治寮で寮生の名簿を作る作業があり、電話番号や住所のフォーマットを整える作業が毎年大変だったので、自動化するプログラムを作った。",
@@ -80,7 +80,7 @@ export const PROJECTS_PARTIAL: Omit<Project, "starCount">[] = [
   {
     title: "LINE BOT「寄宿舎届出サポート」",
     year: 2023,
-    genre: "Web",
+    category: "Web",
     shortDescription: "自治寮の届出をサポートするLINE BOT",
     description:
       "自分が住んでいた自治寮で必要だった各種届出を、LINE BOTで会話を行うだけで出来るようにし、出す側も確認する側も便利になるようにした。",
@@ -92,7 +92,7 @@ export const PROJECTS_PARTIAL: Omit<Project, "starCount">[] = [
   {
     title: "メンション生成Chrome拡張「M-GEN」",
     year: 2022,
-    genre: "Web",
+    category: "Web",
     shortDescription:
       "Google Formsで回答しなかった人全員をメンションするメッセージ文を生成するChrome拡張",
     techStacks: ["jQuery", "JavaScript", "HTML", "CSS"],
@@ -101,7 +101,7 @@ export const PROJECTS_PARTIAL: Omit<Project, "starCount">[] = [
   {
     title: "授業評定サイト用WordPressテーマ「selva」",
     year: 2022,
-    genre: "Web",
+    category: "Web",
     shortDescription: "授業評定サイト用WordPressテーマ",
     description:
       "友達と二人で授業の評定サイトを作る。学部2年の時に作ったもので、デザインは拙い。各大学で使ってもらえるようWordPressテーマとして作り、管理画面でCSVを使って授業データをインポートできるようにしてある。",
@@ -112,7 +112,7 @@ export const PROJECTS_PARTIAL: Omit<Project, "starCount">[] = [
     title: "水中ドローン",
     year: 2019,
     period: "高校",
-    genre: "Electronics",
+    category: "Electronics",
     shortDescription: "電子工作で作った水中ドローン",
     description:
       "高校2年の文化祭で作って展示した。ブラウザ上でモーターの制御とカメラ映像が見れる。なお、水中ドローンという名目だが、水中で電波が届かないので実際には水上ドローンである。",
@@ -122,7 +122,7 @@ export const PROJECTS_PARTIAL: Omit<Project, "starCount">[] = [
     title: "SDカードライブラリ",
     year: 2015,
     period: "中学校",
-    genre: "Electronics",
+    category: "Electronics",
     shortDescription: "電子工作で作ったSDカードライブラリ",
     description:
       "電子工作でICレコーダー用に作ったSDカードライブラリ。PICの少ないリソースでも動くようにメモリとプログラムメモリをなるだけ使わないように書いている。",
@@ -133,7 +133,7 @@ export const PROJECTS_PARTIAL: Omit<Project, "starCount">[] = [
     title: "ボート3台目",
     year: 2015,
     period: "中学校",
-    genre: "Other",
+    category: "Other",
     shortDescription: "自分一人で作った3mのボート",
     description: "自分一人で3mのボートを作った。",
   },
@@ -141,7 +141,7 @@ export const PROJECTS_PARTIAL: Omit<Project, "starCount">[] = [
     title: "電気ショックタイマー",
     year: 2014,
     period: "中学校",
-    genre: "Electronics",
+    category: "Electronics",
     shortDescription: "電子工作で作った電気ショックで時間を知らせるタイマー",
     description:
       "中毒並みに時間を忘れて作業に熱中してしまうことがあり、普通のタイマーでは作業をやめられなかったため、電気ショックで時間を知らせるタイマーを作った。",
@@ -151,7 +151,7 @@ export const PROJECTS_PARTIAL: Omit<Project, "starCount">[] = [
     title: "メモ帳",
     year: 2013,
     period: "小学校",
-    genre: "Other",
+    category: "Other",
     shortDescription: "プログラミングで初めて作ったアプリであるメモ帳",
     description: "プログラミングで初めて作ったアプリ",
     techStacks: ["Java"],
@@ -160,7 +160,7 @@ export const PROJECTS_PARTIAL: Omit<Project, "starCount">[] = [
     title: "ボート1台目",
     year: 2011,
     period: "小学校",
-    genre: "Other",
+    category: "Other",
     shortDescription: "父と二人で作った人が乗れるボート",
     description: "父と二人で人が乗れるボートを作った。",
   },
