@@ -75,7 +75,7 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
                 <div className="card-body p-6 w-full justify-between">
                   <h4 className="card-title">{project.title}</h4>
                   <p className="text-sm text-slate-500">{project.shortDescription}</p>
-                  <div className="flex flex-wrap items-center gap-5 text-sm text-slate-500">
+                  <div className="flex flex-wrap items-center gap-5 text-sm">
                     {!!project.starCount && (
                       <span>
                         <FontAwesomeIcon icon={faStar} className="mr-2" />
@@ -124,7 +124,7 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
         </Fragment>
       ))}
       <dialog ref={dialogRef} className="modal">
-        <div className="modal-box w-11/12 max-w-7xl px-12 py-10">
+        <div className="modal-box w-11/12 max-w-7xl min-h-96 px-12 py-10 flex flex-col">
           <div className="flex justify-between items-end">
             <h3 className="font-bold text-2xl">{modalProject?.title}</h3>
             <form method="dialog">
@@ -134,7 +134,7 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
             </form>
           </div>
           <p className="text-slate-500 mt-2.5">{modalProject?.shortDescription}</p>
-          <div className="flex gap-20 mt-5">
+          <div className="flex-grow flex gap-20 mt-5">
             <div className="basis-0 flex-grow flex flex-col justify-between gap-6">
               <div className="grid grid-cols-[auto_1fr] gap-x-8 h-min gap-y-2 mt-1">
                 {modalProject?.links?.map(({ label, href }) => (
