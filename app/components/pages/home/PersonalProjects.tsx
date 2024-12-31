@@ -59,13 +59,15 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
       </form>
       {groupByToSectionTitleAndProjects[groupBy].map(([sectionTitle, projects]) => (
         <Fragment key={sectionTitle}>
-          <h3 className="font-bold text-2xl mt-8 mb-4">{sectionTitle}</h3>
+          <h3 className="font-bold text-2xl mt-8 mb-4 personal-project-animation">
+            {sectionTitle}
+          </h3>
           <div className="grid grid-cols-2 gap-4">
             {projects.map((project) => (
               // eslint-disable-next-line jsx-a11y/no-static-element-interactions
               <div
                 key={project.title}
-                className="card card-bordered card-side border-2 cursor-pointer hover:bg-slate-100 transition-all duration-200 ease-[ease] h-36"
+                className="card card-bordered card-side border-2 cursor-pointer hover:bg-slate-100 transition-all duration-200 ease-[ease] h-36 personal-project-animation"
                 onClick={() => showModal(project)}
                 onKeyDown={(e) => e.key === "Enter" && showModal(project)}
               >
