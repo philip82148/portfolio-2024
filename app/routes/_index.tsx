@@ -1,7 +1,7 @@
 import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/cloudflare";
 import { useLoaderData } from "@remix-run/react";
 
-import type { Project } from "~/api/interface";
+import { BackendlessClient } from "~/api/client";
 import {
   Accounts,
   Education,
@@ -9,7 +9,6 @@ import {
   PersonalProjects,
   Profile,
 } from "~/components/pages/home";
-import { ACCOUNTS, INTERNSHIPS, PROJECTS_PARTIAL, SCHOOLS } from "~/static-data";
 
 export const meta: MetaFunction = () => {
   return [
@@ -19,37 +18,24 @@ export const meta: MetaFunction = () => {
 };
 
 export const loader = async ({ context }: LoaderFunctionArgs) => {
-  const projects: Project[] = await Promise.all(
-    PROJECTS_PARTIAL.map(async (project) => {
-      try {
-        const githubLink = project.links?.find((link) =>
-          link.href.startsWith("https://github.com/philip82148/")
-        )?.href;
-        const repo = githubLink?.match(/https:\/\/github.com\/philip82148\/(?<repo>.*)/)?.groups
-          ?.repo;
-        if (!repo) return project;
-
-        const res = await fetch(`${context.cloudflare.env.ORIGIN}/api/starcount/${repo}`);
-        if (!res.ok) return project;
-
-        const starCount = (await res.json()) as number;
-        return { ...project, starCount };
-      } catch {
-        return project;
-      }
-    })
-  );
-  return { projects };
+  const client = new BackendlessClient(context.cloudflare.env);
+  const [accounts, schools, internships, projects] = await Promise.all([
+    client.getAccounts(),
+    client.getSchools(),
+    client.getInternships(),
+    client.getProjects(),
+  ]);
+  return { accounts, schools, internships, projects };
 };
 
 export default function Index() {
-  const { projects } = useLoaderData<typeof loader>();
+  const { accounts, schools, internships, projects } = useLoaderData<typeof loader>();
   return (
     <div className="container mx-auto flex flex-col gap-10">
       <Profile />
-      <Accounts accounts={ACCOUNTS} />
-      <Education schools={SCHOOLS} />
-      <Internships internships={INTERNSHIPS} />
+      <Accounts accounts={accounts} />
+      <Education schools={schools} />
+      <Internships internships={internships} />
       <PersonalProjects projects={projects} />
     </div>
   );
