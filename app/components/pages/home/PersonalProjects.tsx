@@ -11,18 +11,25 @@ import { Fragment, useMemo, useRef, useState } from "react";
 import type { Project } from "~/api/interface";
 
 export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }) => {
-  const periodAndProjects = useMemo(
-    () =>
-      Array.from(
-        projects.reduce((yearToProjects, project) => {
-          const period = project.period ?? String(project.year);
-          if (!yearToProjects.has(period)) yearToProjects.set(period, []);
-          yearToProjects.get(period)?.push(project);
-          return yearToProjects;
-        }, new Map<string, Project[]>())
-      ).map(([period, projects]) => ({ period, projects })),
+  const groupByToGroup: Record<string, [string, Project[]][]> = useMemo(
+    () => ({
+      period: Array.from(
+        projects.reduce(
+          (periodSet, project) => periodSet.add(project.period ?? String(project.year)),
+          new Set<string>()
+        )
+      ).map((period) => [
+        period,
+        projects.filter((project) => (project.period ?? String(project.year)) === period),
+      ]),
+      genre: ["Web", "Book", "Electronics", "Other"].flatMap((genre) => {
+        const group = projects.filter((project) => project.genre === genre);
+        return group.length ? [[genre, group]] : [];
+      }),
+    }),
     [projects]
   );
+  const [groupBy, setGroupBy] = useState<keyof typeof groupByToGroup>("period");
 
   const [modalProject, setModalProject] = useState<Project>();
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -35,9 +42,22 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
   return (
     <div className="mb-8">
       <h2 className="font-bold text-3xl mb-8">Personal Projects</h2>
-      {periodAndProjects.map(({ period, projects }) => (
-        <Fragment key={period}>
-          <h3 className="font-bold text-2xl mt-8 mb-4">{period}</h3>
+      <div className="join">
+        {(["period", "genre"] satisfies (keyof typeof groupByToGroup)[]).map((by) => (
+          <input
+            key={by}
+            className="join-item btn"
+            type="radio"
+            name="group-by"
+            aria-label={by}
+            checked={by === groupBy}
+            onChange={() => setGroupBy(by)}
+          />
+        ))}
+      </div>
+      {groupByToGroup[groupBy].map(([sectionTitle, projects]) => (
+        <Fragment key={sectionTitle}>
+          <h3 className="font-bold text-2xl mt-8 mb-4">{sectionTitle}</h3>
           <div className="grid grid-cols-2 gap-4">
             {projects.map((project) => (
               // eslint-disable-next-line jsx-a11y/no-static-element-interactions
