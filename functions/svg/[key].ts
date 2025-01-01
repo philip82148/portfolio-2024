@@ -9,7 +9,6 @@ export const onRequestGet = async (context: EventContext<Env, "key", void>): Pro
   const cache = new SvgCache(context.env);
 
   const content = await cache.get(key as string);
-
   if (!content) return new Response(null, { status: 404 });
 
   return new Response(content, {

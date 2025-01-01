@@ -140,7 +140,7 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
                 {modalProject?.links?.map(({ label, href }) => (
                   <Fragment key={label}>
                     <span className="font-bold text-right">{label}</span>
-                    <a href={href} target="_blank" rel="noreferrer" className="link">
+                    <a href={href} target="_blank" rel="noopener noreferrer" className="link">
                       {href}
                     </a>
                   </Fragment>

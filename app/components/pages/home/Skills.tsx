@@ -34,7 +34,9 @@ export const Skills: React.FC<{ stats: Stat[]; skills: Skill[] }> = ({ stats, sk
       <h3 className="font-bold text-xl mb-8">Stats</h3>
       <div className="flex flex-wrap items-start gap-4 mb-8">
         {stats.map((stat) => (
-          <img key={stat.name} src={stat.imgSrc} alt={stat.name} className="h-40 w-auto" />
+          <a key={stat.name} href={stat.providerHref} target="_blank" rel="noopener noreferrer">
+            <img src={stat.imgSrc} alt={`${stat.name} Stats`} className="h-40 w-auto" />
+          </a>
         ))}
       </div>
       <h3 className="font-bold text-xl mb-8">Languages & Frameworks</h3>

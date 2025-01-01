@@ -46,17 +46,18 @@ export class BackendlessClient {
     if (process.env.NODE_ENV === "development") return STATS;
 
     return await Promise.all(
-      STATS.map(async ({ name, imgSrc }) => {
-        const updatedAt = await this.SvgCache.getUpdatedAt(name);
+      STATS.map(async ({ name, imgSrc, ...rest }) => {
+        const key = `${name.toLowerCase()}-stats`;
+        const updatedAt = await this.SvgCache.getUpdatedAt(key);
         const now = new Date();
         if (!(updatedAt && now.getTime() - updatedAt.getTime() < 24 * 60 * 60 * 1000)) {
           const res = await fetch(imgSrc);
           if (res.ok) {
             const content = await res.text();
-            await this.SvgCache.update(name, content);
+            await this.SvgCache.update(key, content);
           }
         }
-        return { name, imgSrc: `/svg/${name}` };
+        return { name, imgSrc: `/svg/${key}`, ...rest };
       })
     );
   }

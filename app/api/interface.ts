@@ -26,6 +26,7 @@ export type Internship = {
 export type Stat = {
   name: string;
   imgSrc: string;
+  providerHref: string;
 };
 
 export type Skill = {
