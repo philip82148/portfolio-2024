@@ -1,3 +1,5 @@
+import type { SkillIcons } from "~/frontend-static-data";
+
 export type Account = {
   siteName: string;
   id: string;
@@ -20,6 +22,16 @@ export type Internship = {
   start: string;
   end: string;
   descriptions: string[];
+};
+
+export type Skill = {
+  name: string;
+  type: "Language" | "Framework" | "Tool" | "Other";
+  skillIconKey: keyof typeof SkillIcons;
+  personalYear?: number;
+  internshipYear?: number;
+  tags: string[];
+  hiddenKeywords?: string[];
 };
 
 export type Project = {

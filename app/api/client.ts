@@ -1,8 +1,8 @@
 import type { GitHubRepository } from "./cache";
 import { GitHubRepositoryCache } from "./cache";
-import type { Account, Internship, Project, School } from "./interface";
+import type { Account, Internship, Project, School, Skill } from "./interface";
 
-import { ACCOUNTS, INTERNSHIPS, PROJECTS_PARTIAL, SCHOOLS } from "~/api-static-data";
+import { ACCOUNTS, INTERNSHIPS, PROJECTS_PARTIAL, SCHOOLS, SKILLS } from "~/api-static-data";
 
 export class BackendlessClient {
   private githubRepositoryCache: GitHubRepositoryCache;
@@ -37,6 +37,10 @@ export class BackendlessClient {
 
   async getInternships(): Promise<Internship[]> {
     return INTERNSHIPS;
+  }
+
+  async getSkills(): Promise<Skill[]> {
+    return SKILLS;
   }
 
   async getProjects(): Promise<Project[]> {
