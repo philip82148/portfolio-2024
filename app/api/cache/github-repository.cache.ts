@@ -4,7 +4,7 @@ export type GitHubRepository = {
 };
 
 export class GitHubRepositoryCache {
-  private static UPDATED_AT_KEY = "__updated_at__";
+  private static readonly UPDATED_AT_KEY = "__updated_at__";
 
   constructor(private env: Env) {}
 

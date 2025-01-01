@@ -2,4 +2,5 @@
 // After adding bindings to `wrangler.toml`, regenerate this interface via `npm run cf-typegen`
 interface Env {
   GITHUB_REPOSITORIES: KVNamespace;
+  SVGS: KVNamespace;
 }

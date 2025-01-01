@@ -2,10 +2,10 @@ import { faX } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useMemo, useRef, useState } from "react";
 
-import type { Skill } from "~/api/interface";
+import type { Skill, Stat } from "~/api/interface";
 import { SkillIcons } from "~/frontend-static-data";
 
-export const Skills: React.FC<{ skills: Skill[] }> = ({ skills }) => {
+export const Skills: React.FC<{ stats: Stat[]; skills: Skill[] }> = ({ stats, skills }) => {
   const [filterInput, setFilterInput] = useState<string>("");
 
   const filteredSkills = useMemo(() => {
@@ -31,10 +31,17 @@ export const Skills: React.FC<{ skills: Skill[] }> = ({ skills }) => {
   return (
     <div className="mb-8">
       <h2 className="font-bold text-3xl mb-8">Skills</h2>
+      <h3 className="font-bold text-xl mb-8">Stats</h3>
+      <div className="flex flex-wrap items-start gap-4 mb-8">
+        {stats.map((stat) => (
+          <img key={stat.name} src={stat.imgSrc} alt={stat.name} className="h-40 w-auto" />
+        ))}
+      </div>
+      <h3 className="font-bold text-xl mb-8">Languages & Frameworks</h3>
       <form className="px-1.5">
         <LazyTextInput placeholder="Filter..." value={filterInput} onChange={setFilterInput} />
       </form>
-      <p className="px-3 mt-5">
+      <p className="px-3 mt-5 font-medium">
         {filterInput.trim() ? "Found" : "Total"} {filteredSkills.length} Skills
       </p>
       <div className="flex flex-wrap gap-4 w-full mt-5">
@@ -44,9 +51,9 @@ export const Skills: React.FC<{ skills: Skill[] }> = ({ skills }) => {
               <div className="size-16">{SkillIcons[skill.skillIconKey]}</div>
               <div className="w-64">
                 <div className="flex items-center gap-2">
-                  <h2 className="card-title">
+                  <h4 className="card-title">
                     <button onClick={() => addTagToFilterInput(skill.name)}>{skill.name}</button>
-                  </h2>
+                  </h4>
                   <button
                     className="badge badge-neutral"
                     onClick={() => addTagToFilterInput(skill.type)}

@@ -1,18 +1,21 @@
 import type { GitHubRepository } from "./cache";
-import { GitHubRepositoryCache } from "./cache";
-import type { Account, Internship, Project, School, Skill } from "./interface";
+import { SvgCache, GitHubRepositoryCache } from "./cache";
+import type { Account, Internship, Project, School, Skill, Stat } from "./interface";
 
-import { ACCOUNTS, INTERNSHIPS, PROJECTS_PARTIAL, SCHOOLS, SKILLS } from "~/api-static-data";
+import { ACCOUNTS, INTERNSHIPS, PROJECTS_PARTIAL, SCHOOLS, SKILLS, STATS } from "~/api-static-data";
 
 export class BackendlessClient {
+  private SvgCache: SvgCache;
   private githubRepositoryCache: GitHubRepositoryCache;
   private githubRepositoryCacheReady: Promise<void>;
 
   constructor(env: Env) {
-    const cache = new GitHubRepositoryCache(env);
-    this.githubRepositoryCache = cache;
+    this.SvgCache = new SvgCache(env);
+
+    const githubCache = new GitHubRepositoryCache(env);
+    this.githubRepositoryCache = githubCache;
     this.githubRepositoryCacheReady = (async () => {
-      const updatedAt = await cache.getUpdatedAt();
+      const updatedAt = await githubCache.getUpdatedAt();
       const now = new Date();
       if (updatedAt && now.getTime() - updatedAt.getTime() < 24 * 60 * 60 * 1000) return;
 
@@ -22,7 +25,7 @@ export class BackendlessClient {
       if (!res.ok) return;
 
       const repos: ({ name: string } & GitHubRepository)[] = await res.json();
-      await cache.updateMany(repos.map(({ name, ...data }) => ({ name, data })));
+      await githubCache.updateMany(repos.map(({ name, ...data }) => ({ name, data })));
       console.log("Updated GitHub Repository cache");
     })();
   }
@@ -37,6 +40,24 @@ export class BackendlessClient {
 
   async getInternships(): Promise<Internship[]> {
     return INTERNSHIPS;
+  }
+
+  async getStats(): Promise<Stat[]> {
+    if (process.env.NODE_ENV === "development") return STATS;
+    return await Promise.all(
+      STATS.map(async ({ name, imgSrc }) => {
+        const updatedAt = await this.SvgCache.getUpdatedAt(name);
+        const now = new Date();
+        if (!(updatedAt && now.getTime() - updatedAt.getTime() < 24 * 60 * 60 * 1000)) {
+          const res = await fetch(imgSrc);
+          if (res.ok) {
+            const content = await res.text();
+            await this.SvgCache.update(name, content);
+          }
+        }
+        return { name, imgSrc: `/svg/${name}` };
+      })
+    );
   }
 
   async getSkills(): Promise<Skill[]> {

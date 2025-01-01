@@ -9,7 +9,7 @@
     "dev": "remix vite:dev",
     "lint": "npx prettier --check . && npx eslint app --cache --cache-location ./node_modules/.cache/eslint",
     "lint:fix": "npx prettier --write . && npx eslint --fix app --cache --cache-location ./node_modules/.cache/eslint",
-    "start": "wrangler pages dev -k STAR_COUNT ./build/client",
+    "start": "wrangler pages dev ./build/client",
     "typecheck": "tsc",
     "typegen": "wrangler types",
     "preview": "npm run build && wrangler pages dev",

@@ -24,6 +24,11 @@ export type Internship = {
   descriptions: string[];
 };
 
+export type Stat = {
+  name: string;
+  imgSrc: string;
+};
+
 export type Skill = {
   name: string;
   type: "Language" | "Framework" | "Tool" | "Other";
