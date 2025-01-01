@@ -51,7 +51,7 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
               className="join-item btn capitalize"
               type="radio"
               name="group-by"
-              aria-label={by}
+              aria-label={`Group By ${by}`}
               checked={by === groupBy}
               onChange={() => setGroupBy(by)}
             />
