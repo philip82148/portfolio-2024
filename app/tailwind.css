@@ -9,8 +9,6 @@ body {
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;
   }
-
-  font-family: "Noto Sans JP";
 }
 
 @media (hover: hover) {

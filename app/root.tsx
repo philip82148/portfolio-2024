@@ -32,8 +32,8 @@ export const links: LinksFunction = () => [
     rel: "stylesheet",
     href: "https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap",
   },
-  { rel: "icon", href: "favicon.ico" },
-  { rel: "apple-touch-icon", href: "apple-touch-icon.png" },
+  { rel: "icon", href: "/favicon.ico" },
+  { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {

@@ -111,7 +111,7 @@ const LazyTextInput: React.FC<{
   const inputRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
     setRealValue(value);
-    inputRef.current?.focus();
+    if (value) inputRef.current?.focus();
   }, [value]);
 
   return (
