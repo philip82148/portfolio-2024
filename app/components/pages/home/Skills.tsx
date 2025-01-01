@@ -32,7 +32,7 @@ export const Skills: React.FC<{ skills: Skill[] }> = ({ skills }) => {
     <div className="mb-8">
       <h2 className="font-bold text-3xl mb-8">Skills</h2>
       <form className="px-1.5">
-        <LazyTextInput value={filterInput} onChange={setFilterInput} />
+        <LazyTextInput placeholder="Filter..." value={filterInput} onChange={setFilterInput} />
       </form>
       <p className="px-3 mt-5">
         {filterInput.trim() ? "Found" : "Total"} {filteredSkills.length} Skills
@@ -54,7 +54,7 @@ export const Skills: React.FC<{ skills: Skill[] }> = ({ skills }) => {
                     {skill.type}
                   </button>
                 </div>
-                <p className="my-0.5 font-semibold text-sm text-slate-500">
+                <p className="my-0.5 font-medium text-sm text-slate-500">
                   {skill.personalYear && (
                     <span>
                       Personal {skill.personalYear > 0.5 ? skill.personalYear : "- 0.5"} year
@@ -67,7 +67,7 @@ export const Skills: React.FC<{ skills: Skill[] }> = ({ skills }) => {
                     </span>
                   )}
                 </p>
-                <div className="flex gap-x-2 gap-y-1 text-sm">
+                <div className="flex gap-x-2 gap-y-1 font-medium text-sm">
                   {skill.tags.map((tag) => (
                     <button
                       key={tag}
@@ -87,10 +87,11 @@ export const Skills: React.FC<{ skills: Skill[] }> = ({ skills }) => {
   );
 };
 
-const LazyTextInput: React.FC<{ value: string; onChange: (value: string) => void }> = ({
-  value,
-  onChange,
-}) => {
+const LazyTextInput: React.FC<{
+  placeholder: string;
+  value: string;
+  onChange: (value: string) => void;
+}> = ({ placeholder, value, onChange }) => {
   const [realValue, setRealValue] = useState<string>(value);
 
   useEffect(() => {
@@ -109,7 +110,7 @@ const LazyTextInput: React.FC<{ value: string; onChange: (value: string) => void
       <input
         ref={inputRef}
         type="text"
-        placeholder="Filter"
+        placeholder={placeholder}
         className="grow"
         value={realValue}
         onChange={(e) => setRealValue(e.target.value)}

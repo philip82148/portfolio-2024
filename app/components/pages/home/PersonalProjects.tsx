@@ -74,8 +74,8 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
               >
                 <div className="card-body p-6 w-full justify-between">
                   <h4 className="card-title">{project.title}</h4>
-                  <p className="text-sm text-slate-500">{project.summary}</p>
-                  <div className="flex flex-wrap items-center gap-5 text-sm">
+                  <p className="font-medium text-sm text-slate-500">{project.summary}</p>
+                  <div className="flex flex-wrap items-center gap-5 font-medium text-sm">
                     {!!project.starCount && (
                       <span>
                         <FontAwesomeIcon icon={faStar} className="mr-2" />
@@ -133,7 +133,7 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
               </button>
             </form>
           </div>
-          <p className="text-slate-500 mt-2.5">{modalProject?.summary}</p>
+          <p className="font-medium text-slate-500 mt-2.5">{modalProject?.summary}</p>
           <div className="flex-grow flex gap-20 mt-5">
             <div className="basis-0 flex-grow flex flex-col justify-between gap-6">
               <div className="grid grid-cols-[auto_1fr] gap-x-8 h-min gap-y-2 mt-1">
@@ -162,7 +162,7 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
                 <span className="font-bold text-right">Description</span>
                 <p>{modalProject?.description}</p>
               </div>
-              <div className="flex gap-5">
+              <div className="flex gap-5 font-medium">
                 {!!modalProject?.starCount && (
                   <span>
                     <FontAwesomeIcon icon={faStar} className="mr-2" />
