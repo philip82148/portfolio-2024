@@ -6,7 +6,7 @@ export const Profile: React.FC = () => {
       <div className="flex items-center justify-center gap-32 pt-32 pb-28">
         <div className="avatar">
           <div className="size-80 rounded-full">
-            <img src="me.jpg" alt="Ryota Sasaki" />
+            <img src="/me.jpg" alt="Ryota Sasaki" />
           </div>
         </div>
         <div className="w-2/5">
