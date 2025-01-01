@@ -79,7 +79,7 @@ export function ErrorBoundary() {
                 : (error as Error | null)?.message ?? "Unknown error"}
             </p>
             <a className="btn btn-outline" href="/">
-              Go back
+              Go Home
             </a>
           </div>
         </div>

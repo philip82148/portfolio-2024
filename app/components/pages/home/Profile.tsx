@@ -25,46 +25,46 @@ export const Profile: React.FC = () => {
           <div className="flex h-10 items-center gap-2">
             <AccountLink
               siteName="GitHub"
-              icon="accounts/github.svg"
+              icon="/accounts/github.svg"
               id="@philip82148"
               href="https://github.com/philip82148"
             />
             <AccountLink
               siteName="Zenn"
-              icon="accounts/zenn.svg"
+              icon="/accounts/zenn.svg"
               id="@sassan"
               href="https://zenn.dev/sassan"
             />
             <AccountLink
               siteName="AtCoder"
-              icon="accounts/atcoder.png"
+              icon="/accounts/atcoder.png"
               id="@philip82148"
               href="https://atcoder.jp/users/philip82148"
               iconSize="h-10"
             />
             <AccountLink
               siteName="Wantedly"
-              icon="accounts/wantedly.svg"
+              icon="/accounts/wantedly.svg"
               id="@ryouta_sasaki_ag"
               href="https://www.wantedly.com/id/ryouta_sasaki_ag"
               iconSize="h-10"
             />
             <AccountLink
               siteName="X"
-              icon="accounts/x.png"
+              icon="/accounts/x.png"
               id="@philip82148"
               href="https://x.com/philip82148"
               iconSize="h-7"
             />
             <AccountLink
               siteName="DEV"
-              icon="accounts/dev.svg"
+              icon="/accounts/dev.svg"
               id="@philip82148"
               href="https://dev.to/philip82148"
             />
             <AccountLink
               siteName="Qiita"
-              icon="accounts/qiita.png"
+              icon="/accounts/qiita.png"
               id="@philip82148"
               href="https://qiita.com/philip82148"
             />

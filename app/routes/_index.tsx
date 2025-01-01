@@ -1,5 +1,5 @@
 import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/cloudflare";
-import { useLoaderData } from "@remix-run/react";
+import { json, useLoaderData } from "@remix-run/react";
 
 import { BackendlessClient } from "~/api/client";
 import {
@@ -25,7 +25,7 @@ export const loader = async ({ context }: LoaderFunctionArgs) => {
     client.getInternships(),
     client.getProjects(),
   ]);
-  return { accounts, schools, internships, projects };
+  return json({ accounts, schools, internships, projects });
 };
 
 export default function Index() {
