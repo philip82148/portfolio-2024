@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import type { Skill, Stat } from "~/api/interface";
-import { SkillIcons } from "~/frontend-static-data";
+import { SKILL_ICONS } from "~/frontend-static-data";
 
 export const Skills: React.FC<{ stats: Stat[]; skills: Skill[] }> = ({ stats, skills }) => {
   const [filterInput, setFilterInput] = useState<string>("");
@@ -48,7 +48,7 @@ export const Skills: React.FC<{ stats: Stat[]; skills: Skill[] }> = ({ stats, sk
         {filteredSkills.map((skill) => (
           <div key={skill.name} className="card w-min h-min bg-base-100 shadow-md">
             <div className="card-body flex flex-row items-center gap-6">
-              <div className="size-16">{SkillIcons[skill.skillIconKey]}</div>
+              <div className="size-16">{SKILL_ICONS[skill.skillIconKey]}</div>
               <div className="w-64">
                 <div className="flex items-center gap-2">
                   <h4 className="card-title">

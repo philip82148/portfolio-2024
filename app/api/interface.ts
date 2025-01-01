@@ -1,12 +1,11 @@
-import type { SkillIcons } from "~/frontend-static-data";
+import type { SITE_ICONS, SKILL_ICONS } from "~/frontend-static-data";
 
 export type Account = {
   siteName: string;
+  siteIconKey: keyof typeof SITE_ICONS;
   id: string;
   href: string;
-  iconSrc: string;
   colorAdjust?: string;
-  iconSizeAdjust?: string;
 };
 
 export type School = {
@@ -32,7 +31,7 @@ export type Stat = {
 export type Skill = {
   name: string;
   type: "Language" | "Framework" | "Tool" | "Other";
-  skillIconKey: keyof typeof SkillIcons;
+  skillIconKey: keyof typeof SKILL_ICONS;
   personalYear?: number;
   internshipYear?: number;
   tags: string[];

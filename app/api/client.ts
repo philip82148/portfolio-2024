@@ -44,6 +44,7 @@ export class BackendlessClient {
 
   async getStats(): Promise<Stat[]> {
     if (process.env.NODE_ENV === "development") return STATS;
+
     return await Promise.all(
       STATS.map(async ({ name, imgSrc }) => {
         const updatedAt = await this.SvgCache.getUpdatedAt(name);

@@ -1,4 +1,4 @@
-export const SkillIcons: Record<string, React.ReactNode> = {
+export const SKILL_ICONS: Record<string, React.ReactNode> = {
   cpp: (
     <svg viewBox="0 0 128 128">
       <path
