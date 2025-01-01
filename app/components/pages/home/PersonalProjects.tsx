@@ -68,7 +68,7 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
               // eslint-disable-next-line jsx-a11y/no-static-element-interactions
               <div
                 key={project.title}
-                className="card card-bordered card-side border-2 cursor-pointer hover:bg-slate-100 transition-all duration-200 ease-[ease] h-36 personal-project-animation"
+                className="card card-bordered card-side border-2 cursor-pointer hover:bg-slate-100 transition-all duration-200 ease-[ease] h-36 personal-project-animation shadow-sm"
                 onClick={() => showModal(project)}
                 onKeyDown={(e) => e.key === "Enter" && showModal(project)}
               >
