@@ -134,17 +134,17 @@ const LazyTextInput: React.FC<{
 
 const filterAndSort = (skills: Skill[], filterInput: string) => {
   const sanitize = (s: string) => s.replace(/[.\s]+/, "").toLowerCase();
-  const calcRelevanceLevel = (target: string, sanitizedKw: string, baseLevel: number) => {
+  const calcRelevanceScore = (target: string, sanitizedKw: string, baseScore: number) => {
     const sanitizedTarget = sanitize(target);
-    if (sanitizedTarget === sanitizedKw) return baseLevel;
-    if (sanitizedTarget.startsWith(sanitizedKw)) return baseLevel - 1;
-    if (sanitizedTarget.includes(sanitizedKw)) return baseLevel - 2;
+    if (sanitizedTarget === sanitizedKw) return baseScore;
+    if (sanitizedTarget.startsWith(sanitizedKw)) return baseScore - 1;
+    if (sanitizedTarget.includes(sanitizedKw)) return baseScore - 2;
     return 0;
   };
-  const calcRelevanceLevelArray = (targets: string[], keyword: string, baseLevel: number) => {
+  const calcRelevanceScoreArray = (targets: string[], sanitizedKw: string, baseScore: number) => {
     return targets.reduce(
       (acc, target) =>
-        acc < baseLevel ? Math.max(acc, calcRelevanceLevel(target, keyword, baseLevel)) : acc,
+        acc === baseScore ? acc : Math.max(acc, calcRelevanceScore(target, sanitizedKw, baseScore)),
       0
     );
   };
@@ -166,15 +166,15 @@ const filterAndSort = (skills: Skill[], filterInput: string) => {
         internshipYear,
         ...rest
       } = skill;
-      const relevanceLevelToCount = new Array(16).fill(0);
+      const relevanceScoreToCount = new Array(16).fill(0);
       for (const keyword of sanitizedKeywords) {
         if (keyword === "") continue;
-        const relevanceLevel =
-          calcRelevanceLevel(name, keyword, 16) ||
-          calcRelevanceLevelArray(tags.map((tag) => `#${tag}`) ?? [], keyword, 13) ||
-          calcRelevanceLevelArray(subsetFrameworkLikeSkills ?? [], keyword, 10) ||
-          calcRelevanceLevelArray(subsetLanguageLikeSkills ?? [], keyword, 7) ||
-          calcRelevanceLevelArray(Object.values(rest), keyword, 4) ||
+        const relevanceScore =
+          calcRelevanceScore(name, keyword, 16) ||
+          calcRelevanceScoreArray(tags.map((tag) => `#${tag}`) ?? [], keyword, 13) ||
+          calcRelevanceScoreArray(subsetFrameworkLikeSkills ?? [], keyword, 10) ||
+          calcRelevanceScoreArray(subsetLanguageLikeSkills ?? [], keyword, 7) ||
+          calcRelevanceScoreArray(Object.values(rest), keyword, 4) ||
           (personalYear &&
           [`personal${personalYear}yr.`, `personal${personalYear}year`].some((s) =>
             s.includes(keyword)
@@ -187,16 +187,16 @@ const filterAndSort = (skills: Skill[], filterInput: string) => {
           )
             ? 1
             : 0);
-        if (!relevanceLevel) return [];
-        ++relevanceLevelToCount[relevanceLevel - 1];
+        if (relevanceScore === 0) return [];
+        ++relevanceScoreToCount[relevanceScore - 1];
       }
-      return [{ relevanceLevelToCount, skill }];
+      return [{ relevanceScoreToCount, skill }];
     })
     .sort(
       (a, b) =>
         // sort by relevance
-        b.relevanceLevelToCount.reduceRight(
-          (acc, cur, i) => acc || cur - a.relevanceLevelToCount[i],
+        [...new Array(16).keys()].reduceRight(
+          (acc, score) => acc || b.relevanceScoreToCount[score] - a.relevanceScoreToCount[score],
           0
         ) ||
         // sort by non-relevance-related factors
