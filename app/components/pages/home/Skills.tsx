@@ -190,13 +190,7 @@ const filterAndSort = (skills: Skill[], filterInput: string) => {
         if (!relevanceLevel) return [];
         ++relevanceLevelToCount[relevanceLevel - 1];
       }
-      return [
-        {
-          relevanceLevelToCount,
-          experienceYear: Math.max(personalYear ?? 0, (internshipYear ?? 0) * 5),
-          skill,
-        },
-      ];
+      return [{ relevanceLevelToCount, skill }];
     })
     .sort(
       (a, b) =>
