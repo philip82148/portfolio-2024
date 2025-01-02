@@ -48,7 +48,10 @@ export const Skills: React.FC<{ stats: Stat[]; skills: Skill[] }> = ({ stats, sk
       </p>
       <div className="flex flex-wrap gap-4 w-full mt-5">
         {filteredSkills.map((skill) => (
-          <div key={skill.name} className="card w-min h-min bg-base-100 shadow-md">
+          <div
+            key={skill.name}
+            className="card card-bordered border-2 w-min h-min bg-base-100 rounded"
+          >
             <div className="card-body flex flex-row items-center gap-6">
               <div className="size-16">{SKILL_ICONS[skill.skillIconKey]}</div>
               <div className="w-64">
