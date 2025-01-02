@@ -22,11 +22,13 @@ export const Internships: React.FC<{ internships: Internship[] }> = ({ internshi
             <div className="col-start-1 flex justify-center h-full py-4">
               {i !== internships.length - 1 && <div className="w-1 min-h-10 bg-primary-content" />}
             </div>
-            <ul className="col-start-3 my-4 pb-10 list-disc list-inside">
-              {descriptions.map((description, i) => (
-                <li key={i}>{description}</li>
-              ))}
-            </ul>
+            {!!descriptions?.length && (
+              <ul className="col-start-3 my-4 pb-10 list-disc list-inside">
+                {descriptions.map((description, i) => (
+                  <li key={i}>{description}</li>
+                ))}
+              </ul>
+            )}
           </Fragment>
         ))}
         {/* <div className="col-start-1 flex flex-col items-center h-full">

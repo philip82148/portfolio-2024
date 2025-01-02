@@ -19,7 +19,7 @@ export type Internship = {
   occupation: string;
   start: string;
   end: string;
-  descriptions: string[];
+  descriptions?: string[];
 };
 
 export type Stat = {
