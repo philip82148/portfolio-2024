@@ -11,14 +11,6 @@ body {
   }
 }
 
-@media (hover: hover) {
-  @supports (color: oklch(0% 0 0)) {
-    .btn-ghost:hover {
-      background-color: rgba(203, 213, 225, 0.8);
-    }
-  }
-}
-
 .personal-project-animation {
   -webkit-animation: flip-in-hor-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
   animation: flip-in-hor-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;

@@ -5,7 +5,6 @@ export type Account = {
   siteIconKey: keyof typeof SITE_ICONS;
   id: string;
   href: string;
-  colorAdjust?: string;
 };
 
 export type School = {

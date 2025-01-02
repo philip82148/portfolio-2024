@@ -12,7 +12,6 @@ export const ACCOUNTS: Account[] = [
     siteIconKey: "zenn",
     id: "@sassan",
     href: "https://zenn.dev/sassan",
-    colorAdjust: "hover:[background-color:#3EA8FF44]",
   },
   {
     siteName: "AtCoder",
@@ -43,13 +42,11 @@ export const ACCOUNTS: Account[] = [
     siteIconKey: "qiita",
     id: "@philip82148",
     href: "https://qiita.com/philip82148",
-    colorAdjust: "hover:[background-color:#55C50044]",
   },
   {
     siteName: "Linkedin",
     siteIconKey: "linkedin",
     id: "@ryota-sasaki-philip82148",
     href: "https://www.linkedin.com/in/ryota-sasaki-philip82148",
-    colorAdjust: "hover:[background-color:#0077B533]",
   },
 ];
