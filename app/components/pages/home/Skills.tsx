@@ -8,24 +8,10 @@ import { SKILL_ICONS } from "~/frontend-static-data";
 export const Skills: React.FC<{ stats: Stat[]; skills: Skill[] }> = ({ stats, skills }) => {
   const [filterInput, setFilterInput] = useState<string>("");
 
-  const filteredSkills = useMemo(() => {
-    const lowerCasedWords = filterInput.split(/\s+/).map((word) => word.toLocaleLowerCase());
-    return skills.filter((skill) => {
-      const { internshipYear, personalYear, tags, hiddenKeywords, ...rest } = skill;
-      return lowerCasedWords.every((word) => {
-        return (
-          Object.values(rest).some((value) => `#${value}`.toLowerCase().includes(word)) ||
-          (personalYear && `personal${personalYear}year`.includes(word)) ||
-          (internshipYear && `internship${internshipYear}year`.includes(word)) ||
-          tags.some((tag) => `#${tag.toLowerCase()}`.includes(word)) ||
-          hiddenKeywords?.some((keyword) => `#${keyword.toLowerCase()}`.includes(word))
-        );
-      });
-    });
-  }, [filterInput, skills]);
+  const filteredSkills = useMemo(() => filterAndSort(skills, filterInput), [filterInput, skills]);
 
-  const addTagToFilterInput = (tag: string) => {
-    setFilterInput((prev) => (prev ? `${prev} #${tag}` : `#${tag}`));
+  const addKeywordToFilterInput = (keyword: string) => {
+    setFilterInput((prev) => (prev ? `${prev} ${keyword}` : keyword));
   };
 
   return (
@@ -40,9 +26,9 @@ export const Skills: React.FC<{ stats: Stat[]; skills: Skill[] }> = ({ stats, sk
         ))}
       </div>
       <h3 className="font-bold text-xl mb-8">Languages & Frameworks</h3>
-      <form className="px-1.5">
+      <div className="px-1.5">
         <LazyTextInput placeholder="Filter..." value={filterInput} onChange={setFilterInput} />
-      </form>
+      </div>
       <p className="px-3 mt-5 font-medium">
         {filterInput.trim() ? "Found" : "Total"} {filteredSkills.length} Skills
       </p>
@@ -57,11 +43,13 @@ export const Skills: React.FC<{ stats: Stat[]; skills: Skill[] }> = ({ stats, sk
               <div className="w-64">
                 <div className="flex items-center gap-2">
                   <h4 className="card-title">
-                    <button onClick={() => addTagToFilterInput(skill.name)}>{skill.name}</button>
+                    <button onClick={() => addKeywordToFilterInput(skill.name)}>
+                      {skill.name}
+                    </button>
                   </h4>
                   <button
                     className="badge badge-neutral"
-                    onClick={() => addTagToFilterInput(skill.type)}
+                    onClick={() => addKeywordToFilterInput(skill.type)}
                   >
                     {skill.type}
                   </button>
@@ -69,13 +57,13 @@ export const Skills: React.FC<{ stats: Stat[]; skills: Skill[] }> = ({ stats, sk
                 <p className="my-0.5 font-medium text-sm text-slate-500">
                   {skill.personalYear && (
                     <span>
-                      Personal {skill.personalYear > 0.5 ? skill.personalYear : "- 0.5"} year
+                      Personal {skill.personalYear > 0.5 ? skill.personalYear : "- 0.5"} yr.
                     </span>
                   )}
                   {skill.personalYear && skill.internshipYear && <span className="mr-2">,</span>}
                   {skill.internshipYear && (
                     <span>
-                      Internship {skill.internshipYear > 0.5 ? skill.internshipYear : "- 0.5"} year
+                      Internship {skill.internshipYear > 0.5 ? skill.internshipYear : "- 0.5"} yr.
                     </span>
                   )}
                 </p>
@@ -84,7 +72,7 @@ export const Skills: React.FC<{ stats: Stat[]; skills: Skill[] }> = ({ stats, sk
                     <button
                       key={tag}
                       className="link link-hover"
-                      onClick={() => addTagToFilterInput(tag)}
+                      onClick={() => addKeywordToFilterInput(`#${tag}`)}
                     >
                       #{tag}
                     </button>
@@ -133,6 +121,7 @@ const LazyTextInput: React.FC<{
           onClick={(e) => {
             e.preventDefault();
             setRealValue("");
+            inputRef.current?.focus();
           }}
           className="hidden"
         >
@@ -141,4 +130,84 @@ const LazyTextInput: React.FC<{
       )}
     </label>
   );
+};
+
+const filterAndSort = (skills: Skill[], filterInput: string) => {
+  const sanitize = (s: string) => s.replace(/[.\s]+/, "").toLowerCase();
+  const calcRelevanceLevel = (target: string, sanitizedKw: string, baseLevel: number) => {
+    const sanitizedTarget = sanitize(target);
+    if (sanitizedTarget === sanitizedKw) return baseLevel;
+    if (sanitizedTarget.startsWith(sanitizedKw)) return baseLevel - 1;
+    if (sanitizedTarget.includes(sanitizedKw)) return baseLevel - 2;
+    return 0;
+  };
+  const calcRelevanceLevelArray = (targets: string[], keyword: string, baseLevel: number) => {
+    return targets.reduce(
+      (acc, target) =>
+        acc < baseLevel ? Math.max(acc, calcRelevanceLevel(target, keyword, baseLevel)) : acc,
+      0
+    );
+  };
+  const TYPE_ORDER: Record<Skill["type"], number> = {
+    Language: 3,
+    Framework: 2,
+    Other: 1,
+  };
+
+  const sanitizedKeywords = new Set(filterInput.split(/\s+/).map((word) => sanitize(word)));
+  return skills
+    .flatMap((skill) => {
+      const {
+        name,
+        tags,
+        subsetFrameworkLikeSkills,
+        subsetLanguageLikeSkills,
+        personalYear,
+        internshipYear,
+        ...rest
+      } = skill;
+      const relevanceLevelToCount = new Array(16).fill(0);
+      for (const keyword of sanitizedKeywords) {
+        if (keyword === "") continue;
+        const relevanceLevel =
+          calcRelevanceLevel(name, keyword, 16) ||
+          calcRelevanceLevelArray(tags.map((tag) => `#${tag}`) ?? [], keyword, 13) ||
+          calcRelevanceLevelArray(subsetFrameworkLikeSkills ?? [], keyword, 10) ||
+          calcRelevanceLevelArray(subsetLanguageLikeSkills ?? [], keyword, 7) ||
+          calcRelevanceLevelArray(Object.values(rest), keyword, 4) ||
+          (personalYear &&
+          [`personal${personalYear}yr.`, `personal${personalYear}year`].some((s) =>
+            s.includes(keyword)
+          )
+            ? 1
+            : 0) ||
+          (internshipYear &&
+          [`internship${internshipYear}yr.`, `internship${internshipYear}year`].some((s) =>
+            s.includes(keyword)
+          )
+            ? 1
+            : 0);
+        if (!relevanceLevel) return [];
+        ++relevanceLevelToCount[relevanceLevel - 1];
+      }
+      return [
+        {
+          relevanceLevelToCount,
+          experienceYear: Math.max(personalYear ?? 0, (internshipYear ?? 0) * 5),
+          skill,
+        },
+      ];
+    })
+    .sort(
+      (a, b) =>
+        // sort by relevance
+        b.relevanceLevelToCount.reduceRight(
+          (acc, cur, i) => acc || cur - a.relevanceLevelToCount[i],
+          0
+        ) ||
+        // sort by non-relevance-related factors
+        TYPE_ORDER[b.skill.type] - TYPE_ORDER[a.skill.type] ||
+        a.skill.name.localeCompare(b.skill.name)
+    )
+    .map(({ skill }) => skill);
 };

@@ -30,12 +30,13 @@ export type Stat = {
 
 export type Skill = {
   name: string;
-  type: "Language" | "Framework" | "Tool" | "Other";
+  type: "Language" | "Framework" | "Other";
   skillIconKey: keyof typeof SKILL_ICONS;
   personalYear?: number;
   internshipYear?: number;
   tags: string[];
-  hiddenKeywords?: string[];
+  subsetFrameworkLikeSkills?: string[];
+  subsetLanguageLikeSkills?: string[];
 };
 
 export type Project = {
