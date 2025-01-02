@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export const Footer: React.FC = () => {
   return (
     <footer>
-      <div className="container mx-auto py-8 flex justify-between items-center">
+      <div className="container mx-auto px-6 max-sm:px-3 py-8 flex justify-between items-center">
         <div className="text-base pl-3">© 2024 Ryota Sasaki</div>
         <div className="flex items-center">
           <a

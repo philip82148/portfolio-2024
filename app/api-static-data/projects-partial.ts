@@ -104,7 +104,7 @@ export const PROJECTS_PARTIAL: Omit<Project, "starCount" | "forkCount">[] = [
     summary: "授業評定サイト用WordPressテーマ",
     description:
       "友達と二人で授業の評定サイトを作る。学部2年の時に作ったもので、デザインは拙い。各大学で使ってもらえるようWordPressテーマとして作り、管理画面でCSVを使って授業データをインポートできるようにしてある。",
-    techStacks: ["WordPress", "PHP", "jQuery", "JavaScript", "MySQL"],
+    techStacks: ["WordPress", "PHP"],
     links: [{ label: "GitHub", href: "https://github.com/philip82148/selva/" }],
   },
   {

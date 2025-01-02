@@ -32,18 +32,18 @@ export const Skills: React.FC<{ stats: Stat[]; skills: Skill[] }> = ({ stats, sk
       <p className="px-3 mt-5 font-medium">
         {filterInput.trim() ? "Found" : "Total"} {filteredSkills.length} Skills
       </p>
-      <div className="flex flex-wrap gap-4 w-full mt-5">
+      <div className="grid grid-cols-3 max-xl:grid-cols-2 max-lg:grid-cols-1 gap-4 w-full mt-5">
         {filteredSkills.map((skill) => (
-          <div
-            key={skill.name}
-            className="card card-bordered border-2 w-min h-min bg-base-100 rounded"
-          >
+          <div key={skill.name} className="card card-bordered border-2 bg-base-100 rounded">
             <div className="card-body flex flex-row items-center gap-6">
-              <div className="size-16">{SKILL_ICONS[skill.skillIconKey]}</div>
-              <div className="w-64">
+              <div className="size-16 flex justify-center">{SKILL_ICONS[skill.skillIconKey]}</div>
+              <div className="w-64 flex-grow">
                 <div className="flex items-center gap-2">
                   <h4 className="card-title">
-                    <button onClick={() => addKeywordToFilterInput(skill.name)}>
+                    <button
+                      onClick={() => addKeywordToFilterInput(skill.name)}
+                      className="line-clamp-1"
+                    >
                       {skill.name}
                     </button>
                   </h4>
@@ -54,7 +54,7 @@ export const Skills: React.FC<{ stats: Stat[]; skills: Skill[] }> = ({ stats, sk
                     {skill.type}
                   </button>
                 </div>
-                <p className="my-0.5 font-medium text-sm text-slate-500">
+                <p className="my-0.5 font-medium text-sm text-slate-500 line-clamp-1">
                   {skill.personalYear && (
                     <span>
                       Personal {skill.personalYear > 0.5 ? skill.personalYear : "- 0.5"} yr.
@@ -67,7 +67,7 @@ export const Skills: React.FC<{ stats: Stat[]; skills: Skill[] }> = ({ stats, sk
                     </span>
                   )}
                 </p>
-                <div className="flex gap-x-2 gap-y-1 font-medium text-sm">
+                <div className="flex flex-wrap gap-x-2 gap-y-1 font-medium text-sm">
                   {skill.tags.map((tag) => (
                     <button
                       key={tag}

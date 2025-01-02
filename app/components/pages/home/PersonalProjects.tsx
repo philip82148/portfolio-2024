@@ -63,19 +63,21 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
           <h3 className="font-bold text-2xl mt-8 mb-4 personal-project-animation">
             {sectionTitle}
           </h3>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 max-xl:grid-cols-1 gap-4">
             {projects.map((project) => (
               // eslint-disable-next-line jsx-a11y/no-static-element-interactions
               <div
                 key={project.title}
-                className="card card-bordered card-side border-2 cursor-pointer hover:bg-slate-100 transition-all duration-200 ease-[ease] h-36 personal-project-animation"
+                className="card card-bordered card-side border-2 cursor-pointer hover:bg-slate-100 transition-all duration-200 ease-[ease] h-36 max-xl:h-min personal-project-animation"
                 onClick={() => showModal(project)}
                 onKeyDown={(e) => e.key === "Enter" && showModal(project)}
               >
                 <div className="card-body p-6 w-full justify-between">
-                  <h4 className="card-title">{project.title}</h4>
-                  <p className="font-medium text-sm text-slate-500">{project.summary}</p>
-                  <div className="flex flex-wrap items-center gap-5 font-medium text-sm">
+                  <h4 className="card-title line-clamp-2">{project.title}</h4>
+                  <p className="font-medium text-sm text-slate-500 line-clamp-1">
+                    {project.summary}
+                  </p>
+                  <div className="flex flex-wrap items-center gap-x-5 gap-y-2 font-medium text-sm">
                     {!!project.starCount && (
                       <span>
                         <FontAwesomeIcon icon={faStar} className="mr-2" />
@@ -110,7 +112,7 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
                   </div>
                 </div>
                 {!!project.imgSrc && (
-                  <figure className="max-w-[230px]">
+                  <figure className="max-w-[230px] max-md:max-w-[120px]">
                     <img
                       src={project.imgSrc}
                       alt={project.title}
