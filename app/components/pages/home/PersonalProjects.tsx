@@ -171,7 +171,7 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
                 <span className="font-bold text-right max-lg:text-left">Description</span>
                 <p>{modalProject?.description}</p>
               </div>
-              <div className="flex gap-5 font-medium">
+              <div className="flex flex-wrap items-center gap-x-5 gap-y-2 font-medium">
                 {!!modalProject?.starCount && (
                   <span>
                     <FontAwesomeIcon icon={faStar} className="mr-2" />
