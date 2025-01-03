@@ -124,9 +124,9 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
         </Fragment>
       ))}
       <dialog ref={dialogRef} className="modal">
-        <div className="modal-box w-11/12 max-w-7xl min-h-96 px-12 py-10 flex flex-col">
-          <div className="flex justify-between items-end">
-            <h3 className="font-bold text-2xl">{modalProject?.title}</h3>
+        <div className="modal-box w-11/12 max-w-7xl min-h-96 px-12 py-10 flex flex-col max-lg:p-5 [max-height:calc(100dvh-5em)]">
+          <div className="flex justify-between items-start">
+            <h3 className="font-bold text-2xl max-lg:text-lg">{modalProject?.title}</h3>
             <form method="dialog">
               <button className="btn btn-square btn-ghost -mb-[100%]">
                 <FontAwesomeIcon icon={faX} size="lg" />
@@ -134,13 +134,18 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
             </form>
           </div>
           <p className="font-medium text-slate-500 mt-2.5">{modalProject?.summary}</p>
-          <div className="flex-grow flex gap-20 mt-5">
-            <div className="basis-0 flex-grow flex flex-col justify-between gap-6">
-              <div className="grid grid-cols-[auto_1fr] gap-x-8 h-min gap-y-2 mt-1">
+          <div className="flex-grow flex gap-20 mt-5 max-lg:flex-col max-lg:gap-5">
+            <div className="basis-0 flex-grow flex flex-col justify-between gap-6 max-lg:gap-2">
+              <div className="grid grid-cols-[auto_1fr] gap-x-8 h-min gap-y-2 mt-1 max-lg:flex max-lg:flex-col">
                 {modalProject?.links?.map(({ label, href }) => (
                   <Fragment key={label}>
-                    <span className="font-bold text-right">{label}</span>
-                    <a href={href} target="_blank" rel="noopener noreferrer" className="link">
+                    <span className="font-bold text-right max-lg:text-left">{label}</span>
+                    <a
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="link break-all"
+                    >
                       {href}
                     </a>
                   </Fragment>
@@ -148,7 +153,11 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
                 {((techStacks) =>
                   techStacks && (
                     <>
-                      {<span className="font-bold text-right">All Tech Stacks</span>}
+                      {
+                        <span className="font-bold text-right max-lg:text-left">
+                          All Tech Stacks
+                        </span>
+                      }
                       <div>
                         {techStacks.map((stack, i) => (
                           <Fragment key={stack}>
@@ -159,7 +168,7 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
                       </div>
                     </>
                   ))(modalProject?.allTechStacks || modalProject?.techStacks)}
-                <span className="font-bold text-right">Description</span>
+                <span className="font-bold text-right max-lg:text-left">Description</span>
                 <p>{modalProject?.description}</p>
               </div>
               <div className="flex gap-5 font-medium">
