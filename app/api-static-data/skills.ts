@@ -50,14 +50,7 @@ type LanguageLikeSkillName =
 
 type FrameworkLikeSkillName = Exclude<SkillName, LanguageLikeSkillName>;
 
-type Tag =
-  | "Web"
-  | "Frontend"
-  | "Backend"
-  | "Mobile"
-  | "Electronics"
-  | "CompetitiveProgramming"
-  | "Other";
+type Tag = "Web" | "Frontend" | "Backend" | "Mobile" | "Electronics" | "Other";
 
 // Self-referencing & enum constraints implemented in code
 export const SKILLS: (Skill & {
@@ -78,7 +71,7 @@ export const SKILLS: (Skill & {
     type: "Language",
     skillIconKey: "cpp",
     personalYear: 1,
-    tags: ["CompetitiveProgramming", "Other"],
+    tags: ["Other"],
     subsetLanguageLikeSkills: ["C"],
   },
   {

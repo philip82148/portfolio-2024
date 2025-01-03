@@ -35,7 +35,7 @@ export default function Index() {
   const { accounts, schools, internships, stats, skills, projects } =
     useLoaderData<typeof loader>();
   return (
-    <div className="container mx-auto px-6 max-sm:px-3 flex flex-col gap-10">
+    <div className="container mx-auto px-6 max-sm:px-5 flex flex-col gap-10">
       <Profile />
       <Accounts accounts={accounts} />
       <Education schools={schools} />

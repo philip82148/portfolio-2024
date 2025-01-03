@@ -1,5 +1,6 @@
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import clsx from "clsx";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import type { Skill, Stat } from "~/api/interface";
@@ -40,15 +41,29 @@ export const Skills: React.FC<{ stats: Stat[]; skills: Skill[] }> = ({ stats, sk
         {`${filterInput.trim() ? "Found" : "Total"} ${filteredSkills.length} skills, `}
         {`showing ${Math.min(displayLimit, filteredSkills.length)} of them.`}
       </p>
-      <div className="grid grid-cols-3 grid-rows-[repeat(4,minmax(140px,1fr))] max-xl:grid-cols-2 max-lg:grid-cols-1 gap-4 w-full mt-5">
+      <div
+        className={clsx(
+          "grid grid-cols-3 grid-rows-[repeat(4,140px)] gap-4 w-full mt-5",
+          "max-2xl:grid-rows-[repeat(4,124px)]",
+          "max-xl:grid-cols-2 max-xl:grid-rows-[repeat(5,140px)]",
+          "max-lg:grid-cols-1",
+          "max-sm:grid-rows-[repeat(5,132px)]"
+        )}
+      >
         {filteredSkills.slice(0, displayLimit).map((skill) => (
           <div
             key={`${skill.name}-${filterInput}`}
             className="card card-bordered border-2 bg-base-100 rounded flip-in-hor-bottom"
           >
-            <div className="card-body flex flex-row items-center gap-6">
+            <div
+              className={clsx(
+                "card-body flex flex-row items-center gap-6",
+                "max-2xl:p-6 max-xl:p-8",
+                "max-sm:py-7 max-sm:px-5 max-sm:gap-5"
+              )}
+            >
               <div className="size-16 flex justify-center">{SKILL_ICONS[skill.skillIconKey]}</div>
-              <div className="w-64 flex-grow">
+              <div className="w-64 flex-grow -mt-[2px] mb-[2px]">
                 <div className="flex items-center gap-2">
                   <h4 className="card-title">
                     <button
