@@ -1,8 +1,6 @@
-import type { EventContext } from "@cloudflare/workers-types";
-
 import { SvgCache } from "~/api/cache";
 
-export const onRequestGet = async (context: EventContext<Env, "key", void>): Promise<Response> => {
+export const onRequestGet: PagesFunction<Env> = async (context) => {
   const {
     params: { key },
   } = context;
@@ -12,8 +10,6 @@ export const onRequestGet = async (context: EventContext<Env, "key", void>): Pro
   if (!content) return new Response(null, { status: 404 });
 
   return new Response(content, {
-    headers: {
-      "Content-Type": "image/svg+xml",
-    },
+    headers: { "Content-Type": "image/svg+xml" },
   });
 };
