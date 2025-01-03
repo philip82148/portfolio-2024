@@ -1,12 +1,19 @@
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import type { Skill, Stat } from "~/api/interface";
 import { SKILL_ICONS } from "~/frontend-static-data";
 
+const NUM_SKILLS_TO_ADD = 10;
+
 export const Skills: React.FC<{ stats: Stat[]; skills: Skill[] }> = ({ stats, skills }) => {
-  const [filterInput, setFilterInput] = useState<string>("");
+  const [filterInput, originalSetFilterInput] = useState<string>("");
+  const [displayLimit, setDisplayLimit] = useState<number>(NUM_SKILLS_TO_ADD);
+  const setFilterInput = useCallback((arg: Parameters<typeof originalSetFilterInput>[0]) => {
+    originalSetFilterInput(arg);
+    setDisplayLimit(NUM_SKILLS_TO_ADD);
+  }, []);
 
   const filteredSkills = useMemo(() => filterAndSort(skills, filterInput), [filterInput, skills]);
 
@@ -30,11 +37,15 @@ export const Skills: React.FC<{ stats: Stat[]; skills: Skill[] }> = ({ stats, sk
         <LazyTextInput placeholder="Filter..." value={filterInput} onChange={setFilterInput} />
       </div>
       <p className="px-3 mt-5 font-medium">
-        {filterInput.trim() ? "Found" : "Total"} {filteredSkills.length} Skills
+        {`${filterInput.trim() ? "Found" : "Total"} ${filteredSkills.length} skills, `}
+        {`showing ${Math.min(displayLimit, filteredSkills.length)} of them.`}
       </p>
-      <div className="grid grid-cols-3 max-xl:grid-cols-2 max-lg:grid-cols-1 gap-4 w-full mt-5">
-        {filteredSkills.map((skill) => (
-          <div key={skill.name} className="card card-bordered border-2 bg-base-100 rounded">
+      <div className="grid grid-cols-3 grid-rows-[repeat(4,140px)] max-xl:grid-cols-2 max-lg:grid-cols-1 gap-4 w-full mt-5">
+        {filteredSkills.slice(0, displayLimit).map((skill) => (
+          <div
+            key={`${skill.name}-${filterInput}`}
+            className="card card-bordered border-2 bg-base-100 rounded flip-in-hor-bottom"
+          >
             <div className="card-body flex flex-row items-center gap-6">
               <div className="size-16 flex justify-center">{SKILL_ICONS[skill.skillIconKey]}</div>
               <div className="w-64 flex-grow">
@@ -83,6 +94,16 @@ export const Skills: React.FC<{ stats: Stat[]; skills: Skill[] }> = ({ stats, sk
           </div>
         ))}
       </div>
+      <div className="flex justify-center mt-6 h-12">
+        {displayLimit < filteredSkills.length && (
+          <button
+            className="btn flip-in-hor-bottom"
+            onClick={() => setDisplayLimit((limit) => limit + NUM_SKILLS_TO_ADD)}
+          >
+            Display More
+          </button>
+        )}
+      </div>
     </div>
   );
 };
@@ -95,7 +116,7 @@ const LazyTextInput: React.FC<{
   const [realValue, setRealValue] = useState<string>(value);
 
   useEffect(() => {
-    const timeout = setTimeout(() => onChange(realValue), 300);
+    const timeout = setTimeout(() => onChange(realValue), 500);
     return () => clearTimeout(timeout);
   }, [onChange, realValue]);
 

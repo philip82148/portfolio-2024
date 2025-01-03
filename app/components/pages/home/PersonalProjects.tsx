@@ -50,7 +50,7 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
               key={by}
               className="join-item btn capitalize"
               type="radio"
-              name="group-by"
+              name="personal-projects-group-by"
               aria-label={`Group By ${by}`}
               checked={by === groupBy}
               onChange={() => setGroupBy(by)}
@@ -60,15 +60,13 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
       </form>
       {groupByToSectionTitleAndProjects[groupBy].map(([sectionTitle, projects]) => (
         <Fragment key={sectionTitle}>
-          <h3 className="font-bold text-2xl mt-8 mb-4 personal-project-animation">
-            {sectionTitle}
-          </h3>
+          <h3 className="font-bold text-2xl mt-8 mb-4 flip-in-hor-bottom">{sectionTitle}</h3>
           <div className="grid grid-cols-2 max-xl:grid-cols-1 gap-4">
             {projects.map((project) => (
               // eslint-disable-next-line jsx-a11y/no-static-element-interactions
               <div
                 key={project.title}
-                className="card card-bordered card-side border-2 cursor-pointer hover:bg-slate-100 transition-all duration-200 ease-[ease] h-36 max-xl:h-min personal-project-animation"
+                className="card card-bordered card-side border-2 cursor-pointer hover:bg-slate-100 transition-all duration-200 ease-[ease] h-36 max-xl:h-min flip-in-hor-bottom"
                 onClick={() => showModal(project)}
                 onKeyDown={(e) => e.key === "Enter" && showModal(project)}
               >
