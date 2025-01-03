@@ -10,6 +10,9 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   if (!content) return new Response(null, { status: 404 });
 
   return new Response(content, {
-    headers: { "Content-Type": "image/svg+xml" },
+    headers: {
+      "Content-Type": "image/svg+xml",
+      "Cache-Control": "public, max-age=86400, stale-while-revalidate=3600",
+    },
   });
 };
