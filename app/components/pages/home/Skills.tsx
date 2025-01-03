@@ -40,7 +40,7 @@ export const Skills: React.FC<{ stats: Stat[]; skills: Skill[] }> = ({ stats, sk
         {`${filterInput.trim() ? "Found" : "Total"} ${filteredSkills.length} skills, `}
         {`showing ${Math.min(displayLimit, filteredSkills.length)} of them.`}
       </p>
-      <div className="grid grid-cols-3 grid-rows-[repeat(4,140px)] max-xl:grid-cols-2 max-lg:grid-cols-1 gap-4 w-full mt-5">
+      <div className="grid grid-cols-3 grid-rows-[repeat(4,minmax(140px,1fr))] max-xl:grid-cols-2 max-lg:grid-cols-1 gap-4 w-full mt-5">
         {filteredSkills.slice(0, displayLimit).map((skill) => (
           <div
             key={`${skill.name}-${filterInput}`}
