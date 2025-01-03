@@ -3,15 +3,15 @@ import type React from "react";
 export const Profile: React.FC = () => {
   return (
     <div className="mb-20">
-      <div className="flex max-lg:flex-col items-center justify-center gap-32 pt-32 pb-28 max-lg:pb-0">
+      <div className="flex items-center justify-center gap-32 pt-32 pb-28 max-lg:flex-col max-lg:gap-20 max-lg:pt-20 max-lg:pb-0">
         <div className="avatar">
-          <div className="size-80 rounded-full">
+          <div className="size-80 max-md:size-60 rounded-full">
             <img src="/me.jpg" alt="Ryota Sasaki" />
           </div>
         </div>
         <div className="w-2/5 max-lg:w-full">
           <div className="flex items-center gap-8">
-            <h1 className="font-bold text-5xl">Ryota Sasaki</h1>
+            <h1 className="font-bold text-5xl max-md:text-4xl">Ryota Sasaki</h1>
             {/* <a className="font-normal text-xl" href="https://github.com/philip82148">
             (@philip82148)
           </a> */}
