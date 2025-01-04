@@ -1,33 +1,15 @@
-import type { GitHubRepository } from "./cache";
-import { SvgCache, GitHubRepositoryCache } from "./cache";
+import { StatController, ProjectController } from "./controllers";
 import type { Account, Internship, Project, School, Skill, Stat } from "./interface";
 
-import { ACCOUNTS, INTERNSHIPS, PROJECTS_PARTIAL, SCHOOLS, SKILLS, STATS } from "~/api-static-data";
+import { ACCOUNTS, INTERNSHIPS, SCHOOLS, SKILLS } from "~/api-static-data";
 
 export class BackendlessClient {
-  private SvgCache: SvgCache;
-  private githubRepositoryCache: GitHubRepositoryCache;
-  private githubRepositoryCacheReady: Promise<void>;
+  private statController: StatController;
+  private projectController: ProjectController;
 
   constructor(env: Env) {
-    this.SvgCache = new SvgCache(env);
-
-    const githubCache = new GitHubRepositoryCache(env);
-    this.githubRepositoryCache = githubCache;
-    this.githubRepositoryCacheReady = (async () => {
-      const updatedAt = await githubCache.getUpdatedAt();
-      const now = new Date();
-      if (updatedAt && now.getTime() - updatedAt.getTime() < 24 * 60 * 60 * 1000) return;
-
-      const res = await fetch("https://api.github.com/users/philip82148/repos", {
-        headers: { "User-Agent": "Portfolio-2024" },
-      });
-      if (!res.ok) return;
-
-      const repos: ({ name: string } & GitHubRepository)[] = await res.json();
-      await githubCache.updateMany(repos.map(({ name, ...data }) => ({ name, data })));
-      console.log("Updated GitHub Repository cache");
-    })();
+    this.statController = new StatController(env);
+    this.projectController = new ProjectController(env);
   }
 
   async getAccounts(): Promise<Account[]> {
@@ -43,23 +25,7 @@ export class BackendlessClient {
   }
 
   async getStats(): Promise<Stat[]> {
-    if (process.env.NODE_ENV === "development") return STATS;
-
-    return await Promise.all(
-      STATS.map(async ({ name, imgSrc, ...rest }) => {
-        const key = `${name.toLowerCase()}-stats`;
-        const updatedAt = await this.SvgCache.getUpdatedAt(key);
-        const now = new Date();
-        if (!(updatedAt && now.getTime() - updatedAt.getTime() < 24 * 60 * 60 * 1000)) {
-          const res = await fetch(imgSrc);
-          if (res.ok) {
-            const content = await res.text();
-            await this.SvgCache.update(key, content);
-          }
-        }
-        return { name, imgSrc: `/svg/${key}`, ...rest };
-      })
-    );
+    return await this.statController.getStats();
   }
 
   async getSkills(): Promise<Skill[]> {
@@ -67,20 +33,6 @@ export class BackendlessClient {
   }
 
   async getProjects(): Promise<Project[]> {
-    await this.githubRepositoryCacheReady;
-    const projects: Project[] = await Promise.all(
-      PROJECTS_PARTIAL.map(async (project) => {
-        const githubLink = project.links?.find((link) =>
-          link.href.startsWith("https://github.com/philip82148/")
-        )?.href;
-        const repoName = githubLink?.match(/^https:\/\/github.com\/philip82148\/(?<repo>[^/]*)/)
-          ?.groups?.repo;
-        if (!repoName) return project;
-
-        const repo = await this.githubRepositoryCache.get(repoName);
-        return { ...project, starCount: repo?.stargazers_count, forkCount: repo?.forks_count };
-      })
-    );
-    return projects;
+    return await this.projectController.getProjects();
   }
 }
