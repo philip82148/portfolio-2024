@@ -9,6 +9,7 @@ export const PROJECTS_PARTIAL: Omit<Project, "starCount" | "forkCount">[] = [
     descriptions: [
       "2024年に作ったポートフォリオ。2023年に作ったポートフォリオに比べて(自分でした)デザインが改善している(と思う)。",
       "Skillsのところはオリジナルでフィルターしてソートするアルゴリズムを実装。また、外部APIの呼び出しはオリジンサーバー内でキャッシュをしているため1日に一回以上リクエストが飛ぶことはない(Cloudflare側でもキャッシュしているが)。",
+      "なお、まだ加えたい機能やデザインの改善をしたいと思っているため、未完成である。",
     ],
     mainTechStacks: ["Remix", "TypeScript"],
     allTechStacks: [
@@ -139,6 +140,15 @@ export const PROJECTS_PARTIAL: Omit<Project, "starCount" | "forkCount">[] = [
     imgSrc: "/projects/web/portfolio-2023.png",
   },
   {
+    title: "ノンデザイナーズ・デザインブック",
+    period: "2023",
+    category: "Book",
+    summary: "Webサイトの見た目を良くするために読んだ本",
+    descriptions: ["個人開発の時のWebサイトの見た目を良くしたいと思って読んだ本。"],
+    links: [{ label: "Book", href: "https://amzn.asia/d/hcrXhOw" }],
+    imgSrc: "/projects/books/non-designer.jpg",
+  },
+  {
     title: "名簿自動生成アプリ",
     period: "2023",
     category: "Web",
@@ -208,6 +218,15 @@ export const PROJECTS_PARTIAL: Omit<Project, "starCount" | "forkCount">[] = [
     mainTechStacks: ["WordPress", "PHP"],
     allTechStacks: ["WordPress", "PHP", "jQuery", "HTML", "CSS", "JavaScript", "Python"],
     links: [{ label: "GitHub", href: "https://github.com/philip82148/selva/" }],
+  },
+  {
+    title: "リーダブルコード",
+    period: "2022",
+    category: "Book",
+    summary: "より良いコードを書くために読んだ本",
+    descriptions: ["説明不要の名著。"],
+    links: [{ label: "Book", href: "https://amzn.asia/d/5Ermg8D" }],
+    imgSrc: "/projects/books/readable-code.jpg",
   },
   {
     title: "水中ドローン",

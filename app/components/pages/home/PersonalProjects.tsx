@@ -82,7 +82,7 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
                         {project.forkCount}
                       </span>
                     )}
-                    {!!project.mainTechStacks && (
+                    {!!project.mainTechStacks?.length && (
                       <span>
                         <FontAwesomeIcon icon={faCode} className="mr-2.5" />
                         {project.mainTechStacks.map((stack, i) => (
@@ -148,7 +148,7 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
                   </a>
                 </Fragment>
               ))}
-              {!!(modalProject?.allTechStacks ?? modalProject?.mainTechStacks) && (
+              {!!(modalProject?.allTechStacks ?? modalProject?.mainTechStacks)?.length && (
                 <>
                   <span className="font-bold text-right max-lg:text-left">All Tech Stacks</span>
                   <div className="flex flex-wrap gap-x-1.5">
@@ -163,12 +163,16 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
                   </div>
                 </>
               )}
-              <span className="font-bold text-right max-lg:text-left">Description</span>
-              <div className="flex flex-col gap-3.5">
-                {modalProject?.descriptions?.map((description) => (
-                  <p key={description}>{description}</p>
-                ))}
-              </div>
+              {!!modalProject?.descriptions?.length && (
+                <>
+                  <span className="font-bold text-right max-lg:text-left">Description</span>
+                  <div className="flex flex-col gap-3.5">
+                    {modalProject.descriptions.map((description) => (
+                      <p key={description}>{description}</p>
+                    ))}
+                  </div>
+                </>
+              )}
             </div>
             <div className="col-start-1 row-start-2 flex flex-wrap items-center gap-x-5 gap-y-2 mt-1 w-full font-medium max-lg:row-start-3">
               {!!modalProject?.starCount && (
@@ -183,7 +187,7 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
                   {modalProject.forkCount}
                 </span>
               )}
-              {!!modalProject?.mainTechStacks && (
+              {!!modalProject?.mainTechStacks?.length && (
                 <span>
                   <FontAwesomeIcon icon={faCode} className="mr-2.5" />
                   {modalProject.mainTechStacks.map((stack, i) => (
@@ -204,7 +208,7 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
               </span>
             </div>
             {!!(modalProject?.thumbnailImgSrc ?? modalProject?.imgSrc) && (
-              <figure className="col-start-2 row-start-1 row-span-2 max-w-fit max-lg:col-start-1 max-lg:row-span-1 max-lg:row-start-2 max-lg:max-h-[400px]">
+              <figure className="col-start-2 row-start-1 row-span-2 max-w-fit ml-auto max-lg:col-start-1 max-lg:row-span-1 max-lg:row-start-2 max-lg:max-h-[400px]">
                 <img
                   src={modalProject.thumbnailImgSrc ?? modalProject.imgSrc}
                   alt={modalProject.title}

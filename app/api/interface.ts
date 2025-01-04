@@ -44,7 +44,7 @@ export type Project = {
   period: string;
   category: "Web" | "Book" | "Electronics" | "Other";
   summary: string;
-  descriptions: string[];
+  descriptions?: string[];
   mainTechStacks?: string[];
   allTechStacks?: string[];
   links?: { label: string; href: string }[];
