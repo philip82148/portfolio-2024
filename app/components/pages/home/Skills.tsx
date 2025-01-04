@@ -35,7 +35,13 @@ export const Skills: React.FC<{ stats: Stat[]; skills: Skill[] }> = ({
       <div className="flex flex-wrap items-start gap-4 mb-8">
         {stats.map((stat) => (
           <a key={stat.name} href={stat.providerHref} target="_blank" rel="noopener noreferrer">
-            <img src={stat.imgSrc} alt={`${stat.name} Stats`} className="h-40 w-auto" />
+            <img
+              src={stat.imgSrc}
+              alt={`${stat.name} Stats`}
+              className="h-40 w-auto"
+              width="400"
+              height="160"
+            />
           </a>
         ))}
       </div>
