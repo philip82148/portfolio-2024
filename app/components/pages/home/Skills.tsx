@@ -8,7 +8,10 @@ import { SKILL_ICONS } from "~/frontend-static-data";
 
 const NUM_SKILLS_TO_ADD = 10;
 
-export const Skills: React.FC<{ stats: Stat[]; skills: Skill[] }> = ({ stats, skills }) => {
+export const Skills: React.FC<{ stats: Stat[]; skills: Skill[] }> = ({
+  stats,
+  skills: allSkills,
+}) => {
   const [filterInput, originalSetFilterInput] = useState<string>("");
   const [displayLimit, setDisplayLimit] = useState<number>(NUM_SKILLS_TO_ADD);
   const setFilterInput = useCallback((arg: Parameters<typeof originalSetFilterInput>[0]) => {
@@ -16,7 +19,10 @@ export const Skills: React.FC<{ stats: Stat[]; skills: Skill[] }> = ({ stats, sk
     setDisplayLimit(NUM_SKILLS_TO_ADD);
   }, []);
 
-  const filteredSkills = useMemo(() => filterAndSort(skills, filterInput), [filterInput, skills]);
+  const skills = useMemo(
+    () => filterAndSort(allSkills, filterInput.split(/\s+/)),
+    [filterInput, allSkills]
+  );
 
   const addKeywordToFilterInput = (keyword: string) => {
     setFilterInput((prev) => (prev ? `${prev} ${keyword}` : keyword));
@@ -38,8 +44,8 @@ export const Skills: React.FC<{ stats: Stat[]; skills: Skill[] }> = ({ stats, sk
         <LazyTextInput placeholder="Filter..." value={filterInput} onChange={setFilterInput} />
       </div>
       <p className="px-3 mt-5 font-medium">
-        {`${filterInput.trim() ? "Found" : "Total"} ${filteredSkills.length} skills, `}
-        {`showing ${Math.min(displayLimit, filteredSkills.length)} of them.`}
+        {`${filterInput.trim() ? "Found" : "Total"} ${skills.length} skills, `}
+        {`showing ${Math.min(displayLimit, skills.length)} of them.`}
       </p>
       <div
         className={clsx(
@@ -50,7 +56,7 @@ export const Skills: React.FC<{ stats: Stat[]; skills: Skill[] }> = ({ stats, sk
           "max-sm:grid-rows-[repeat(5,132px)]"
         )}
       >
-        {filteredSkills.slice(0, displayLimit).map((skill) => (
+        {skills.slice(0, displayLimit).map((skill) => (
           <div
             key={`${skill.name}-${filterInput}`}
             className="card card-bordered border-2 bg-base-100 rounded flip-in-hor-bottom"
@@ -110,7 +116,7 @@ export const Skills: React.FC<{ stats: Stat[]; skills: Skill[] }> = ({ stats, sk
         ))}
       </div>
       <div className="flex justify-center mt-6 h-12">
-        {displayLimit < filteredSkills.length && (
+        {displayLimit < skills.length && (
           <button
             className="btn flip-in-hor-bottom"
             onClick={() => setDisplayLimit((limit) => limit + NUM_SKILLS_TO_ADD)}
@@ -168,19 +174,29 @@ const LazyTextInput: React.FC<{
   );
 };
 
-const filterAndSort = (skills: Skill[], filterInput: string) => {
+const filterAndSort = (skills: Skill[], keywords: string[]) => {
   const sanitize = (s: string) => s.replace(/[.\s]+/, "").toLowerCase();
-  const calcRelevanceScore = (target: string, sanitizedKw: string, baseScore: number) => {
-    const sanitizedTarget = sanitize(target);
+  const calcRelevanceScore = (
+    unsanitizedTarget: string,
+    sanitizedKw: string,
+    baseScore: number
+  ) => {
+    const sanitizedTarget = sanitize(unsanitizedTarget);
     if (sanitizedTarget === sanitizedKw) return baseScore;
     if (sanitizedTarget.startsWith(sanitizedKw)) return baseScore - 1;
     if (sanitizedTarget.includes(sanitizedKw)) return baseScore - 2;
     return 0;
   };
-  const calcRelevanceScoreArray = (targets: string[], sanitizedKw: string, baseScore: number) => {
-    return targets.reduce(
-      (acc, target) =>
-        acc === baseScore ? acc : Math.max(acc, calcRelevanceScore(target, sanitizedKw, baseScore)),
+  const calcRelevanceScoreArray = (
+    unsanitizedTargets: string[],
+    sanitizedKw: string,
+    baseScore: number
+  ) => {
+    return unsanitizedTargets.reduce(
+      (acc, unsanitizedTarget) =>
+        acc === baseScore
+          ? acc
+          : Math.max(acc, calcRelevanceScore(unsanitizedTarget, sanitizedKw, baseScore)),
       0
     );
   };
@@ -190,7 +206,7 @@ const filterAndSort = (skills: Skill[], filterInput: string) => {
     Other: 1,
   };
 
-  const sanitizedKeywords = new Set(filterInput.split(/\s+/).map((word) => sanitize(word)));
+  const sanitizedKeywords = new Set(keywords.map((keyword) => sanitize(keyword)));
   return skills
     .flatMap((skill) => {
       const {
@@ -203,23 +219,23 @@ const filterAndSort = (skills: Skill[], filterInput: string) => {
         ...rest
       } = skill;
       const relevanceScoreToCount = new Array(16).fill(0);
-      for (const keyword of sanitizedKeywords) {
-        if (keyword === "") continue;
+      for (const sanitizedKw of sanitizedKeywords) {
+        if (sanitizedKw === "") continue;
         const relevanceScore =
-          calcRelevanceScore(name, keyword, 16) ||
-          calcRelevanceScoreArray(tags.map((tag) => `#${tag}`) ?? [], keyword, 13) ||
-          calcRelevanceScoreArray(subsetFrameworkLikeSkills ?? [], keyword, 10) ||
-          calcRelevanceScoreArray(subsetLanguageLikeSkills ?? [], keyword, 7) ||
-          calcRelevanceScoreArray(Object.values(rest), keyword, 4) ||
+          calcRelevanceScore(name, sanitizedKw, 16) ||
+          calcRelevanceScoreArray(tags.map((tag) => `#${tag}`) ?? [], sanitizedKw, 13) ||
+          calcRelevanceScoreArray(subsetFrameworkLikeSkills ?? [], sanitizedKw, 10) ||
+          calcRelevanceScoreArray(subsetLanguageLikeSkills ?? [], sanitizedKw, 7) ||
+          calcRelevanceScoreArray(Object.values(rest), sanitizedKw, 4) ||
           (personalYear &&
-          [`personal${personalYear}yr.`, `personal${personalYear}year`].some((s) =>
-            s.includes(keyword)
+          sanitize(`Personal ${personalYear > 0.5 ? personalYear : "- 0.5"} yr.`).includes(
+            sanitizedKw
           )
             ? 1
             : 0) ||
           (internshipYear &&
-          [`internship${internshipYear}yr.`, `internship${internshipYear}year`].some((s) =>
-            s.includes(keyword)
+          sanitize(`Internship ${internshipYear > 0.5 ? internshipYear : "- 0.5"} yr.`).includes(
+            sanitizedKw
           )
             ? 1
             : 0);
