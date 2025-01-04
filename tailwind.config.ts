@@ -7,7 +7,6 @@ export default {
       fontFamily: {
         sans: [
           "Noto Sans JP",
-          "Inter",
           "ui-sans-serif",
           "system-ui",
           "sans-serif",
