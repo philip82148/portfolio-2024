@@ -15,7 +15,7 @@ export const INTERNSHIPS: Internship[] = [
   },
   {
     name: "株式会社飛竜企画",
-    occupation: "ソフトウェアエンジニア",
+    occupation: "学生エンジニア",
     start: "2022/02",
     end: "2023/02",
   },
