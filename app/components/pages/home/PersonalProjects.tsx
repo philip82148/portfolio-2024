@@ -15,14 +15,8 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
   const groupByToSectionTitleAndProjects: Record<string, [string, Project[]][]> = useMemo(
     () => ({
       period: Array.from(
-        projects.reduce(
-          (periodSet, project) => periodSet.add(project.period ?? String(project.year)),
-          new Set<string>()
-        )
-      ).map((period) => [
-        period,
-        projects.filter((project) => (project.period ?? String(project.year)) === period),
-      ]),
+        projects.reduce((periodSet, project) => periodSet.add(project.period), new Set<string>())
+      ).map((period) => [period, projects.filter((project) => project.period === period)]),
       category: ["Web", "Book", "Electronics", "Other"].flatMap((category) => {
         const filteredProjects = projects.filter((project) => project.category === category);
         return filteredProjects.length ? [[category, filteredProjects]] : [];
@@ -70,7 +64,7 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
                 onClick={() => showModal(project)}
                 onKeyDown={(e) => e.key === "Enter" && showModal(project)}
               >
-                <div className="card-body p-6 w-full justify-between">
+                <div className="card-body p-6 justify-between">
                   <h4 className="card-title line-clamp-2">{project.title}</h4>
                   <p className="font-medium text-sm text-slate-500 line-clamp-1">
                     {project.summary}
@@ -88,10 +82,10 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
                         {project.forkCount}
                       </span>
                     )}
-                    {!!project.techStacks && (
+                    {!!project.mainTechStacks && (
                       <span>
                         <FontAwesomeIcon icon={faCode} className="mr-2.5" />
-                        {project.techStacks.map((stack, i) => (
+                        {project.mainTechStacks.map((stack, i) => (
                           <Fragment key={stack}>
                             {i !== 0 && <span className="mx-1">/</span>}
                             <span>{stack}</span>
@@ -101,7 +95,7 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
                     )}
                     <span>
                       <FontAwesomeIcon icon={faCalendarDays} className="mr-2" />
-                      {project.year}
+                      {project.period}
                     </span>
                     <span>
                       <FontAwesomeIcon icon={faMicrochip} className="mr-2" />
@@ -109,12 +103,12 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
                     </span>
                   </div>
                 </div>
-                {!!project.imgSrc && (
+                {!!project.thumbnailImgSrc && (
                   <figure className="max-w-[230px] max-md:max-w-[120px]">
                     <img
-                      src={project.imgSrc}
+                      src={project.thumbnailImgSrc}
                       alt={project.title}
-                      className="object-cover min-h-full"
+                      className="object-contain h-full w-auto"
                     />
                   </figure>
                 )}
@@ -123,8 +117,13 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
           </div>
         </Fragment>
       ))}
-      <dialog ref={dialogRef} className="modal">
-        <div className="modal-box w-11/12 max-w-7xl min-h-96 px-12 py-10 flex flex-col max-lg:p-5 [max-height:calc(100dvh-5em)]">
+      {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/click-events-have-key-events */}
+      <dialog
+        ref={dialogRef}
+        className="modal"
+        onClick={(e) => e.currentTarget === e.target && dialogRef.current?.close()}
+      >
+        <div className="modal-box w-11/12 max-w-7xl min-h-96 px-12 py-10 flex flex-col max-lg:px-8 max-lg:py-7 max-sm:p-5 [max-height:calc(100dvh-5em)]">
           <div className="flex justify-between items-start">
             <h3 className="font-bold text-2xl max-lg:text-lg">{modalProject?.title}</h3>
             <form method="dialog">
@@ -134,9 +133,9 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
             </form>
           </div>
           <p className="font-medium text-slate-500 mt-2.5">{modalProject?.summary}</p>
-          <div className="flex-grow flex gap-20 mt-5 max-lg:flex-col max-lg:gap-5">
-            <div className="basis-0 flex-grow flex flex-col justify-between gap-6 max-lg:gap-2">
-              <div className="grid grid-cols-[auto_1fr] gap-x-8 h-min gap-y-2 mt-1 max-lg:flex max-lg:flex-col">
+          <div className="flex-grow flex gap-20 mt-5 max-lg:flex-col max-lg:gap-5 max-lg:items-center">
+            <div className="basis-0 flex-grow flex flex-col justify-between gap-6 max-lg:gap-2 max-lg:w-full">
+              <div className="grid grid-cols-[auto_1fr] max-w-[800px] gap-x-8 h-min gap-y-2 mt-1 max-lg:flex max-lg:flex-col">
                 {modalProject?.links?.map(({ label, href }) => (
                   <Fragment key={label}>
                     <span className="font-bold text-right max-lg:text-left">{label}</span>
@@ -150,26 +149,29 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
                     </a>
                   </Fragment>
                 ))}
-                {((techStacks) =>
-                  techStacks && (
-                    <>
-                      {
-                        <span className="font-bold text-right max-lg:text-left">
-                          All Tech Stacks
-                        </span>
-                      }
-                      <div>
-                        {techStacks.map((stack, i) => (
+                {!!(modalProject?.allTechStacks ?? modalProject?.mainTechStacks) && (
+                  <>
+                    <span className="font-bold text-right max-lg:text-left">All Tech Stacks</span>
+                    <div className="flex flex-wrap gap-x-1.5">
+                      {(modalProject.allTechStacks ?? modalProject.mainTechStacks)?.map(
+                        (stack, i) => (
                           <Fragment key={stack}>
-                            {i !== 0 && <span className="mx-1.5">/</span>}
+                            {i !== 0 && <span>/</span>}
                             <span>{stack}</span>
                           </Fragment>
-                        ))}
-                      </div>
-                    </>
-                  ))(modalProject?.allTechStacks || modalProject?.techStacks)}
+                        )
+                      )}
+                    </div>
+                  </>
+                )}
                 <span className="font-bold text-right max-lg:text-left">Description</span>
-                <p>{modalProject?.description}</p>
+                <div>
+                  {modalProject?.descriptions?.map((description) => (
+                    <p key={description} className="mb-3.5">
+                      {description}
+                    </p>
+                  ))}
+                </div>
               </div>
               <div className="flex flex-wrap items-center gap-x-5 gap-y-2 font-medium">
                 {!!modalProject?.starCount && (
@@ -184,10 +186,10 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
                     {modalProject.forkCount}
                   </span>
                 )}
-                {!!modalProject?.techStacks && (
+                {!!modalProject?.mainTechStacks && (
                   <span>
                     <FontAwesomeIcon icon={faCode} className="mr-2.5" />
-                    {modalProject.techStacks.map((stack, i) => (
+                    {modalProject.mainTechStacks.map((stack, i) => (
                       <Fragment key={stack}>
                         {i !== 0 && <span className="mx-1.5">/</span>}
                         <span>{stack}</span>
@@ -197,7 +199,7 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
                 )}
                 <span>
                   <FontAwesomeIcon icon={faCalendarDays} className="mr-2" />
-                  {modalProject?.year}
+                  {modalProject?.period}
                 </span>
                 <span>
                   <FontAwesomeIcon icon={faMicrochip} className="mr-2" />
@@ -205,9 +207,13 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
                 </span>
               </div>
             </div>
-            {!!modalProject?.imgSrc && (
-              <figure className="basis-0 flex-grow">
-                <img src={modalProject?.imgSrc} alt={modalProject?.title} />
+            {!!(modalProject?.thumbnailImgSrc ?? modalProject?.imgSrc) && (
+              <figure className="basis-0 flex-grow max-w-fit max-lg:max-h-[400px]">
+                <img
+                  src={modalProject.thumbnailImgSrc ?? modalProject.imgSrc}
+                  alt={modalProject.title}
+                  className="object-contain h-full w-auto"
+                />
               </figure>
             )}
           </div>

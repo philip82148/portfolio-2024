@@ -41,14 +41,14 @@ export type Skill = {
 
 export type Project = {
   title: string;
-  year: number;
-  period?: string;
+  period: string;
   category: "Web" | "Book" | "Electronics" | "Other";
   summary: string;
-  description?: string;
-  techStacks?: string[];
+  descriptions: string[];
+  mainTechStacks?: string[];
   allTechStacks?: string[];
   links?: { label: string; href: string }[];
+  thumbnailImgSrc?: string;
   imgSrc?: string;
   starCount?: number;
   forkCount?: number;
