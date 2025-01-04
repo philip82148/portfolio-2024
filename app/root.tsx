@@ -45,7 +45,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body data-theme="light">
+      <body className="bg-inherit">
         {/* children will be the root Component, ErrorBoundary, or HydrateFallback */}
         {children}
         <ScrollRestoration />

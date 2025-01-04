@@ -125,90 +125,86 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
       >
         <div className="modal-box w-11/12 max-w-7xl min-h-96 px-12 py-10 flex flex-col max-lg:px-8 max-lg:py-7 max-sm:p-5 [max-height:calc(100dvh-5em)]">
           <div className="flex justify-between items-start">
-            <h3 className="font-bold text-2xl max-lg:text-lg">{modalProject?.title}</h3>
-            <form method="dialog">
-              <button className="btn btn-square btn-ghost -mb-[100%]">
+            <h3 className="font-bold text-2xl max-lg:text-xl">{modalProject?.title}</h3>
+            <form method="dialog" className="-mb-[100%]">
+              <button className="btn btn-square btn-ghost">
                 <FontAwesomeIcon icon={faX} size="lg" />
               </button>
             </form>
           </div>
           <p className="font-medium text-slate-500 mt-2.5">{modalProject?.summary}</p>
-          <div className="flex-grow flex gap-20 mt-5 max-lg:flex-col max-lg:gap-5 max-lg:items-center">
-            <div className="basis-0 flex-grow flex flex-col justify-between gap-6 max-lg:gap-2 max-lg:w-full">
-              <div className="grid grid-cols-[auto_1fr] max-w-[800px] gap-x-8 h-min gap-y-2 mt-1 max-lg:flex max-lg:flex-col">
-                {modalProject?.links?.map(({ label, href }) => (
-                  <Fragment key={label}>
-                    <span className="font-bold text-right max-lg:text-left">{label}</span>
-                    <a
-                      href={href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="link break-all"
-                    >
-                      {href}
-                    </a>
-                  </Fragment>
+          <div className="flex-grow grid grid-rows-[1fr_auto] gap-x-20 gap-y-5 mt-5 max-lg:justify-items-center">
+            <div className="col-start-1 grid grid-cols-[auto_1fr] max-w-[800px] w-full gap-x-8 h-min gap-y-2 mt-1 max-lg:max-w-none max-lg:flex max-lg:flex-col">
+              {modalProject?.links?.map(({ label, href }) => (
+                <Fragment key={label}>
+                  <span className="font-bold text-right max-lg:text-left">{label}</span>
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="link break-all"
+                  >
+                    {href}
+                  </a>
+                </Fragment>
+              ))}
+              {!!(modalProject?.allTechStacks ?? modalProject?.mainTechStacks) && (
+                <>
+                  <span className="font-bold text-right max-lg:text-left">All Tech Stacks</span>
+                  <div className="flex flex-wrap gap-x-1.5">
+                    {(modalProject.allTechStacks ?? modalProject.mainTechStacks)?.map(
+                      (stack, i) => (
+                        <Fragment key={stack}>
+                          {i !== 0 && <span>/</span>}
+                          <span>{stack}</span>
+                        </Fragment>
+                      )
+                    )}
+                  </div>
+                </>
+              )}
+              <span className="font-bold text-right max-lg:text-left">Description</span>
+              <div className="flex flex-col gap-3.5">
+                {modalProject?.descriptions?.map((description) => (
+                  <p key={description}>{description}</p>
                 ))}
-                {!!(modalProject?.allTechStacks ?? modalProject?.mainTechStacks) && (
-                  <>
-                    <span className="font-bold text-right max-lg:text-left">All Tech Stacks</span>
-                    <div className="flex flex-wrap gap-x-1.5">
-                      {(modalProject.allTechStacks ?? modalProject.mainTechStacks)?.map(
-                        (stack, i) => (
-                          <Fragment key={stack}>
-                            {i !== 0 && <span>/</span>}
-                            <span>{stack}</span>
-                          </Fragment>
-                        )
-                      )}
-                    </div>
-                  </>
-                )}
-                <span className="font-bold text-right max-lg:text-left">Description</span>
-                <div>
-                  {modalProject?.descriptions?.map((description) => (
-                    <p key={description} className="mb-3.5">
-                      {description}
-                    </p>
-                  ))}
-                </div>
-              </div>
-              <div className="flex flex-wrap items-center gap-x-5 gap-y-2 font-medium">
-                {!!modalProject?.starCount && (
-                  <span>
-                    <FontAwesomeIcon icon={faStar} className="mr-2" />
-                    {modalProject.starCount}
-                  </span>
-                )}
-                {!!modalProject?.forkCount && (
-                  <span>
-                    <FontAwesomeIcon icon={faCodeFork} className="mr-2" />
-                    {modalProject.forkCount}
-                  </span>
-                )}
-                {!!modalProject?.mainTechStacks && (
-                  <span>
-                    <FontAwesomeIcon icon={faCode} className="mr-2.5" />
-                    {modalProject.mainTechStacks.map((stack, i) => (
-                      <Fragment key={stack}>
-                        {i !== 0 && <span className="mx-1.5">/</span>}
-                        <span>{stack}</span>
-                      </Fragment>
-                    ))}
-                  </span>
-                )}
-                <span>
-                  <FontAwesomeIcon icon={faCalendarDays} className="mr-2" />
-                  {modalProject?.period}
-                </span>
-                <span>
-                  <FontAwesomeIcon icon={faMicrochip} className="mr-2" />
-                  {modalProject?.category}
-                </span>
               </div>
             </div>
+            <div className="col-start-1 row-start-2 flex flex-wrap items-center gap-x-5 gap-y-2 mt-1 w-full font-medium max-lg:row-start-3">
+              {!!modalProject?.starCount && (
+                <span>
+                  <FontAwesomeIcon icon={faStar} className="mr-2" />
+                  {modalProject.starCount}
+                </span>
+              )}
+              {!!modalProject?.forkCount && (
+                <span>
+                  <FontAwesomeIcon icon={faCodeFork} className="mr-2" />
+                  {modalProject.forkCount}
+                </span>
+              )}
+              {!!modalProject?.mainTechStacks && (
+                <span>
+                  <FontAwesomeIcon icon={faCode} className="mr-2.5" />
+                  {modalProject.mainTechStacks.map((stack, i) => (
+                    <Fragment key={stack}>
+                      {i !== 0 && <span className="mx-1.5">/</span>}
+                      <span>{stack}</span>
+                    </Fragment>
+                  ))}
+                </span>
+              )}
+              <span>
+                <FontAwesomeIcon icon={faCalendarDays} className="mr-2" />
+                {modalProject?.period}
+              </span>
+              <span>
+                <FontAwesomeIcon icon={faMicrochip} className="mr-2" />
+                {modalProject?.category}
+              </span>
+            </div>
             {!!(modalProject?.thumbnailImgSrc ?? modalProject?.imgSrc) && (
-              <figure className="basis-0 flex-grow max-w-fit max-lg:max-h-[400px]">
+              <figure className="col-start-2 row-start-1 row-span-2 max-w-fit max-lg:col-start-1 max-lg:row-span-1 max-lg:row-start-2 max-lg:max-h-[400px]">
                 <img
                   src={modalProject.thumbnailImgSrc ?? modalProject.imgSrc}
                   alt={modalProject.title}
