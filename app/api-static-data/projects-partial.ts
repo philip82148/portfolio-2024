@@ -73,7 +73,7 @@ export const PROJECTS_PARTIAL: Omit<Project, "starCount" | "forkCount">[] = [
       { label: "GitHub", href: "https://github.com/philip82148/os-30days" },
       { label: "Zenn", href: "https://zenn.dev/sassan/scraps/28f5277ce2bda0" },
     ],
-    imgSrc: "/projects/books/os-30days.png",
+    imgSrc: "/projects/books/os-30days.jpg",
   },
   {
     title: "環境構築と開発の手順",
@@ -98,7 +98,7 @@ export const PROJECTS_PARTIAL: Omit<Project, "starCount" | "forkCount">[] = [
     mainTechStacks: ["C++"],
     allTechStacks: ["C++", "CMake", "g++", "clang++", "MSVC", "GitHub Actions"],
     links: [{ label: "GitHub", href: "https://github.com/philip82148/cpp-dump" }],
-    imgSrc: "/projects/other/cpp-dump.png",
+    imgSrc: "/projects/other/cpp-dump.jpg",
   },
   {
     title: "Oh My Zshテーマ「simplerich-zsh-theme」",
@@ -111,7 +111,7 @@ export const PROJECTS_PARTIAL: Omit<Project, "starCount" | "forkCount">[] = [
       "Gitの、いくつのファイルがstaged, changed, untrackedかやリモートリポジトリから何コミット前にある、後にある、という情報が一目でわかるOh My Zsh(Zshを見やすくするツール)のテーマ。",
     ],
     links: [{ label: "GitHub", href: "https://github.com/philip82148/simplerich-zsh-theme" }],
-    imgSrc: "/projects/other/simplerich-zsh-theme.png",
+    imgSrc: "/projects/other/simplerich-zsh-theme.jpg",
   },
   {
     title: "ポートフォリオ(2023年版)",
@@ -137,7 +137,7 @@ export const PROJECTS_PARTIAL: Omit<Project, "starCount" | "forkCount">[] = [
       { label: "GitHub", href: "https://github.com/philip82148/portfolio-2023/" },
       { label: "Demo", href: "https://philip82148.github.io/portfolio-2023/" },
     ],
-    imgSrc: "/projects/web/portfolio-2023.png",
+    imgSrc: "/projects/web/portfolio-2023.jpg",
   },
   {
     title: "ノンデザイナーズ・デザインブック",
@@ -172,7 +172,7 @@ export const PROJECTS_PARTIAL: Omit<Project, "starCount" | "forkCount">[] = [
       { label: "GitHub", href: "https://github.com/philip82148/kishukusha-meibo/" },
       { label: "Demo", href: "https://philip82148.github.io/kishukusha-meibo/" },
     ],
-    imgSrc: "/projects/web/kishukusha-meibo.png",
+    imgSrc: "/projects/web/kishukusha-meibo.jpg",
   },
   {
     title: "LINE BOT「寄宿舎届出サポート」",
@@ -188,7 +188,7 @@ export const PROJECTS_PARTIAL: Omit<Project, "starCount" | "forkCount">[] = [
     links: [
       { label: "GitHub", href: "https://github.com/philip82148/kishukusha-report-supporter/" },
     ],
-    imgSrc: "/projects/web/kishukusha-supporter.png",
+    imgSrc: "/projects/web/kishukusha-supporter.jpg",
   },
   {
     title: "メンション生成Chrome拡張「M-GEN」",
@@ -202,7 +202,7 @@ export const PROJECTS_PARTIAL: Omit<Project, "starCount" | "forkCount">[] = [
     mainTechStacks: ["jQuery", "JavaScript"],
     allTechStacks: ["jQuery", "JavaScript", "HTML", "CSS"],
     links: [{ label: "GitHub", href: "https://github.com/philip82148/mention-generator/" }],
-    imgSrc: "/projects/web/m-gen.png",
+    imgSrc: "/projects/web/m-gen.jpg",
   },
   {
     title: "授業評定サイト用WordPressテーマ「selva」",
@@ -277,7 +277,7 @@ export const PROJECTS_PARTIAL: Omit<Project, "starCount" | "forkCount">[] = [
       "10日でおぼえるJava入門教室という本を読み、小6の時に始めてプログラミングで初めて作ったアプリ。",
     ],
     mainTechStacks: ["Java"],
-    imgSrc: "/projects/other/self-made-editor.png",
+    imgSrc: "/projects/other/self-made-editor.jpg",
   },
   {
     title: "ボート1台目",
