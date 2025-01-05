@@ -217,22 +217,22 @@ const filterAndSort = (skills: Skill[], keywords: string[]) => {
     .flatMap((skill) => {
       const {
         name,
+        type,
         tags,
         subsetFrameworkLikeSkills,
         subsetLanguageLikeSkills,
         personalYear,
         internshipYear,
-        ...rest
       } = skill;
-      const relevanceScoreToCount = new Array(16).fill(0);
+      const relevanceScoreToCount = new Array(3 * 5 + 1).fill(0);
       for (const sanitizedKw of sanitizedKeywords) {
         if (sanitizedKw === "") continue;
         const relevanceScore =
-          calcRelevanceScore(name, sanitizedKw, 16) ||
-          calcRelevanceScoreArray(tags.map((tag) => `#${tag}`) ?? [], sanitizedKw, 13) ||
-          calcRelevanceScoreArray(subsetFrameworkLikeSkills ?? [], sanitizedKw, 10) ||
-          calcRelevanceScoreArray(subsetLanguageLikeSkills ?? [], sanitizedKw, 7) ||
-          calcRelevanceScoreArray(Object.values(rest), sanitizedKw, 4) ||
+          calcRelevanceScore(name, sanitizedKw, 3 * 5 + 1) ||
+          calcRelevanceScore(type, sanitizedKw, 3 * 4 + 1) ||
+          calcRelevanceScoreArray(tags.map((tag) => `#${tag}`) ?? [], sanitizedKw, 3 * 3 + 1) ||
+          calcRelevanceScoreArray(subsetFrameworkLikeSkills ?? [], sanitizedKw, 3 * 2 + 1) ||
+          calcRelevanceScoreArray(subsetLanguageLikeSkills ?? [], sanitizedKw, 3 * 1 + 1) ||
           (personalYear &&
           sanitize(`Personal ${personalYear > 0.5 ? personalYear : "- 0.5"} yr.`).includes(
             sanitizedKw
