@@ -7,6 +7,7 @@ import {
   faCodeFork,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import clsx from "clsx";
 import { Fragment, useMemo, useRef, useState } from "react";
 
 import type { Project } from "~/api/interface";
@@ -207,18 +208,50 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
                 {modalProject?.category}
               </span>
             </div>
-            {!!(modalProject?.thumbnailImgSrc ?? modalProject?.imgSrc) && (
-              <figure className="col-start-2 row-start-1 row-span-2 max-w-fit ml-auto max-lg:col-start-1 max-lg:row-span-1 max-lg:row-start-2 max-lg:max-h-[400px]">
+            {modalProject?.thumbnailImgSrc ?? modalProject?.imgSrc ? (
+              <figure className="col-start-2 row-start-1 row-span-2 max-w-fit lg:ml-auto max-lg:col-start-1 max-lg:row-span-1 max-lg:row-start-2 max-lg:max-h-[400px]">
                 <img
                   src={modalProject.thumbnailImgSrc ?? modalProject.imgSrc}
                   alt={modalProject.title}
                   className="object-contain h-full w-auto"
                 />
               </figure>
+            ) : (
+              <div
+                className={clsx(
+                  "col-start-2 row-start-1 row-span-2 w-[300px] bg-slate-100 py-14 flex items-center justify-center text-3xl",
+                  "lg:ml-auto max-lg:col-start-1 max-lg:row-span-1 max-lg:row-start-2 max-lg:w-full max-lg:max-w-[300px] max-lg:max-h-[400px]"
+                )}
+              >
+                <NoImageIcon width="100" height="100" />
+              </div>
             )}
           </div>
         </div>
       </dialog>
     </div>
+  );
+};
+
+const NoImageIcon: React.FC<{ width?: string; height?: string }> = ({ width, height }) => {
+  return (
+    <svg
+      fill="#000000"
+      width={width}
+      height={height}
+      viewBox="0 0 32 32"
+      id="icon"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d="M30,3.4141,28.5859,2,2,28.5859,3.4141,30l2-2H26a2.0027,2.0027,0,0,0,2-2V5.4141ZM26,26H7.4141l7.7929-7.793,2.3788,2.3787a2,2,0,0,0,2.8284,0L22,19l4,3.9973Zm0-5.8318-2.5858-2.5859a2,2,0,0,0-2.8284,0L19,19.1682l-2.377-2.3771L26,7.4141Z" />
+      <path d="M6,22V19l5-4.9966,1.3733,1.3733,1.4159-1.416-1.375-1.375a2,2,0,0,0-2.8284,0L6,16.1716V6H22V4H6A2.002,2.002,0,0,0,4,6V22Z" />
+      <rect
+        id="_Transparent_Rectangle_"
+        data-name="&lt;Transparent Rectangle&gt;"
+        className="fill-none"
+        width="32"
+        height="32"
+      />
+    </svg>
   );
 };

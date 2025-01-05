@@ -256,7 +256,11 @@ export const PROJECTS_PARTIAL: Omit<Project, "starCount" | "forkCount">[] = [
     period: "中学校",
     category: "Other",
     summary: "自分一人で作った3mのボート",
-    descriptions: ["自分一人で3mのボートを作った。"],
+    descriptions: [
+      "小5のときから作っていたボートの集大成。今度は自分一人で3mのボートを作った。",
+      "なお、写真は製作途中のもの。",
+    ],
+    imgSrc: "/projects/other/third-boat-wip.jpg",
   },
   {
     title: "電気ショックタイマー",
@@ -264,9 +268,14 @@ export const PROJECTS_PARTIAL: Omit<Project, "starCount" | "forkCount">[] = [
     category: "Electronics",
     summary: "電子工作で作った電気ショックで時間を知らせるタイマー",
     descriptions: [
-      "中毒並みに時間を忘れて作業に熱中してしまうことがあり、普通のタイマーでは作業をやめられなかったため、電気ショックで時間を知らせるタイマーを作った。",
+      [
+        "中毒並みに時間を忘れて作業に熱中してしまうことがあり、普通のタイマーでは作業をやめられなかったため、電気ショックで時間を知らせるタイマーを作った。",
+        "腕時計型で、肌につく部分に電気を流す端子が付いている。",
+      ].join(""),
+      "なお、写真は現在準備中。",
     ],
     mainTechStacks: ["PICアセンブラ"],
+    imgSrc: "/projects/electronics/electric-shock-timer-illustration.jpg",
   },
   {
     title: "メモ帳",
@@ -285,7 +294,7 @@ export const PROJECTS_PARTIAL: Omit<Project, "starCount" | "forkCount">[] = [
     category: "Other",
     summary: "父と二人で作った人が乗れるボート",
     descriptions: [
-      "佐々木家が昔造船所だったということで、ボートを作ってみようという話になり、父と二人で人が乗れるボートを作った。",
+      "佐々木家が昔造船所だったということで、ボートを作ってみようという話になり、小5のとき父と二人で人が乗れるボートを作った。",
     ],
     imgSrc: "/projects/other/first-boat.jpg",
   },
