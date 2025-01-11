@@ -1,16 +1,19 @@
 import { config } from "@fortawesome/fontawesome-svg-core";
-import type { LinksFunction } from "@remix-run/cloudflare";
+import type { LinksFunction, LoaderFunctionArgs } from "@remix-run/cloudflare";
 import {
   isRouteErrorResponse,
+  json,
   Links,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
   useRouteError,
 } from "@remix-run/react";
 
 import { Footer, Header } from "./components/layout";
+import { getLangOrThrow404Response } from "./multilingual";
 
 import "./tailwind.css";
 import "@fortawesome/fontawesome-svg-core/styles.css";
@@ -22,9 +25,15 @@ export const links: LinksFunction = () => [
   { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
 ];
 
+export const loader = async ({ params, request }: LoaderFunctionArgs) => {
+  const lang = getLangOrThrow404Response(params, request);
+  return json({ lang });
+};
+
 export function Layout({ children }: { children: React.ReactNode }) {
+  const data = useLoaderData<typeof loader>();
   return (
-    <html lang="ja">
+    <html lang={data?.lang ?? "ja"}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />

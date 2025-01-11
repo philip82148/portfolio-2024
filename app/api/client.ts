@@ -2,14 +2,18 @@ import { StatController, ProjectController } from "./controllers";
 import type { Account, Internship, Project, School, Skill, Stat } from "./interface";
 
 import { ACCOUNTS, INTERNSHIPS, SCHOOLS, SKILLS } from "~/api-static-data";
+import { monolingual } from "~/multilingual";
+import type { Language } from "~/multilingual";
 
 export class BackendlessClient {
+  private lang: Language;
   private statController: StatController;
   private projectController: ProjectController;
 
-  constructor(env: Env) {
+  constructor(env: Env, lang: Language) {
+    this.lang = lang;
     this.statController = new StatController(env);
-    this.projectController = new ProjectController(env);
+    this.projectController = new ProjectController(env, lang);
   }
 
   async getAccounts(): Promise<Account[]> {
@@ -17,11 +21,11 @@ export class BackendlessClient {
   }
 
   async getSchools(): Promise<School[]> {
-    return SCHOOLS;
+    return monolingual<School[]>(SCHOOLS, this.lang);
   }
 
   async getInternships(): Promise<Internship[]> {
-    return INTERNSHIPS;
+    return monolingual<Internship[]>(INTERNSHIPS, this.lang);
   }
 
   async getStats(): Promise<Stat[]> {

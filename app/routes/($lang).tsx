@@ -10,6 +10,7 @@ import {
   Profile,
   Skills,
 } from "~/components/pages/home";
+import { getLangOrThrow404Response } from "~/multilingual";
 
 export const meta: MetaFunction = () => {
   return [
@@ -18,8 +19,9 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export const loader = async ({ context }: LoaderFunctionArgs) => {
-  const client = new BackendlessClient(context.cloudflare.env);
+export const loader = async ({ params, request, context }: LoaderFunctionArgs) => {
+  const lang = getLangOrThrow404Response(params, request);
+  const client = new BackendlessClient(context.cloudflare.env, lang);
   const [accounts, schools, internships, stats, skills, projects] = await Promise.all([
     client.getAccounts(),
     client.getSchools(),
