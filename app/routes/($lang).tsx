@@ -22,7 +22,8 @@ export const meta: MetaFunction = () => {
 export const loader = async ({ params, request, context }: LoaderFunctionArgs) => {
   const lang = getLangOrThrow404Response(params, request);
   const client = new BackendlessClient(context.cloudflare.env, lang);
-  const [accounts, schools, internships, stats, skills, projects] = await Promise.all([
+  const [profile, accounts, schools, internships, stats, skills, projects] = await Promise.all([
+    client.getProfile(),
     client.getAccounts(),
     client.getSchools(),
     client.getInternships(),
@@ -30,15 +31,15 @@ export const loader = async ({ params, request, context }: LoaderFunctionArgs) =
     client.getSkills(),
     client.getProjects(),
   ]);
-  return json({ accounts, schools, internships, stats, skills, projects });
+  return json({ profile, accounts, schools, internships, stats, skills, projects });
 };
 
 export default function Index() {
-  const { accounts, schools, internships, stats, skills, projects } =
+  const { profile, accounts, schools, internships, stats, skills, projects } =
     useLoaderData<typeof loader>();
   return (
     <div className="container mx-auto px-6 max-sm:px-5 flex flex-col gap-10">
-      <Profile />
+      <Profile profile={profile} />
       <Accounts accounts={accounts} />
       <Education schools={schools} />
       <Internships internships={internships} />

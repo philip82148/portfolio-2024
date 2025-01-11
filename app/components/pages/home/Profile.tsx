@@ -1,6 +1,8 @@
 import type React from "react";
 
-export const Profile: React.FC = () => {
+import type { Profile as IProfile } from "~/api/interface";
+
+export const Profile: React.FC<{ profile: IProfile }> = ({ profile }) => {
   return (
     <div className="mb-20">
       <div className="flex items-center justify-center gap-32 pt-32 pb-28 max-lg:flex-col max-lg:gap-20 max-lg:pt-20 max-lg:pb-0">
@@ -17,10 +19,7 @@ export const Profile: React.FC = () => {
           </a> */}
           </div>
           <h2 className="font-bold text-xl mt-5 mb-2.5">A bit about me</h2>
-          <p>
-            小6から独学でJavaと回路設計を学び、メカ開発にあこがれ趣味として電⼦⼯作を始める。中1時点でSDカード操作ライブラリを作ったり、高校では水中ドローンを作ったりする。
-            ⼤学に⼊ってからはインターンや個⼈開発でWeb系を触り、最近では競プロ向けに作ったC++のデバッグツールが獲得GitHubスター数300を超えた。
-          </p>
+          <p>{profile.aBitAboutMe}</p>
           {/* <h2 className="font-bold text-xl mt-6">Accounts</h2>
           <div className="flex h-10 items-center gap-2">
             <AccountLink
