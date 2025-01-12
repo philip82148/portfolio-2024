@@ -146,12 +146,12 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
               {!!(modalProject?.allTechStacks ?? modalProject?.mainTechStacks)?.length && (
                 <>
                   <span className="font-bold text-right max-lg:text-left">All Tech Stacks</span>
-                  <div className="flex flex-wrap gap-x-1.5">
+                  <div>
                     {(modalProject.allTechStacks ?? modalProject.mainTechStacks)?.map(
                       (stack, i) => (
                         <Fragment key={i}>
-                          {i !== 0 && <span>/</span>}
-                          <span>{stack}</span>
+                          {i !== 0 && " / "}
+                          <span className="inline-block">{stack}</span>
                         </Fragment>
                       )
                     )}
