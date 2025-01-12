@@ -26,7 +26,14 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
 
   const showModal = (project: Project) => {
     setModalProject(project);
-    dialogRef.current?.showModal();
+    const imgSrc = project.thumbnailImgSrc ?? project.imgSrc;
+    if (!imgSrc) {
+      dialogRef.current?.showModal();
+      return;
+    }
+    const img = new Image();
+    img.src = imgSrc;
+    img.onload = () => dialogRef.current?.showModal();
   };
 
   return (
