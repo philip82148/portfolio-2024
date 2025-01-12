@@ -11,10 +11,10 @@ export class StatController {
   }
 
   async getStats(): Promise<Stat[]> {
-    if (process.env.NODE_ENV === "development") return STATS;
+    if (process.env.NODE_ENV === "development") return STATS.map((stat, i) => ({ ...stat, id: i }));
 
     return await Promise.all(
-      STATS.map(async ({ name, imgSrc, ...rest }) => {
+      STATS.map(async ({ name, imgSrc, ...rest }, i) => {
         const key = `${name.toLowerCase()}-stats`;
         const updatedAt = await this.svgCache.getUpdatedAt(key);
         const now = new Date();
@@ -25,7 +25,7 @@ export class StatController {
             await this.svgCache.update(key, content);
           }
         }
-        return { name, imgSrc: `/svg/${key}`, ...rest };
+        return { name, imgSrc: `/svg/${key}`, ...rest, id: i };
       })
     );
   }

@@ -1,7 +1,7 @@
 import type { School } from "~/api/interface";
 import type { Multilingual } from "~/multilingual";
 
-export const SCHOOLS: Multilingual<School[]> = [
+export const SCHOOLS: Multilingual<Omit<School, "id">>[] = [
   {
     name: { ja: "東京大学大学院", en: "The University of Tokyo" },
     start: { ja: "2024/04", en: "04/2024" },

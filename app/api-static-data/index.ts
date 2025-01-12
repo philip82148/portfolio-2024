@@ -4,4 +4,4 @@ export * from "./schools";
 export * from "./internships";
 export * from "./stats";
 export * from "./skills";
-export * from "./projects-partial";
+export * from "./projects";

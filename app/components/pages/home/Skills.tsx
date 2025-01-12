@@ -33,8 +33,8 @@ export const Skills: React.FC<{ stats: Stat[]; skills: Skill[] }> = ({
       <h2 className="font-bold text-3xl mb-8">Skills</h2>
       <h3 className="font-bold text-xl mb-8">Stats</h3>
       <div className="flex flex-wrap items-start gap-4 mb-8">
-        {stats.map((stat, i) => (
-          <a key={i} href={stat.providerHref} target="_blank" rel="noopener noreferrer">
+        {stats.map((stat) => (
+          <a key={stat.id} href={stat.providerHref} target="_blank" rel="noopener noreferrer">
             <img
               src={stat.imgSrc}
               alt={`${stat.name} Stats`}
@@ -62,9 +62,9 @@ export const Skills: React.FC<{ stats: Stat[]; skills: Skill[] }> = ({
           "max-sm:grid-rows-[repeat(5,132px)]"
         )}
       >
-        {skills.slice(0, displayLimit).map((skill, i) => (
+        {skills.slice(0, displayLimit).map((skill) => (
           <div
-            key={`${filterInput}-${i}`}
+            key={`${filterInput}-${skill.id}`}
             className="card card-bordered border-2 bg-base-100 rounded flip-in-hor-bottom"
           >
             <div

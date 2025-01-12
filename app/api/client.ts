@@ -21,15 +21,17 @@ export class BackendlessClient {
   }
 
   async getAccounts(): Promise<Account[]> {
-    return ACCOUNTS;
+    return ACCOUNTS.map((account, i) => ({ ...account, id: i }));
   }
 
   async getSchools(): Promise<School[]> {
-    return monolingual<School[]>(SCHOOLS, this.lang);
+    return SCHOOLS.map((school, i) => monolingual<School>({ ...school, id: i }, this.lang));
   }
 
   async getInternships(): Promise<Internship[]> {
-    return monolingual<Internship[]>(INTERNSHIPS, this.lang);
+    return INTERNSHIPS.map((internship, i) =>
+      monolingual<Internship>({ ...internship, id: i }, this.lang)
+    );
   }
 
   async getStats(): Promise<Stat[]> {
@@ -37,7 +39,7 @@ export class BackendlessClient {
   }
 
   async getSkills(): Promise<Skill[]> {
-    return SKILLS;
+    return SKILLS.map((skill, i) => ({ ...skill, id: i }));
   }
 
   async getProjects(): Promise<Project[]> {

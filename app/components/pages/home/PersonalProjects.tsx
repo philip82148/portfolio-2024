@@ -53,14 +53,14 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
           )
         )}
       </form>
-      {groupByToSectionTitleAndProjects[groupBy].map(([sectionTitle, projects], sectionIndex) => (
-        <Fragment key={`${groupBy}-${sectionIndex}`}>
+      {groupByToSectionTitleAndProjects[groupBy].map(([sectionTitle, projects], i) => (
+        <Fragment key={`${groupBy}-${i}`}>
           <h3 className="font-bold text-2xl mt-8 mb-4 flip-in-hor-bottom">{sectionTitle}</h3>
           <div className="grid grid-cols-2 max-xl:grid-cols-1 gap-4">
-            {projects.map((project, projectIndex) => (
+            {projects.map((project) => (
               // eslint-disable-next-line jsx-a11y/no-static-element-interactions
               <div
-                key={`${groupBy}-${sectionIndex}-${projectIndex}`}
+                key={`${groupBy}-${project.id}`}
                 className="card card-bordered card-side border-2 cursor-pointer hover:bg-slate-100 transition-all duration-200 ease-[ease] h-36 max-xl:h-min flip-in-hor-bottom"
                 onClick={() => showModal(project)}
                 onKeyDown={(e) => e.key === "Enter" && showModal(project)}
@@ -136,16 +136,16 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
           <p className="font-medium text-slate-500 mt-2.5">{modalProject?.summary}</p>
           <div className="flex-grow grid grid-rows-[1fr_auto] gap-x-20 gap-y-5 mt-5 max-lg:justify-items-center">
             <div className="col-start-1 grid grid-cols-[auto_1fr] max-w-[800px] w-full gap-x-8 h-min gap-y-2 mt-1 max-lg:max-w-none max-lg:flex max-lg:flex-col">
-              {modalProject?.links?.map(({ label, href }, i) => (
+              {modalProject?.links?.map((link, i) => (
                 <Fragment key={i}>
-                  <span className="font-bold text-right max-lg:text-left">{label}</span>
+                  <span className="font-bold text-right max-lg:text-left">{link.label}</span>
                   <a
-                    href={href}
+                    href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="link break-all"
                   >
-                    {href}
+                    {link.href}
                   </a>
                 </Fragment>
               ))}

@@ -1,8 +1,7 @@
 import type { Project } from "~/api/interface";
 import type { Multilingual } from "~/multilingual";
 
-export type ProjectsPartial = Omit<Project, "starCount" | "forkCount">[];
-export const PROJECTS_PARTIAL: Multilingual<ProjectsPartial> = [
+export const PROJECTS: Multilingual<Omit<Project, "id" | "starCount" | "forkCount">>[] = [
   {
     title: { ja: "ポートフォリオ(2024年版)", en: "Portfolio(2024)" },
     period: "2024",

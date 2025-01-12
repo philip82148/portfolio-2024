@@ -1,6 +1,6 @@
 import type { Stat } from "~/api/interface";
 
-export const STATS: Stat[] = [
+export const STATS: Omit<Stat, "id">[] = [
   {
     name: "GitHub",
     imgSrc:

@@ -1,7 +1,7 @@
 import type { Internship } from "~/api/interface";
 import type { Multilingual } from "~/multilingual";
 
-export const INTERNSHIPS: Multilingual<Internship[]> = [
+export const INTERNSHIPS: Multilingual<Omit<Internship, "id">>[] = [
   {
     name: { ja: "Sky株式会社", en: "Sky Co., LTD." },
     occupation: {

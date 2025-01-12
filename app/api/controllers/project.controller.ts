@@ -2,8 +2,7 @@ import type { GitHubRepository } from "../cache";
 import { GitHubRepositoryCache } from "../cache";
 import type { Project } from "../interface";
 
-import type { ProjectsPartial } from "~/api-static-data";
-import { PROJECTS_PARTIAL } from "~/api-static-data";
+import { PROJECTS } from "~/api-static-data";
 import { monolingual } from "~/multilingual";
 import type { Language } from "~/multilingual";
 
@@ -35,7 +34,8 @@ export class ProjectController {
   async getProjects(): Promise<Project[]> {
     await this.githubRepositoryCacheReady;
     return await Promise.all(
-      monolingual<ProjectsPartial>(PROJECTS_PARTIAL, this.lang).map(async (project) => {
+      PROJECTS.map(async (projectMultilingual, i) => {
+        const project = monolingual<Project>({ ...projectMultilingual, id: i }, this.lang);
         const githubLink = project.links?.find((link) =>
           link.href.startsWith("https://github.com/philip82148/")
         )?.href;
@@ -44,7 +44,11 @@ export class ProjectController {
         if (!repoName) return project;
 
         const repo = await this.githubRepositoryCache.get(repoName);
-        return { ...project, starCount: repo?.stargazers_count, forkCount: repo?.forks_count };
+        return {
+          ...project,
+          starCount: repo?.stargazers_count,
+          forkCount: repo?.forks_count,
+        };
       })
     );
   }

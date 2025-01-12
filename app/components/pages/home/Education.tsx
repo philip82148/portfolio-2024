@@ -7,17 +7,17 @@ export const Education: React.FC<{ schools: School[] }> = ({ schools }) => {
     <div className="mb-8">
       <h2 className="font-bold text-3xl mb-8">Education</h2>
       <div className="grid grid-cols-[auto_auto_1fr] items-center gap-x-8 pl-2 max-sm:gap-x-3">
-        {schools.map(({ name, start, end, major }, i) => (
-          <Fragment key={i}>
+        {schools.map((school, i) => (
+          <Fragment key={school.id}>
             <div className="col-start-1 size-16 rounded-full bg-primary-content mask [mask-image:url(/ornaments/school.png)] max-sm:size-10" />
             <div className="col-start-2 flex flex-col text-sm font-bold">
-              <span>{end}</span>
+              <span>{school.end}</span>
               <span className="text-xs">―</span>
-              <span>{start}</span>
+              <span>{school.start}</span>
             </div>
             <div className="col-start-3 flex flex-col">
-              <h3 className="font-bold text-xl">{name}</h3>
-              <div className="font-semibold break-keep">{major}</div>
+              <h3 className="font-bold text-xl">{school.name}</h3>
+              <div className="font-semibold break-keep">{school.major}</div>
             </div>
             <div className="col-start-1 flex justify-center h-full py-4">
               {i !== schools.length - 1 && (
