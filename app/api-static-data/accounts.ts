@@ -22,8 +22,8 @@ export const ACCOUNTS: Omit<Account, "id">[] = [
   {
     siteName: "Wantedly",
     siteIconKey: "wantedly",
-    accountId: "@ryouta_sasaki_ag",
-    href: "https://www.wantedly.com/id/ryouta_sasaki_ag",
+    accountId: "@ryota_sasaki_01",
+    href: "https://www.wantedly.com/id/ryota_sasaki_01",
   },
   {
     siteName: "X",
