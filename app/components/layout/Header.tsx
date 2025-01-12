@@ -1,6 +1,6 @@
-import { faLanguage } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "@remix-run/react";
+import { RiArrowDropDownLine } from "react-icons/ri";
+import { TbLanguageHiragana } from "react-icons/tb";
 
 export const Header: React.FC = () => {
   return (
@@ -9,23 +9,24 @@ export const Header: React.FC = () => {
         <div className="btn btn-ghost text-xl">Ryota Sasaki</div>
       </div>
       <div className="flex-none">
-        <ul className="menu menu-horizontal px-1">
-          <li>
-            <details>
-              <summary>
-                <FontAwesomeIcon icon={faLanguage} size="2x" />
-              </summary>
-              <ul className="bg-inherit rounded-t-none p-2">
-                <li>
-                  <Link to="/ja">日本語</Link>
-                </li>
-                <li>
-                  <Link to="/en">English</Link>
-                </li>
-              </ul>
-            </details>
-          </li>
-        </ul>
+        <div className="dropdown dropdown-end">
+          <div tabIndex={0} role="button" className="btn btn-ghost">
+            <TbLanguageHiragana size="1.4rem" />
+            <RiArrowDropDownLine size="1.4rem" />
+          </div>
+          <ul className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+            <li>
+              <Link to="/ja" preventScrollReset>
+                日本語
+              </Link>
+            </li>
+            <li>
+              <Link to="/en" preventScrollReset>
+                English
+              </Link>
+            </li>
+          </ul>
+        </div>
       </div>
     </header>
   );
