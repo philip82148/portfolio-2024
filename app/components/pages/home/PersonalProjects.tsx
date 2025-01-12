@@ -40,9 +40,9 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
       <h2 className="font-bold text-3xl mb-8">Personal Projects</h2>
       <form className="join">
         {(["period", "category"] satisfies (keyof typeof groupByToSectionTitleAndProjects)[]).map(
-          (by) => (
+          (by, i) => (
             <input
-              key={by}
+              key={i}
               className="join-item btn capitalize"
               type="radio"
               name="personal-projects-group-by"
@@ -53,14 +53,14 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
           )
         )}
       </form>
-      {groupByToSectionTitleAndProjects[groupBy].map(([sectionTitle, projects]) => (
-        <Fragment key={sectionTitle}>
+      {groupByToSectionTitleAndProjects[groupBy].map(([sectionTitle, projects], sectionIndex) => (
+        <Fragment key={`${groupBy}-${sectionIndex}`}>
           <h3 className="font-bold text-2xl mt-8 mb-4 flip-in-hor-bottom">{sectionTitle}</h3>
           <div className="grid grid-cols-2 max-xl:grid-cols-1 gap-4">
-            {projects.map((project) => (
+            {projects.map((project, projectIndex) => (
               // eslint-disable-next-line jsx-a11y/no-static-element-interactions
               <div
-                key={project.title}
+                key={`${groupBy}-${sectionIndex}-${projectIndex}`}
                 className="card card-bordered card-side border-2 cursor-pointer hover:bg-slate-100 transition-all duration-200 ease-[ease] h-36 max-xl:h-min flip-in-hor-bottom"
                 onClick={() => showModal(project)}
                 onKeyDown={(e) => e.key === "Enter" && showModal(project)}
@@ -87,7 +87,7 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
                       <span>
                         <FontAwesomeIcon icon={faCode} className="mr-2.5" />
                         {project.mainTechStacks.map((stack, i) => (
-                          <Fragment key={stack}>
+                          <Fragment key={i}>
                             {i !== 0 && <span className="mx-1">/</span>}
                             <span>{stack}</span>
                           </Fragment>
@@ -136,8 +136,8 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
           <p className="font-medium text-slate-500 mt-2.5">{modalProject?.summary}</p>
           <div className="flex-grow grid grid-rows-[1fr_auto] gap-x-20 gap-y-5 mt-5 max-lg:justify-items-center">
             <div className="col-start-1 grid grid-cols-[auto_1fr] max-w-[800px] w-full gap-x-8 h-min gap-y-2 mt-1 max-lg:max-w-none max-lg:flex max-lg:flex-col">
-              {modalProject?.links?.map(({ label, href }) => (
-                <Fragment key={label}>
+              {modalProject?.links?.map(({ label, href }, i) => (
+                <Fragment key={i}>
                   <span className="font-bold text-right max-lg:text-left">{label}</span>
                   <a
                     href={href}
@@ -155,7 +155,7 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
                   <div className="flex flex-wrap gap-x-1.5">
                     {(modalProject.allTechStacks ?? modalProject.mainTechStacks)?.map(
                       (stack, i) => (
-                        <Fragment key={stack}>
+                        <Fragment key={i}>
                           {i !== 0 && <span>/</span>}
                           <span>{stack}</span>
                         </Fragment>
@@ -168,8 +168,8 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
                 <>
                   <span className="font-bold text-right max-lg:text-left">Description</span>
                   <div className="flex flex-col gap-3.5">
-                    {modalProject.descriptions.map((description) => (
-                      <p key={description}>{description}</p>
+                    {modalProject.descriptions.map((description, i) => (
+                      <p key={i}>{description}</p>
                     ))}
                   </div>
                 </>
@@ -192,7 +192,7 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
                 <span>
                   <FontAwesomeIcon icon={faCode} className="mr-2.5" />
                   {modalProject.mainTechStacks.map((stack, i) => (
-                    <Fragment key={stack}>
+                    <Fragment key={i}>
                       {i !== 0 && <span className="mx-1.5">/</span>}
                       <span>{stack}</span>
                     </Fragment>

@@ -8,7 +8,7 @@ export const Internships: React.FC<{ internships: Internship[] }> = ({ internshi
       <h2 className="font-bold text-3xl mb-8">Internships</h2>
       <div className="grid grid-cols-[auto_auto_1fr] items-center gap-x-8 pl-2 max-sm:gap-x-3">
         {internships.map(({ name, occupation, start, end, descriptions }, i) => (
-          <Fragment key={name}>
+          <Fragment key={i}>
             <div className="col-start-1 size-16 rounded-full bg-primary-content mask [mask-image:url(/ornaments/company.png)] [mask-size:3rem] max-sm:size-10 max-sm:[mask-size:2rem]" />
             <div className="col-start-2 flex flex-col text-sm font-bold">
               <span>{end}</span>
