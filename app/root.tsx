@@ -7,12 +7,11 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-  useLoaderData,
   useRouteError,
 } from "@remix-run/react";
 
 import { Footer, Header } from "./components/layout";
-import { getLangOrThrow404Response } from "./multilingual";
+import { getLangOrThrow404Response, useLang } from "./multilingual";
 
 import "./tailwind.css";
 
@@ -27,9 +26,9 @@ export const loader = async ({ params, request }: LoaderFunctionArgs) => {
 };
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  const data = useLoaderData<typeof loader>();
+  const lang = useLang();
   return (
-    <html lang={data?.lang ?? "ja"}>
+    <html lang={lang}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />

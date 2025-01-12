@@ -1,8 +1,16 @@
 import { Link } from "@remix-run/react";
+import clsx from "clsx";
+import { useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import { TbLanguageHiragana } from "react-icons/tb";
 
+import { useLang, type Language } from "~/multilingual";
+
 export const Header: React.FC = () => {
+  const serverLang = useLang();
+  // It takes time for serverLang to change, so use a separate state for the buttons.
+  const [activeButtonLang, setActiveButtonLang] = useState<Language | undefined>(serverLang);
+
   return (
     <header className="navbar bg-inherit sticky top-0 z-50 shadow-sm">
       <div className="flex-1">
@@ -14,14 +22,26 @@ export const Header: React.FC = () => {
             <TbLanguageHiragana size={18} title="Change Language" />
             <IoIosArrowDown size={8} />
           </div>
-          <ul className="dropdown-content menu gap-0.5 bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+          <ul className="dropdown-content menu gap-1 bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
             <li>
-              <Link to="/ja" preventScrollReset viewTransition>
+              <Link
+                to="/ja"
+                preventScrollReset
+                viewTransition
+                className={clsx(activeButtonLang === "ja" && "active")}
+                onClick={() => setActiveButtonLang("ja")}
+              >
                 日本語
               </Link>
             </li>
             <li>
-              <Link to="/en" preventScrollReset viewTransition>
+              <Link
+                to="/en"
+                preventScrollReset
+                viewTransition
+                className={clsx(activeButtonLang === "en" && "active")}
+                onClick={() => setActiveButtonLang("en")}
+              >
                 English
               </Link>
             </li>
