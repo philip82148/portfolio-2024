@@ -1,14 +1,8 @@
-import {
-  faCode,
-  faStar,
-  faCalendarDays,
-  faMicrochip,
-  faX,
-  faCodeFork,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import clsx from "clsx";
 import { Fragment, useMemo, useRef, useState } from "react";
+import { FaCalendarDays, FaCode, FaCodeFork, FaMicrochip, FaStar } from "react-icons/fa6";
+import { IoClose } from "react-icons/io5";
+import { MdOutlineImageNotSupported } from "react-icons/md";
 
 import type { Project } from "~/api/interface";
 
@@ -72,34 +66,34 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
                   </p>
                   <div className="flex flex-wrap items-center gap-x-5 gap-y-2 font-medium text-sm">
                     {!!project.starCount && (
-                      <span>
-                        <FontAwesomeIcon icon={faStar} className="mr-2" />
+                      <span className="flex items-center">
+                        <FaStar size={14} className="mr-2 w-[16px]" title="Stars" />
                         {project.starCount}
                       </span>
                     )}
                     {!!project.forkCount && (
-                      <span>
-                        <FontAwesomeIcon icon={faCodeFork} className="mr-2" />
+                      <span className="flex items-center">
+                        <FaCodeFork size={14} className="mr-2 w-[13px]" title="Forks" />
                         {project.forkCount}
                       </span>
                     )}
                     {!!project.mainTechStacks?.length && (
-                      <span>
-                        <FontAwesomeIcon icon={faCode} className="mr-2.5" />
+                      <span className="flex items-center">
+                        <FaCode size={14} className="mr-2 w-[18px]" title="Main Tech Stacks" />
                         {project.mainTechStacks.map((stack, i) => (
                           <Fragment key={i}>
-                            {i !== 0 && <span className="mx-1">/</span>}
-                            <span>{stack}</span>
+                            {i !== 0 && " / "}
+                            {stack}
                           </Fragment>
                         ))}
                       </span>
                     )}
-                    <span>
-                      <FontAwesomeIcon icon={faCalendarDays} className="mr-2" />
+                    <span className="flex items-center">
+                      <FaCalendarDays size={14} className="mr-2" title="Period" />
                       {project.period}
                     </span>
-                    <span>
-                      <FontAwesomeIcon icon={faMicrochip} className="mr-2" />
+                    <span className="flex items-center">
+                      <FaMicrochip size={14} className="mr-2" title="Category" />
                       {project.category}
                     </span>
                   </div>
@@ -129,7 +123,7 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
             <h3 className="font-bold text-2xl max-lg:text-xl">{modalProject?.title}</h3>
             <form method="dialog" className="-mb-[100%]">
               <button className="btn btn-square btn-ghost">
-                <FontAwesomeIcon icon={faX} size="lg" />
+                <IoClose size={36} title="Close" />
               </button>
             </form>
           </div>
@@ -177,34 +171,34 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
             </div>
             <div className="col-start-1 row-start-2 flex flex-wrap items-center gap-x-5 gap-y-2 mt-1 w-full font-medium max-lg:row-start-3">
               {!!modalProject?.starCount && (
-                <span>
-                  <FontAwesomeIcon icon={faStar} className="mr-2" />
+                <span className="flex items-center">
+                  <FaStar size={16} className="mr-2 w-[18px]" title="Stars" />
                   {modalProject.starCount}
                 </span>
               )}
               {!!modalProject?.forkCount && (
-                <span>
-                  <FontAwesomeIcon icon={faCodeFork} className="mr-2" />
+                <span className="flex items-center">
+                  <FaCodeFork size={16} className="mr-2 w-[14px]" title="Forks" />
                   {modalProject.forkCount}
                 </span>
               )}
               {!!modalProject?.mainTechStacks?.length && (
-                <span>
-                  <FontAwesomeIcon icon={faCode} className="mr-2.5" />
+                <span className="flex items-center">
+                  <FaCode size={16} className="mr-2 w-[20px]" title="Main Tech Stacks" />
                   {modalProject.mainTechStacks.map((stack, i) => (
                     <Fragment key={i}>
-                      {i !== 0 && <span className="mx-1.5">/</span>}
-                      <span>{stack}</span>
+                      {i !== 0 && " / "}
+                      {stack}
                     </Fragment>
                   ))}
                 </span>
               )}
-              <span>
-                <FontAwesomeIcon icon={faCalendarDays} className="mr-2" />
+              <span className="flex items-center">
+                <FaCalendarDays size={16} className="mr-2" title="Period" />
                 {modalProject?.period}
               </span>
-              <span>
-                <FontAwesomeIcon icon={faMicrochip} className="mr-2" />
+              <span className="flex items-center">
+                <FaMicrochip size={16} className="mr-2" title="Category" />
                 {modalProject?.category}
               </span>
             </div>
@@ -223,35 +217,12 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
                   "lg:ml-auto max-lg:col-start-1 max-lg:row-span-1 max-lg:row-start-2 max-lg:w-full max-lg:max-w-[300px] max-lg:max-h-[400px]"
                 )}
               >
-                <NoImageIcon width="100" height="100" />
+                <MdOutlineImageNotSupported size={100} />
               </div>
             )}
           </div>
         </div>
       </dialog>
     </div>
-  );
-};
-
-const NoImageIcon: React.FC<{ width?: string; height?: string }> = ({ width, height }) => {
-  return (
-    <svg
-      fill="#000000"
-      width={width}
-      height={height}
-      viewBox="0 0 32 32"
-      id="icon"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path d="M30,3.4141,28.5859,2,2,28.5859,3.4141,30l2-2H26a2.0027,2.0027,0,0,0,2-2V5.4141ZM26,26H7.4141l7.7929-7.793,2.3788,2.3787a2,2,0,0,0,2.8284,0L22,19l4,3.9973Zm0-5.8318-2.5858-2.5859a2,2,0,0,0-2.8284,0L19,19.1682l-2.377-2.3771L26,7.4141Z" />
-      <path d="M6,22V19l5-4.9966,1.3733,1.3733,1.4159-1.416-1.375-1.375a2,2,0,0,0-2.8284,0L6,16.1716V6H22V4H6A2.002,2.002,0,0,0,4,6V22Z" />
-      <rect
-        id="_Transparent_Rectangle_"
-        data-name="&lt;Transparent Rectangle&gt;"
-        className="fill-none"
-        width="32"
-        height="32"
-      />
-    </svg>
   );
 };

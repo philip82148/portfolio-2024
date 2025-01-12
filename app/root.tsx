@@ -1,4 +1,3 @@
-import { config } from "@fortawesome/fontawesome-svg-core";
 import type { LinksFunction, LoaderFunctionArgs } from "@remix-run/cloudflare";
 import {
   isRouteErrorResponse,
@@ -16,9 +15,6 @@ import { Footer, Header } from "./components/layout";
 import { getLangOrThrow404Response } from "./multilingual";
 
 import "./tailwind.css";
-import "@fortawesome/fontawesome-svg-core/styles.css";
-
-config.autoAddCss = false;
 
 export const links: LinksFunction = () => [
   { rel: "icon", href: "/favicon.ico" },

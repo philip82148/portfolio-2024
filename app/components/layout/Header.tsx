@@ -1,5 +1,5 @@
 import { Link } from "@remix-run/react";
-import { RiArrowDropDownLine } from "react-icons/ri";
+import { IoIosArrowDown } from "react-icons/io";
 import { TbLanguageHiragana } from "react-icons/tb";
 
 export const Header: React.FC = () => {
@@ -11,8 +11,8 @@ export const Header: React.FC = () => {
       <div className="flex-none">
         <div className="dropdown dropdown-end">
           <div tabIndex={0} role="button" className="btn btn-ghost">
-            <TbLanguageHiragana size="1.4rem" />
-            <RiArrowDropDownLine size="1.4rem" />
+            <TbLanguageHiragana size={18} title="Change Language" />
+            <IoIosArrowDown size={8} />
           </div>
           <ul className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
             <li>

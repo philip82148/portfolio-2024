@@ -1,7 +1,6 @@
-import { faX } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import clsx from "clsx";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { MdClear } from "react-icons/md";
 
 import type { Skill, Stat } from "~/api/interface";
 import { SKILL_ICONS } from "~/frontend-static-data";
@@ -173,7 +172,7 @@ const LazyTextInput: React.FC<{
           }}
           className="hidden"
         >
-          <FontAwesomeIcon icon={faX} className="text-slate-500" />
+          <MdClear size={20} className="text-slate-500" title="Clear" />
         </button>
       )}
     </label>
