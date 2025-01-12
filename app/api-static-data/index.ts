@@ -1,3 +1,4 @@
+export * from "./profile";
 export * from "./accounts";
 export * from "./schools";
 export * from "./internships";

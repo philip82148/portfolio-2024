@@ -2,13 +2,18 @@ import type { GitHubRepository } from "../cache";
 import { GitHubRepositoryCache } from "../cache";
 import type { Project } from "../interface";
 
+import type { ProjectsPartial } from "~/api-static-data";
 import { PROJECTS_PARTIAL } from "~/api-static-data";
+import { monolingual } from "~/multilingual";
+import type { Language } from "~/multilingual";
 
 export class ProjectController {
+  private lang: Language;
   private githubRepositoryCache: GitHubRepositoryCache;
   private githubRepositoryCacheReady: Promise<void>;
 
-  constructor(env: Env) {
+  constructor(env: Env, lang: Language) {
+    this.lang = lang;
     const githubCache = new GitHubRepositoryCache(env);
     this.githubRepositoryCache = githubCache;
     this.githubRepositoryCacheReady = (async () => {
@@ -30,7 +35,7 @@ export class ProjectController {
   async getProjects(): Promise<Project[]> {
     await this.githubRepositoryCacheReady;
     return await Promise.all(
-      PROJECTS_PARTIAL.map(async (project) => {
+      monolingual<ProjectsPartial>(PROJECTS_PARTIAL, this.lang).map(async (project) => {
         const githubLink = project.links?.find((link) =>
           link.href.startsWith("https://github.com/philip82148/")
         )?.href;

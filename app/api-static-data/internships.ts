@@ -1,22 +1,29 @@
 import type { Internship } from "~/api/interface";
+import type { Multilingual } from "~/multilingual";
 
-export const INTERNSHIPS: Internship[] = [
+export const INTERNSHIPS: Multilingual<Internship[]> = [
   {
-    name: "Sky株式会社",
-    occupation: "フロントエンド兼バックエンドエンジニア",
-    start: "2024/06",
+    name: { ja: "Sky株式会社", en: "Sky Co., LTD." },
+    occupation: {
+      ja: "フロントエンド兼バックエンドエンジニア",
+      en: "Frontend and Backend Engineer",
+    },
+    start: { ja: "2024/06", en: "06/2024" },
     end: "Present",
   },
   {
-    name: "アイザック株式会社",
-    occupation: "フロントエンド兼バックエンドエンジニア",
-    start: "2023/02",
-    end: "2023/04",
+    name: { ja: "アイザック株式会社", en: "aisaac inc." },
+    occupation: {
+      ja: "フロントエンド兼バックエンドエンジニア",
+      en: "Frontend and Backend Engineer",
+    },
+    start: { ja: "2023/02", en: "02/2023" },
+    end: { ja: "2023/04", en: "04/2023" },
   },
   {
-    name: "株式会社飛竜企画",
-    occupation: "学生エンジニア",
-    start: "2022/02",
-    end: "2023/02",
+    name: { ja: "株式会社飛竜企画", en: "HIRYU KIKAKU co., Ltd. " },
+    occupation: { ja: "学生エンジニア", en: "Student Engineer" },
+    start: { ja: "2022/02", en: "02/2022" },
+    end: { ja: "2023/02", en: "02/2023" },
   },
 ];

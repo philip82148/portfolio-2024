@@ -1,5 +1,9 @@
 import type { SITE_ICONS, SKILL_ICONS } from "~/frontend-static-data";
 
+export type Profile = {
+  aBitAboutMe: string;
+};
+
 export type Account = {
   siteName: string;
   siteIconKey: keyof typeof SITE_ICONS;
