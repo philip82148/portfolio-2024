@@ -1,6 +1,6 @@
 import { Link } from "@remix-run/react";
 import clsx from "clsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import { TbLanguageHiragana } from "react-icons/tb";
 
@@ -11,10 +11,16 @@ export const Header: React.FC = () => {
   // It takes time for serverLang to change, so use a separate state for the buttons.
   const [activeButtonLang, setActiveButtonLang] = useState<Language | undefined>(serverLang);
 
+  useEffect(() => {
+    setActiveButtonLang(serverLang);
+  }, [serverLang]);
+
   return (
     <header className="navbar bg-inherit sticky top-0 z-50 shadow-sm">
       <div className="flex-1">
-        <div className="flex items-center text-xl h-12 px-4 font-semibold">Ryota Sasaki</div>
+        <Link to="/" className="btn btn-ghost text-xl">
+          Ryota Sasaki
+        </Link>
       </div>
       <div className="flex-none">
         <div className="dropdown dropdown-end">
