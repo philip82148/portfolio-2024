@@ -22,7 +22,7 @@ export const links: LinksFunction = () => [
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "philip82148.dev" },
+    { title: "Ryota Sasaki" },
     { name: "description", content: "This is Ryota Sasaki's portfolio site." },
   ];
 };
