@@ -1,4 +1,5 @@
 import type { LinksFunction } from "@remix-run/cloudflare";
+import type { MetaFunction } from "@remix-run/react";
 import {
   isRouteErrorResponse,
   Links,
@@ -18,6 +19,13 @@ export const links: LinksFunction = () => [
   { rel: "icon", href: "/favicon.ico" },
   { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
 ];
+
+export const meta: MetaFunction = () => {
+  return [
+    { title: "philip82148.dev" },
+    { name: "description", content: "This is Ryota Sasaki's portfolio site." },
+  ];
+};
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const lang = useLang();

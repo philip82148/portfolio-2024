@@ -1,4 +1,4 @@
-import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/cloudflare";
+import type { LoaderFunctionArgs } from "@remix-run/cloudflare";
 import { json, useLoaderData } from "@remix-run/react";
 
 import { BackendlessClient } from "~/api/client";
@@ -11,13 +11,6 @@ import {
   Skills,
 } from "~/components/pages/home";
 import { getLangOrThrow404Response } from "~/multilingual";
-
-export const meta: MetaFunction = () => {
-  return [
-    { title: "Ryota Sasaki's Portfolio" },
-    { name: "description", content: "This is a portfolio site of Ryota Sasaki." },
-  ];
-};
 
 export const loader = async ({ params, context }: LoaderFunctionArgs) => {
   const lang = getLangOrThrow404Response(params);
