@@ -1,7 +1,6 @@
-import type { LinksFunction, LoaderFunctionArgs } from "@remix-run/cloudflare";
+import type { LinksFunction } from "@remix-run/cloudflare";
 import {
   isRouteErrorResponse,
-  json,
   Links,
   Meta,
   Outlet,
@@ -11,7 +10,7 @@ import {
 } from "@remix-run/react";
 
 import { Footer, Header } from "./components/layout";
-import { getLangOrThrow404Response, useLang } from "./multilingual";
+import { useLang } from "./multilingual";
 
 import "./tailwind.css";
 
@@ -19,11 +18,6 @@ export const links: LinksFunction = () => [
   { rel: "icon", href: "/favicon.ico" },
   { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
 ];
-
-export const loader = async ({ request, params }: LoaderFunctionArgs) => {
-  const lang = getLangOrThrow404Response(request, params);
-  return json({ lang });
-};
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const lang = useLang();

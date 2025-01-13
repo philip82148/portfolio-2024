@@ -19,8 +19,8 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export const loader = async ({ request, params, context }: LoaderFunctionArgs) => {
-  const lang = getLangOrThrow404Response(request, params);
+export const loader = async ({ params, context }: LoaderFunctionArgs) => {
+  const lang = getLangOrThrow404Response(params);
 
   const client = new BackendlessClient(context.cloudflare.env, lang);
   const [profile, accounts, schools, internships, stats, skills, projects] = await Promise.all([
