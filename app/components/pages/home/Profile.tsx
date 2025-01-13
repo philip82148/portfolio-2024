@@ -7,7 +7,7 @@ import type { Profile as IProfile } from "~/api/interface";
 export const Profile: React.FC<{ profile: IProfile }> = ({ profile }) => {
   useEffect(() => {
     dol();
-  }, []);
+  }, [profile]);
 
   return (
     <div className="mb-20">
