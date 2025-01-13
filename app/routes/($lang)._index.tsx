@@ -10,7 +10,7 @@ import {
   Profile,
   Skills,
 } from "~/components/pages/home";
-import { isLanguage } from "~/multilingual";
+import { getLangOrThrow404Response } from "~/multilingual";
 
 export const meta: MetaFunction = () => {
   return [
@@ -20,8 +20,7 @@ export const meta: MetaFunction = () => {
 };
 
 export const loader = async ({ params, context }: LoaderFunctionArgs) => {
-  const lang = params.lang ?? "";
-  if (!isLanguage(lang)) throw new Response(null, { status: 404, statusText: "Not Found" });
+  const lang = getLangOrThrow404Response(params);
 
   const client = new BackendlessClient(context.cloudflare.env, lang);
   const [profile, accounts, schools, internships, stats, skills, projects] = await Promise.all([
