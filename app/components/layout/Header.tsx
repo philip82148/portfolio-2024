@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import { TbWorld } from "react-icons/tb";
 
-import { useLang, type Language } from "~/multilingual";
+import { LANGUAGES, toLink, useLang, type Language } from "~/multilingual";
 
 export const Header: React.FC = () => {
   const serverLang = useLang();
@@ -15,10 +15,15 @@ export const Header: React.FC = () => {
     setActiveButtonLang(serverLang);
   }, [serverLang]);
 
+  const LANG_TO_LABEL: Readonly<Record<Language, string>> = {
+    ja: "日本語",
+    en: "English",
+  };
+
   return (
     <header className="navbar bg-inherit sticky top-0 z-50 shadow-sm">
       <div className="flex-1">
-        <Link to={`/${serverLang}`} className="btn btn-ghost text-xl">
+        <Link to={toLink(serverLang)} className="btn btn-ghost text-xl">
           Ryota Sasaki
         </Link>
       </div>
@@ -30,28 +35,19 @@ export const Header: React.FC = () => {
             <IoIosArrowDown size={10} />
           </div>
           <ul className="dropdown-content menu gap-1 bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
-            <li>
-              <Link
-                to="/ja"
-                preventScrollReset
-                viewTransition
-                className={clsx(activeButtonLang === "ja" && "active")}
-                onClick={() => setActiveButtonLang("ja")}
-              >
-                日本語
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/en"
-                preventScrollReset
-                viewTransition
-                className={clsx(activeButtonLang === "en" && "active")}
-                onClick={() => setActiveButtonLang("en")}
-              >
-                English
-              </Link>
-            </li>
+            {LANGUAGES.map((lang) => (
+              <li key={lang}>
+                <Link
+                  to={toLink(lang)}
+                  preventScrollReset
+                  viewTransition
+                  className={clsx(activeButtonLang === lang && "active")}
+                  onClick={() => setActiveButtonLang(lang)}
+                >
+                  {LANG_TO_LABEL[lang]}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
       </div>

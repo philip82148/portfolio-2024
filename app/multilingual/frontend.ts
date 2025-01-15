@@ -17,3 +17,5 @@ export const useLang = (): Language => {
   const { lang } = useParams();
   return lang && isLanguage(lang) ? lang : "ja";
 };
+
+export const toLink = (lang: Language): string => (lang === "ja" ? "/" : `/${lang}/`);
