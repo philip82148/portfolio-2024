@@ -1,7 +1,7 @@
 import type { Project } from "~/api/interface";
 import type { Multilingual } from "~/multilingual";
 
-export const PROJECTS: Multilingual<Omit<Project, "id" | "starCount" | "forkCount">>[] = [
+export const PROJECTS = [
   {
     title: { ja: "ポートフォリオ(2024年版)", en: "Portfolio(2024)" },
     period: "2024",
@@ -469,4 +469,4 @@ export const PROJECTS: Multilingual<Omit<Project, "id" | "starCount" | "forkCoun
     ],
     imgSrc: "/projects/other/first-boat.jpg",
   },
-];
+] as const satisfies Multilingual<Omit<Project, "id" | "starCount" | "forkCount">>[];

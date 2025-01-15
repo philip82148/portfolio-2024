@@ -1,6 +1,6 @@
 import type { Account } from "~/api/interface";
 
-export const ACCOUNTS: Omit<Account, "id">[] = [
+export const ACCOUNTS = [
   {
     siteName: "GitHub",
     siteIconKey: "github",
@@ -49,4 +49,4 @@ export const ACCOUNTS: Omit<Account, "id">[] = [
     accountId: "@ryota-sasaki-philip82148",
     href: "https://www.linkedin.com/in/ryota-sasaki-philip82148",
   },
-];
+] as const satisfies Omit<Account, "id">[];

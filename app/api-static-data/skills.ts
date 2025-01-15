@@ -1,64 +1,6 @@
 import type { Skill } from "~/api/interface";
 
-type SkillName =
-  | "C"
-  | "C++"
-  | "TypeScript"
-  | "JavaScript"
-  | "Node.js"
-  | "Next.js"
-  | "Remix"
-  | "React"
-  | "Material UI"
-  | "Tailwind CSS"
-  | "Daisy UI"
-  | "NestJS"
-  | "Hono"
-  | "Prisma"
-  | "GraphQL"
-  | "gRPC"
-  | "Docker"
-  | "PHP"
-  | "jQuery"
-  | "WordPress"
-  | "PostgreSQL"
-  | "MySQL"
-  | "Go"
-  | "Java"
-  | "Flutter"
-  | "Kotlin"
-  | "Python"
-  | "GCP"
-  | "AWS"
-  | "Ubuntu"
-  | "Raspberry Pi";
-
-type LanguageLikeSkillName =
-  | "C"
-  | "C++"
-  | "TypeScript"
-  | "JavaScript"
-  | "Node.js"
-  | "PHP"
-  | "PostgreSQL"
-  | "MySQL"
-  | "Go"
-  | "Java"
-  | "Flutter"
-  | "Kotlin"
-  | "Python";
-
-type FrameworkLikeSkillName = Exclude<SkillName, LanguageLikeSkillName>;
-
-type Tag = "Web" | "Frontend" | "Backend" | "Mobile" | "Electronics" | "Other";
-
-// Self-referencing & enum constraints implemented in code
-export const SKILLS: (Omit<Skill, "id"> & {
-  name: SkillName;
-  tags: Tag[];
-  subsetFrameworkLikeSkills?: FrameworkLikeSkillName[];
-  subsetLanguageLikeSkills?: LanguageLikeSkillName[];
-})[] = [
+export const SKILLS = [
   {
     name: "C",
     type: "Language",
@@ -308,4 +250,62 @@ export const SKILLS: (Omit<Skill, "id"> & {
     personalYear: 2,
     tags: ["Electronics"],
   },
-];
+  // Self-referencing & enum constraints implemented in code
+] as const satisfies (Omit<Skill, "id"> & {
+  name: SkillName;
+  tags: Tag[];
+  subsetFrameworkLikeSkills?: FrameworkLikeSkillName[];
+  subsetLanguageLikeSkills?: LanguageLikeSkillName[];
+})[];
+
+type SkillName =
+  | "C"
+  | "C++"
+  | "TypeScript"
+  | "JavaScript"
+  | "Node.js"
+  | "Next.js"
+  | "Remix"
+  | "React"
+  | "Material UI"
+  | "Tailwind CSS"
+  | "Daisy UI"
+  | "NestJS"
+  | "Hono"
+  | "Prisma"
+  | "GraphQL"
+  | "gRPC"
+  | "Docker"
+  | "PHP"
+  | "jQuery"
+  | "WordPress"
+  | "PostgreSQL"
+  | "MySQL"
+  | "Go"
+  | "Java"
+  | "Flutter"
+  | "Kotlin"
+  | "Python"
+  | "GCP"
+  | "AWS"
+  | "Ubuntu"
+  | "Raspberry Pi";
+
+type Tag = "Web" | "Frontend" | "Backend" | "Mobile" | "Electronics" | "Other";
+
+type LanguageLikeSkillName =
+  | "C"
+  | "C++"
+  | "TypeScript"
+  | "JavaScript"
+  | "Node.js"
+  | "PHP"
+  | "PostgreSQL"
+  | "MySQL"
+  | "Go"
+  | "Java"
+  | "Flutter"
+  | "Kotlin"
+  | "Python";
+
+type FrameworkLikeSkillName = Exclude<SkillName, LanguageLikeSkillName>;

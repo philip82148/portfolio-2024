@@ -1,7 +1,7 @@
 import type { Internship } from "~/api/interface";
 import type { Multilingual } from "~/multilingual";
 
-export const INTERNSHIPS: Multilingual<Omit<Internship, "id">>[] = [
+export const INTERNSHIPS = [
   {
     name: { ja: "Sky株式会社", en: "Sky Co., LTD." },
     occupation: {
@@ -26,4 +26,4 @@ export const INTERNSHIPS: Multilingual<Omit<Internship, "id">>[] = [
     start: { ja: "2022/02", en: "02/2022" },
     end: { ja: "2023/02", en: "02/2023" },
   },
-];
+] as const satisfies Multilingual<Omit<Internship, "id">>[];

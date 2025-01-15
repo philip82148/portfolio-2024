@@ -1,7 +1,7 @@
 import type { School } from "~/api/interface";
 import type { Multilingual } from "~/multilingual";
 
-export const SCHOOLS: Multilingual<Omit<School, "id">>[] = [
+export const SCHOOLS = [
   {
     name: { ja: "東京大学大学院", en: "The University of Tokyo" },
     start: { ja: "2024/04", en: "04/2024" },
@@ -26,4 +26,4 @@ export const SCHOOLS: Multilingual<Omit<School, "id">>[] = [
     end: { ja: "2020/04", en: "04/2020" },
     major: { ja: "普通科", en: "General Education" },
   },
-];
+] as const satisfies Multilingual<Omit<School, "id">>[];

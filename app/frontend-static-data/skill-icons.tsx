@@ -1,37 +1,4 @@
-type SkillIconKey =
-  | "aws"
-  | "c"
-  | "cpp"
-  | "daisyui"
-  | "docker"
-  | "flutter"
-  | "gcp"
-  | "go"
-  | "graphql"
-  | "grpc"
-  | "hono"
-  | "java"
-  | "javascript"
-  | "jquery"
-  | "kotlin"
-  | "materialui"
-  | "mysql"
-  | "nestjs"
-  | "nextjs"
-  | "nodejs"
-  | "php"
-  | "postgresql"
-  | "prisma"
-  | "python"
-  | "raspberrypi"
-  | "react"
-  | "remix"
-  | "tailwindcss"
-  | "typescript"
-  | "ubuntu"
-  | "wordpress";
-
-export const SKILL_ICONS: Record<SkillIconKey, React.ReactNode> = {
+export const SKILL_ICONS = {
   aws: (
     <svg width="64" height="64" viewBox="0 0 128 128">
       <path
@@ -583,4 +550,37 @@ export const SKILL_ICONS: Record<SkillIconKey, React.ReactNode> = {
       ></path>
     </svg>
   ),
-};
+} as const satisfies Record<SkillIconKey, React.ReactNode>;
+
+type SkillIconKey =
+  | "aws"
+  | "c"
+  | "cpp"
+  | "daisyui"
+  | "docker"
+  | "flutter"
+  | "gcp"
+  | "go"
+  | "graphql"
+  | "grpc"
+  | "hono"
+  | "java"
+  | "javascript"
+  | "jquery"
+  | "kotlin"
+  | "materialui"
+  | "mysql"
+  | "nestjs"
+  | "nextjs"
+  | "nodejs"
+  | "php"
+  | "postgresql"
+  | "prisma"
+  | "python"
+  | "raspberrypi"
+  | "react"
+  | "remix"
+  | "tailwindcss"
+  | "typescript"
+  | "ubuntu"
+  | "wordpress";

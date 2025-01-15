@@ -1,4 +1,4 @@
-export const SITE_ICONS: Record<string, React.ReactNode> = {
+export const SITE_ICONS = {
   atcoder: <img src="/accounts/atcoder.png" alt="AtCoder" width="40" height="40" />,
   dev: (
     <svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="28" height="32">
@@ -90,4 +90,4 @@ export const SITE_ICONS: Record<string, React.ReactNode> = {
       </g>
     </svg>
   ),
-};
+} as const satisfies Record<string, React.ReactNode>;

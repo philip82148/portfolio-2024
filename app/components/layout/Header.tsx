@@ -15,10 +15,10 @@ export const Header: React.FC = () => {
     setActiveButtonLang(serverLang);
   }, [serverLang]);
 
-  const LANG_TO_LABEL: Readonly<Record<Language, string>> = {
+  const LANG_TO_LABEL = {
     ja: "日本語",
     en: "English",
-  };
+  } as const satisfies Record<Language, string>;
 
   return (
     <header className="navbar bg-inherit sticky top-0 z-50 shadow-sm">

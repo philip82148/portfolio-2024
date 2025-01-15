@@ -1,6 +1,6 @@
 import type { Stat } from "~/api/interface";
 
-export const STATS: Omit<Stat, "id">[] = [
+export const STATS = [
   {
     name: "GitHub",
     imgSrc:
@@ -12,4 +12,4 @@ export const STATS: Omit<Stat, "id">[] = [
     imgSrc: "https://atcoder-readme-stats.vercel.app/stats/philip82148",
     providerHref: "https://github.com/iwbc-mzk/atcoder-readme-stats",
   },
-];
+] as const satisfies Omit<Stat, "id">[];

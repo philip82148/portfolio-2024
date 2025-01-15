@@ -1,7 +1,7 @@
 import type { Profile } from "~/api/interface";
 import type { Multilingual } from "~/multilingual";
 
-export const PROFILE: Multilingual<Profile> = {
+export const PROFILE = {
   aBitAboutMe: {
     ja: [
       "小6から独学でJavaと回路設計を学び、メカ開発にあこがれ趣味として電⼦⼯作を始める。",
@@ -14,4 +14,4 @@ export const PROFILE: Multilingual<Profile> = {
       "After entering university, I touched Web systems with internships and personal development, and recently, the C++ debugging tool I made for competitive programming has acquired more than 300 GitHub stars.",
     ].join(" "),
   },
-};
+} as const satisfies Multilingual<Profile>;

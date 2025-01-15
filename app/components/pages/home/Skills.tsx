@@ -7,10 +7,7 @@ import { SKILL_ICONS } from "~/frontend-static-data";
 
 const NUM_SKILLS_TO_ADD = 10;
 
-export const Skills: React.FC<{ stats: Stat[]; skills: Skill[] }> = ({
-  stats,
-  skills: allSkills,
-}) => {
+export const Skills: React.FC<{ stats: Stat[]; skills: Skill[] }> = ({ stats, skills }) => {
   const [filterInput, originalSetFilterInput] = useState<string>("");
   const [displayLimit, setDisplayLimit] = useState<number>(NUM_SKILLS_TO_ADD);
   const setFilterInput = useCallback((arg: Parameters<typeof originalSetFilterInput>[0]) => {
@@ -18,9 +15,9 @@ export const Skills: React.FC<{ stats: Stat[]; skills: Skill[] }> = ({
     setDisplayLimit(NUM_SKILLS_TO_ADD);
   }, []);
 
-  const skills = useMemo(
-    () => filterAndSort(allSkills, filterInput.split(/\s+/)),
-    [filterInput, allSkills]
+  const filteredSkills = useMemo(
+    () => filterAndSort(skills, filterInput.split(/\s+/)),
+    [filterInput, skills]
   );
 
   const addKeywordToFilterInput = (keyword: string) => {
@@ -49,8 +46,8 @@ export const Skills: React.FC<{ stats: Stat[]; skills: Skill[] }> = ({
         <LazyTextInput placeholder="Filter..." value={filterInput} onChange={setFilterInput} />
       </div>
       <p className="px-3 mt-5 font-medium">
-        {`${filterInput.trim() ? "Found" : "Total"} ${skills.length} skills, `}
-        {`showing ${Math.min(displayLimit, skills.length)} of them.`}
+        {`${filterInput.trim() ? "Found" : "Total"} ${filteredSkills.length} skills, `}
+        {`showing ${Math.min(displayLimit, filteredSkills.length)} of them.`}
       </p>
       <div
         className={clsx(
@@ -61,7 +58,7 @@ export const Skills: React.FC<{ stats: Stat[]; skills: Skill[] }> = ({
           "max-sm:grid-rows-[repeat(5,132px)]"
         )}
       >
-        {skills.slice(0, displayLimit).map((skill) => (
+        {filteredSkills.slice(0, displayLimit).map((skill) => (
           <div
             key={`${filterInput}-${skill.id}`}
             className="card card-bordered border-2 bg-base-100 rounded flip-in-hor-bottom"
@@ -121,7 +118,7 @@ export const Skills: React.FC<{ stats: Stat[]; skills: Skill[] }> = ({
         ))}
       </div>
       <div className="flex justify-center mt-6 h-12">
-        {displayLimit < skills.length && (
+        {displayLimit < filteredSkills.length && (
           <button
             className="btn flip-in-hor-bottom"
             onClick={() => setDisplayLimit((limit) => limit + NUM_SKILLS_TO_ADD)}
@@ -205,11 +202,11 @@ const filterAndSort = (skills: Skill[], keywords: string[]) => {
       0
     );
   };
-  const TYPE_ORDER: Record<Skill["type"], number> = {
+  const TYPE_ORDER = {
     Language: 3,
     Framework: 2,
     Other: 1,
-  };
+  } as const satisfies Record<Skill["type"], number>;
 
   const sanitizedKeywords = new Set(keywords.map((keyword) => sanitize(keyword)));
   return skills
