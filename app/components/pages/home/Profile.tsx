@@ -1,14 +1,8 @@
-import { dol } from "dol";
 import type React from "react";
-import { useEffect } from "react";
 
 import type { Profile as IProfile } from "~/api/interface";
 
 export const Profile: React.FC<{ profile: IProfile }> = ({ profile }) => {
-  useEffect(() => {
-    dol();
-  }, [profile]);
-
   return (
     <div className="mb-20">
       <div className="flex items-center justify-center gap-32 pt-32 pb-28 max-lg:flex-col max-lg:gap-20 max-lg:pt-20 max-lg:pb-0">
