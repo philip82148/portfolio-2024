@@ -51,6 +51,7 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
               aria-label={`Group By ${by}`}
               checked={by === groupBy}
               onChange={() => setGroupBy(by)}
+              data-v={by}
             />
           )
         )}
