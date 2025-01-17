@@ -66,6 +66,7 @@ export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }
                 className="card card-bordered card-side border-2 cursor-pointer hover:bg-slate-100 transition-all duration-200 ease-[ease] h-36 max-xl:h-min flip-in-hor-bottom"
                 onClick={() => showModal(project)}
                 onKeyDown={(e) => e.key === "Enter" && showModal(project)}
+                data-n={project.title}
               >
                 <div className="card-body p-6 justify-between">
                   <h4 className="card-title line-clamp-2">{project.title}</h4>
