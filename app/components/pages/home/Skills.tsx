@@ -43,7 +43,12 @@ export const Skills: React.FC<{ stats: Stat[]; skills: Skill[] }> = ({ stats, sk
       </div>
       <h3 className="font-bold text-xl mb-8">Languages & Frameworks</h3>
       <div className="px-1.5">
-        <LazyTextInput placeholder="Filter..." value={filterInput} onChange={setFilterInput} />
+        <LazyTextInput
+          name="skill-filter"
+          placeholder="Filter..."
+          value={filterInput}
+          onChange={setFilterInput}
+        />
       </div>
       <p className="px-3 mt-5 font-medium">
         {`${filterInput.trim() ? "Found" : "Total"} ${filteredSkills.length} skills, `}
@@ -132,10 +137,11 @@ export const Skills: React.FC<{ stats: Stat[]; skills: Skill[] }> = ({ stats, sk
 };
 
 const LazyTextInput: React.FC<{
+  name: string;
   placeholder: string;
   value: string;
   onChange: (value: string) => void;
-}> = ({ placeholder, value, onChange }) => {
+}> = ({ name, placeholder, value, onChange }) => {
   const [realValue, setRealValue] = useState<string>(value);
 
   useEffect(() => {
@@ -154,6 +160,7 @@ const LazyTextInput: React.FC<{
       <input
         ref={inputRef}
         type="text"
+        name={name}
         placeholder={placeholder}
         className="grow"
         value={realValue}
