@@ -10,10 +10,14 @@ import {
   Profile,
   Skills,
 } from "~/components/pages/home";
-import { getLangOrThrow404Response } from "~/multilingual";
+import { isLanguage } from "~/multilingual";
 
 export const loader = async ({ params, context }: LoaderFunctionArgs) => {
-  const lang = getLangOrThrow404Response(params);
+  const paramLang = params.lang;
+  if (paramLang !== undefined && !isLanguage(paramLang)) {
+    throw new Response(null, { status: 404, statusText: "Not Found" });
+  }
+  const lang = paramLang || "ja";
 
   const client = new BackendlessClient(context.cloudflare.env, lang);
   const [profile, accounts, schools, internships, stats, skills, projects] = await Promise.all([
