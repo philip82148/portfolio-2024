@@ -97,7 +97,7 @@ export const PROJECTS = [
   {
     title: {
       ja: "30日でできる！OS自作入門",
-      en: "Make it in 30 days! Introduction to self-made OS",
+      en: "30 Days to Build Your Own Operating System",
     },
     period: "2024",
     category: "Book",
@@ -133,7 +133,7 @@ export const PROJECTS = [
   {
     title: {
       ja: "環境構築と開発の手順",
-      en: "Manuals for Environment setup and development procedures",
+      en: "Manuals for Environment Setup and Development Procedures",
     },
     period: "2023",
     category: "Other",
@@ -182,7 +182,7 @@ export const PROJECTS = [
   {
     title: {
       ja: "Oh My Zshテーマ「simplerich-zsh-theme」",
-      en: 'Oh My Zsh theme: "simplerich-zsh-theme"',
+      en: 'Oh My Zsh Theme: "simplerich-zsh-theme"',
     },
     period: "2023",
     category: "Other",
@@ -248,7 +248,7 @@ export const PROJECTS = [
     imgSrc: "/projects/books/non-designer.jpg",
   },
   {
-    title: { ja: "名簿自動生成アプリ", en: "Automatic roster generation app" },
+    title: { ja: "名簿自動生成アプリ", en: "Automatic Roster Generation App" },
     period: "2023",
     category: "Web",
     summary: {
@@ -336,7 +336,7 @@ export const PROJECTS = [
   {
     title: {
       ja: "授業評定サイト用WordPressテーマ「selva」",
-      en: 'WordPress theme for course evaluation site: "selva"',
+      en: 'WordPress Theme for Course Evaluation Site: "selva"',
     },
     period: "2022",
     category: "Web",
@@ -414,7 +414,7 @@ export const PROJECTS = [
     links: [{ label: "GitHub", href: "https://github.com/philip82148/SDCardLibrary/" }],
   },
   {
-    title: { ja: "ボート3台目", en: "The Third boat" },
+    title: { ja: "ボート3台目", en: "The Third Boat" },
     period: { ja: "中学校", en: "Junior High School" },
     category: "Other",
     summary: { ja: "自分一人で作った3mのボート", en: "A 3-meter boat I built on my own." },
