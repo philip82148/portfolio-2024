@@ -15,8 +15,8 @@ export type Account = {
 export type School = {
   id: number;
   name: string;
-  start: string;
   end: string;
+  start: string;
   major: string;
 };
 
@@ -24,8 +24,8 @@ export type Internship = {
   id: number;
   name: string;
   occupation: string;
-  start: string;
   end: string;
+  start: string;
   descriptions?: string[];
 };
 
