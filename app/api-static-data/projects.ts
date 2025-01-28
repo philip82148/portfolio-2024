@@ -103,7 +103,7 @@ export const PROJECTS = [
     category: "Book",
     summary: {
       ja: "OSの実装について学ぶために読み、実装した本",
-      en: "A book I read and implemented to learn about operating system implementation.",
+      en: "A book I read and implemented to learn about operating system implementation",
     },
     descriptions: [
       {
@@ -253,7 +253,7 @@ export const PROJECTS = [
     category: "Web",
     summary: {
       ja: "自治寮の寮生名簿を自動生成するアプリ",
-      en: "An app that automatically generates a roster of residents for my student dormitory.",
+      en: "An app that automatically generates a roster of residents for my student dormitory",
     },
     descriptions: [
       {
@@ -288,7 +288,7 @@ export const PROJECTS = [
     category: "Web",
     summary: {
       ja: "自治寮の届出をサポートするLINE Bot",
-      en: "A LINE Bot that supports dormitory notifications.",
+      en: "A LINE Bot that supports dormitory notifications",
     },
     descriptions: [
       {
@@ -384,7 +384,7 @@ export const PROJECTS = [
     category: "Electronics",
     summary: {
       ja: "文化祭で展示した水中ドローン",
-      en: "The underwater drone I exhibited at the cultural festival.",
+      en: "The underwater drone I exhibited at the cultural festival",
     },
     descriptions: [
       {
@@ -402,7 +402,7 @@ export const PROJECTS = [
     category: "Electronics",
     summary: {
       ja: "電子工作で作ったSDカードライブラリ",
-      en: "An SD card library created through electronics projects.",
+      en: "An SD card library created through electronics projects",
     },
     descriptions: [
       {
@@ -417,7 +417,7 @@ export const PROJECTS = [
     title: { ja: "ボート3台目", en: "The Third Boat" },
     period: { ja: "中学校", en: "Junior High School" },
     category: "Other",
-    summary: { ja: "自分一人で作った3mのボート", en: "A 3-meter boat I built on my own." },
+    summary: { ja: "自分一人で作った3mのボート", en: "A 3-meter boat I built on my own" },
     descriptions: [
       {
         ja: "小5のときから作っていたボートの集大成。今度は自分一人で3mのボートを作った。",
@@ -477,7 +477,7 @@ export const PROJECTS = [
     category: "Other",
     summary: {
       ja: "父と二人で作った人が乗れるボート",
-      en: "A boat that can carry people, built with my father.",
+      en: "A boat that can carry people, built with my father",
     },
     descriptions: [
       {
