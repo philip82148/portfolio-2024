@@ -26,6 +26,7 @@ module.exports = {
   plugins: ["unused-imports"],
 
   rules: {
+    "no-restricted-syntax": ["error", "IfStatement > :not(BlockStatement).consequent"],
     "import/order": [
       "error",
       {

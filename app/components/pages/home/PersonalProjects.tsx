@@ -93,7 +93,9 @@ const ProjectCard: React.FC<{ project: Project; openModal: () => void }> = ({
       className="card card-bordered card-side border-2 cursor-pointer hover:bg-slate-100 transition-all duration-200 ease-[ease] h-36 max-xl:h-min flip-in-hor-bottom"
       onClick={openModal}
       onKeyDown={(e) => {
-        if (e.key === "Enter") openModal();
+        if (e.key === "Enter") {
+          openModal();
+        }
       }}
       data-n={project.title}
     >
@@ -167,7 +169,9 @@ const ProjectModal: React.FC<{
       ref={dialogRef}
       className="modal"
       onClick={(e) => {
-        if (e.currentTarget === e.target) onCloseClick();
+        if (e.currentTarget === e.target) {
+          onCloseClick();
+        }
       }}
     >
       <div className="modal-box w-11/12 max-w-7xl min-h-96 px-12 py-10 flex flex-col max-lg:px-8 max-lg:py-7 max-sm:p-5 [max-height:calc(100dvh-5em)]">

@@ -3,16 +3,18 @@ export class SvgCache {
 
   async get(key: string): Promise<string | null> {
     const data = await this.env.SVGS.get(key);
-    if (!data) return null;
-
+    if (!data) {
+      return null;
+    }
     const { content } = JSON.parse(data) as { content: string; updatedAt: string };
     return content;
   }
 
   async getUpdatedAt(key: string): Promise<Date | null> {
     const data = await this.env.SVGS.get(key);
-    if (!data) return null;
-
+    if (!data) {
+      return null;
+    }
     const { updatedAt } = JSON.parse(data) as { content: unknown; updatedAt: string };
     return new Date(updatedAt);
   }

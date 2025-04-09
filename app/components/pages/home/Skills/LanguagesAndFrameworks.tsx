@@ -139,7 +139,9 @@ const LazyTextInput: React.FC<{
   const inputRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
     setRealValue(value);
-    if (value) inputRef.current?.focus();
+    if (value) {
+      inputRef.current?.focus();
+    }
   }, [value]);
 
   return (
@@ -178,9 +180,15 @@ const filterAndSort = (skills: Skill[], keywords: string[]) => {
     baseScore: number
   ) => {
     const sanitizedTarget = sanitize(unsanitizedTarget);
-    if (sanitizedTarget === sanitizedKw) return baseScore;
-    if (sanitizedTarget.startsWith(sanitizedKw)) return baseScore - 1;
-    if (sanitizedTarget.includes(sanitizedKw)) return baseScore - 2;
+    if (sanitizedTarget === sanitizedKw) {
+      return baseScore;
+    }
+    if (sanitizedTarget.startsWith(sanitizedKw)) {
+      return baseScore - 1;
+    }
+    if (sanitizedTarget.includes(sanitizedKw)) {
+      return baseScore - 2;
+    }
     return 0;
   };
   const calcRelevanceScoreArray = (
@@ -216,7 +224,9 @@ const filterAndSort = (skills: Skill[], keywords: string[]) => {
       } = skill;
       const relevanceScoreToCount = new Array(3 * 5 + 1).fill(0);
       for (const sanitizedKw of sanitizedKeywords) {
-        if (sanitizedKw === "") continue;
+        if (sanitizedKw === "") {
+          continue;
+        }
         const relevanceScore =
           calcRelevanceScore(name, sanitizedKw, 3 * 5 + 1) ||
           calcRelevanceScore(type, sanitizedKw, 3 * 4 + 1) ||
@@ -235,7 +245,9 @@ const filterAndSort = (skills: Skill[], keywords: string[]) => {
           )
             ? 1
             : 0);
-        if (relevanceScore === 0) return [];
+        if (relevanceScore === 0) {
+          return [];
+        }
         ++relevanceScoreToCount[relevanceScore - 1];
       }
       return [{ relevanceScoreToCount, skill }];
