@@ -3,6 +3,8 @@ import type React from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { MdClear } from "react-icons/md";
 
+import { filterAndSortSkills } from "./filterAndSortSkills";
+
 import type { Skill } from "~/api/interface";
 import { SKILL_ICONS } from "~/frontend-static-data";
 
@@ -19,7 +21,7 @@ export const LanguagesAndFrameworks: React.FC<{ skills: Skill[] }> = ({
     setDisplayLimit(NUM_SKILLS_TO_ADD);
   }, []);
   const skills = useMemo(
-    () => filterAndSort(originalSkills, filterInput.split(/\s+/)),
+    () => filterAndSortSkills(originalSkills, filterInput),
     [filterInput, originalSkills]
   );
 
@@ -170,98 +172,4 @@ const LazyTextInput: React.FC<{
       )}
     </label>
   );
-};
-
-const filterAndSort = (skills: Skill[], keywords: string[]) => {
-  const sanitize = (s: string) => s.replace(/[.\s]+/, "").toLowerCase();
-  const calcRelevanceScore = (
-    unsanitizedTarget: string,
-    sanitizedKw: string,
-    baseScore: number
-  ) => {
-    const sanitizedTarget = sanitize(unsanitizedTarget);
-    if (sanitizedTarget === sanitizedKw) {
-      return baseScore;
-    }
-    if (sanitizedTarget.startsWith(sanitizedKw)) {
-      return baseScore - 1;
-    }
-    if (sanitizedTarget.includes(sanitizedKw)) {
-      return baseScore - 2;
-    }
-    return 0;
-  };
-  const calcRelevanceScoreArray = (
-    unsanitizedTargets: string[],
-    sanitizedKw: string,
-    baseScore: number
-  ) => {
-    return unsanitizedTargets.reduce(
-      (acc, unsanitizedTarget) =>
-        acc === baseScore
-          ? acc
-          : Math.max(acc, calcRelevanceScore(unsanitizedTarget, sanitizedKw, baseScore)),
-      0
-    );
-  };
-  const TYPE_ORDER = {
-    Language: 3,
-    Framework: 2,
-    Other: 1,
-  } as const satisfies Record<Skill["type"], number>;
-
-  const sanitizedKeywords = new Set(keywords.map((keyword) => sanitize(keyword)));
-  return skills
-    .flatMap((skill) => {
-      const {
-        name,
-        type,
-        tags,
-        subsetFrameworkLikeSkills,
-        subsetLanguageLikeSkills,
-        personalYear,
-        internshipYear,
-      } = skill;
-      const relevanceScoreToCount = new Array(3 * 5 + 1).fill(0);
-      for (const sanitizedKw of sanitizedKeywords) {
-        if (sanitizedKw === "") {
-          continue;
-        }
-        const relevanceScore =
-          calcRelevanceScore(name, sanitizedKw, 3 * 5 + 1) ||
-          calcRelevanceScore(type, sanitizedKw, 3 * 4 + 1) ||
-          calcRelevanceScoreArray(tags.map((tag) => `#${tag}`) ?? [], sanitizedKw, 3 * 3 + 1) ||
-          calcRelevanceScoreArray(subsetFrameworkLikeSkills ?? [], sanitizedKw, 3 * 2 + 1) ||
-          calcRelevanceScoreArray(subsetLanguageLikeSkills ?? [], sanitizedKw, 3 * 1 + 1) ||
-          (personalYear &&
-          sanitize(`Personal ${personalYear > 0.5 ? personalYear : "- 0.5"} yr.`).includes(
-            sanitizedKw
-          )
-            ? 1
-            : 0) ||
-          (internshipYear &&
-          sanitize(`Internship ${internshipYear > 0.5 ? internshipYear : "- 0.5"} yr.`).includes(
-            sanitizedKw
-          )
-            ? 1
-            : 0);
-        if (relevanceScore === 0) {
-          return [];
-        }
-        ++relevanceScoreToCount[relevanceScore - 1];
-      }
-      return [{ relevanceScoreToCount, skill }];
-    })
-    .sort(
-      (a, b) =>
-        // sort by relevance
-        [...new Array(16).keys()].reduceRight(
-          (acc, score) => acc || b.relevanceScoreToCount[score] - a.relevanceScoreToCount[score],
-          0
-        ) ||
-        // sort by non-relevance-related factors
-        TYPE_ORDER[b.skill.type] - TYPE_ORDER[a.skill.type] ||
-        a.skill.name.localeCompare(b.skill.name)
-    )
-    .map(({ skill }) => skill);
 };
