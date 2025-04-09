@@ -62,12 +62,12 @@ export const filterAndSortSkills = (skills: Skill[], query: string) => {
         }
 
         // Filter by incomplete keywords.
-        type RelevanceFunc = (keyword: string, target: string) => boolean;
+        type RelevanceFunc = (target: string, keyword: string) => boolean;
         // In relevanceFuncsByLevel, the elements at the top have higher relevance scores.
         const relevanceFuncsByLevel: RelevanceFunc[] = [
-          (k, t) => t === k, // match
-          (k, t) => t.startsWith(k), // starts with
-          (k, t) => t.includes(k), // includes
+          (t, k) => t === k, // match
+          (t, k) => t.startsWith(k), // starts with
+          (t, k) => t.includes(k), // includes
         ];
         const NUM_FUNC_LEVELS = relevanceFuncsByLevel.length;
 
@@ -78,7 +78,7 @@ export const filterAndSortSkills = (skills: Skill[], query: string) => {
         for (const relevanceFunc of relevanceFuncsByLevel) {
           // Search from higher-level targets first.
           for (const targets of targetsByLevel) {
-            if (targets.some((target) => relevanceFunc(incompleteKeyword, target))) {
+            if (targets.some((target) => relevanceFunc(target, incompleteKeyword))) {
               // Found.
               relevanceScoreToCount[MAX_RELEVANCE_SCORE] = relevanceScore;
               return [{ relevanceScoreToCount, skill }];
