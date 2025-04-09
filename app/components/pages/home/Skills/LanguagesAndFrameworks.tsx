@@ -27,7 +27,16 @@ export const LanguagesAndFrameworks: React.FC<{ skills: Skill[] }> = ({
 
   // Keyword Click
   const onKeywordClick = (keyword: string) => {
-    setFilterInput((prev) => (prev ? `${prev} ${keyword}` : keyword));
+    setFilterInput((prev) => {
+      if (!prev.replaceAll(/\s+/g, "")) {
+        return `${keyword} `;
+      }
+      const match = prev.match(/(?<keywords>^.*[^\s])\s+$/);
+      if (match) {
+        return `${match.groups?.keywords} ${keyword} `;
+      }
+      return `${prev} ${keyword} `;
+    });
   };
 
   return (

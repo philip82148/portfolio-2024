@@ -13,15 +13,15 @@ export const filterAndSortSkills = (skills: Skill[], query: string) => {
     .filter((kw) => !!kw)
     .map(sanitize);
 
-  // If query ends with space, all keywords are completed.
-  // Otherwise, the last keyword is uncompleted
-  let completedKeywords: string[] = [],
-    uncompletedKeyword: string = "";
+  // If query ends with space, all keywords are complete.
+  // Otherwise, the last keyword is incomplete.
+  let completeKeywords: string[] = [],
+    incompleteKeyword: string = "";
   if (query.match(/\s+$/)) {
-    completedKeywords = Array.from(new Set(allKeywords));
+    completeKeywords = Array.from(new Set(allKeywords));
   } else {
-    completedKeywords = Array.from(new Set(allKeywords.slice(0, -1)));
-    uncompletedKeyword = allKeywords.at(-1) ?? "";
+    completeKeywords = Array.from(new Set(allKeywords.slice(0, -1)));
+    incompleteKeyword = allKeywords.at(-1) ?? "";
   }
 
   return (
@@ -30,52 +30,60 @@ export const filterAndSortSkills = (skills: Skill[], query: string) => {
       .flatMap((skill) => {
         const relevanceScoreToCount: number[] = new Array(MAX_RELEVANCE_SCORE + 1).fill(0);
 
-        // Filter by completed keywords
+        // Filter by complete keywords
         const { name, type, tags, subsetFrameworkLikeSkills, subsetLanguageLikeSkills } = skill;
-        for (const keyword of completedKeywords) {
-          if ([name, type].map(sanitize).includes(keyword)) {
+        for (const keyword of completeKeywords) {
+          if ([...name.split(/\s+/), type].map(sanitize).includes(keyword)) {
             ++relevanceScoreToCount[3];
             continue;
           }
-          if (tags.map(sanitize).includes(keyword)) {
+          if (tags.map((tag) => sanitize(`#${tag}`)).includes(keyword)) {
             ++relevanceScoreToCount[2];
             continue;
           }
-          if ((subsetFrameworkLikeSkills ?? []).map(sanitize).includes(keyword)) {
+          if (
+            (subsetFrameworkLikeSkills ?? [])
+              .flatMap((skill) => skill.split(/\+s/).map(sanitize))
+              .includes(keyword)
+          ) {
             ++relevanceScoreToCount[1];
             continue;
           }
-          if ((subsetLanguageLikeSkills ?? []).map(sanitize).includes(keyword)) {
+          if (
+            (subsetLanguageLikeSkills ?? [])
+              .flatMap((skill) => skill.split(/\+s/).map(sanitize))
+              .includes(keyword)
+          ) {
             ++relevanceScoreToCount[0];
             continue;
           }
           return [];
         }
-        if (!uncompletedKeyword) {
+        if (!incompleteKeyword) {
           return [{ relevanceScoreToCount, skill }];
         }
 
-        // Filter by uncompleted keywords
+        // Filter by incomplete keywords
         const { personalYear, internshipYear } = skill;
         const relevanceScore =
-          calcRelevanceScore(name, uncompletedKeyword, 3 * 5 + 1) ||
-          calcRelevanceScore(type, uncompletedKeyword, 3 * 4 + 1) ||
+          calcRelevanceScore(name, incompleteKeyword, 3 * 5 + 1) ||
+          calcRelevanceScore(type, incompleteKeyword, 3 * 4 + 1) ||
           calcRelevanceScoreArray(
             tags.map((tag) => `#${tag}`) ?? [],
-            uncompletedKeyword,
+            incompleteKeyword,
             3 * 3 + 1
           ) ||
-          calcRelevanceScoreArray(subsetFrameworkLikeSkills ?? [], uncompletedKeyword, 3 * 2 + 1) ||
-          calcRelevanceScoreArray(subsetLanguageLikeSkills ?? [], uncompletedKeyword, 3 * 1 + 1) ||
+          calcRelevanceScoreArray(subsetFrameworkLikeSkills ?? [], incompleteKeyword, 3 * 2 + 1) ||
+          calcRelevanceScoreArray(subsetLanguageLikeSkills ?? [], incompleteKeyword, 3 * 1 + 1) ||
           (personalYear &&
           sanitize(`Personal ${personalYear > 0.5 ? personalYear : "- 0.5"} yr.`).includes(
-            uncompletedKeyword
+            incompleteKeyword
           )
             ? 1
             : 0) ||
           (internshipYear &&
           sanitize(`Internship ${internshipYear > 0.5 ? internshipYear : "- 0.5"} yr.`).includes(
-            uncompletedKeyword
+            incompleteKeyword
           )
             ? 1
             : 0);
@@ -105,7 +113,7 @@ export const filterAndSortSkills = (skills: Skill[], query: string) => {
   );
 };
 
-const sanitize = (s: string) => s.replace(/[.\s]+/, "").toLowerCase();
+const sanitize = (s: string) => s.replaceAll(/[.\s]+/g, "").toLowerCase();
 
 const calcRelevanceScore = (target: string, sanitizedKw: string, maxScore: number) => {
   const sanitizedTarget = sanitize(target);
@@ -120,6 +128,7 @@ const calcRelevanceScore = (target: string, sanitizedKw: string, maxScore: numbe
   }
   return 0;
 };
+
 const calcRelevanceScoreArray = (targets: string[], sanitizedKw: string, maxScore: number) => {
   return targets.reduce(
     (acc, unsanitizedTarget) =>
