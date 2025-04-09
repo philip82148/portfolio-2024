@@ -1,3 +1,5 @@
+import type { OmitId } from "./OmitId";
+
 import type { Stat } from "~/api/interface";
 
 export const STATS = [
@@ -12,4 +14,4 @@ export const STATS = [
     imgSrc: "https://atcoder-readme-stats.vercel.app/stats/philip82148",
     providerHref: "https://github.com/iwbc-mzk/atcoder-readme-stats",
   },
-] as const satisfies Omit<Stat, "id">[];
+] as const satisfies OmitId<Stat>[];

@@ -1,7 +1,7 @@
 import type { LoaderFunctionArgs } from "@remix-run/cloudflare";
 import { json, useLoaderData } from "@remix-run/react";
 
-import { BackendlessClient } from "~/api/client";
+import { BackendlessClient } from "~/api/BackendlessClient";
 import {
   Accounts,
   Education,

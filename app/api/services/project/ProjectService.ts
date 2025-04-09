@@ -1,20 +1,21 @@
-import type { GitHubRepository } from "../cache";
-import { GitHubRepositoryCache } from "../cache";
-import type { Project } from "../interface";
+import type { Project } from "../../interface";
+
+import type { GitHubRepository } from "./GitHubRepositoryCache";
+import { GitHubRepositoryCache } from "./GitHubRepositoryCache";
 
 import { PROJECTS } from "~/api-static-data";
 import { monolingual } from "~/multilingual";
 import type { Language } from "~/multilingual";
 
-export class ProjectController {
+export class ProjectService {
   private lang: Language;
   private githubRepositoryCache: GitHubRepositoryCache;
   private githubRepositoryCacheReady: Promise<void>;
 
   constructor(env: Env, lang: Language) {
     this.lang = lang;
-    const githubCache = new GitHubRepositoryCache(env);
-    this.githubRepositoryCache = githubCache;
+    this.githubRepositoryCache = new GitHubRepositoryCache(env);
+    const githubCache = this.githubRepositoryCache;
     this.githubRepositoryCacheReady = (async () => {
       const updatedAt = await githubCache.getUpdatedAt();
       const now = new Date();

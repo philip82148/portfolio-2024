@@ -1,3 +1,5 @@
+import type { OmitId } from "./OmitId";
+
 import type { Account } from "~/api/interface";
 
 export const ACCOUNTS = [
@@ -49,4 +51,4 @@ export const ACCOUNTS = [
     accountId: "@ryota-sasaki-philip82148",
     href: "https://www.linkedin.com/in/ryota-sasaki-philip82148",
   },
-] as const satisfies Omit<Account, "id">[];
+] as const satisfies OmitId<Account>[];
