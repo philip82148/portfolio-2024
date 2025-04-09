@@ -52,7 +52,7 @@ export const SKILLS = [
     internshipYear: 0.5,
     tags: ["Web", "Frontend"],
     subsetFrameworkLikeSkills: ["React"],
-    subsetLanguageLikeSkills: ["Node.js", "TypeScript", "JavaScript"],
+    subsetLanguageLikeSkills: ["Node.js", "TypeScript", "JavaScript", "HTML"],
   },
   {
     name: "Remix",
@@ -62,7 +62,7 @@ export const SKILLS = [
     internshipYear: 0.5,
     tags: ["Web", "Frontend"],
     subsetFrameworkLikeSkills: ["React"],
-    subsetLanguageLikeSkills: ["Node.js", "TypeScript", "JavaScript"],
+    subsetLanguageLikeSkills: ["Node.js", "TypeScript", "JavaScript", "HTML"],
   },
   {
     name: "React",
@@ -71,7 +71,7 @@ export const SKILLS = [
     personalYear: 2,
     internshipYear: 1,
     tags: ["Web", "Frontend"],
-    subsetLanguageLikeSkills: ["Node.js", "TypeScript", "JavaScript"],
+    subsetLanguageLikeSkills: ["Node.js", "TypeScript", "JavaScript", "HTML"],
   },
   {
     name: "Material UI",
@@ -81,7 +81,7 @@ export const SKILLS = [
     internshipYear: 0.5,
     tags: ["Web", "Frontend"],
     subsetFrameworkLikeSkills: ["React"],
-    subsetLanguageLikeSkills: ["Node.js", "TypeScript", "JavaScript"],
+    subsetLanguageLikeSkills: ["Node.js", "TypeScript", "JavaScript", "CSS"],
   },
   {
     name: "Tailwind CSS",
@@ -90,6 +90,7 @@ export const SKILLS = [
     personalYear: 0.5,
     internshipYear: 0.5,
     tags: ["Web", "Frontend"],
+    subsetLanguageLikeSkills: ["CSS"],
   },
   {
     name: "Daisy UI",
@@ -99,6 +100,7 @@ export const SKILLS = [
     internshipYear: 0.5,
     tags: ["Web", "Frontend"],
     subsetFrameworkLikeSkills: ["Tailwind CSS"],
+    subsetLanguageLikeSkills: ["CSS"],
   },
   {
     name: "NestJS",
@@ -252,6 +254,20 @@ export const SKILLS = [
     personalYear: 2,
     tags: ["Electronics"],
   },
+  {
+    name: "CSS",
+    type: "Language",
+    skillIconKey: "css",
+    personalYear: 4,
+    tags: ["Frontend"],
+  },
+  {
+    name: "HTML",
+    type: "Language",
+    skillIconKey: "html",
+    personalYear: 4,
+    tags: ["Frontend"],
+  },
   // Self-referencing & enum constraints implemented in code
 ] as const satisfies (OmitId<Skill> & {
   name: SkillName;
@@ -291,7 +307,9 @@ type SkillName =
   | "GCP"
   | "AWS"
   | "Ubuntu"
-  | "Raspberry Pi";
+  | "Raspberry Pi"
+  | "HTML"
+  | "CSS";
 
 type Tag = "Web" | "Frontend" | "Backend" | "Mobile" | "Electronics" | "Other";
 
@@ -308,6 +326,8 @@ type LanguageLikeSkillName =
   | "Java"
   | "Flutter"
   | "Kotlin"
-  | "Python";
+  | "Python"
+  | "HTML"
+  | "CSS";
 
 type FrameworkLikeSkillName = Exclude<SkillName, LanguageLikeSkillName>;

@@ -1,6 +1,6 @@
 import type { Skill } from "~/api/interface";
 
-const MAX_RELEVANCE_SCORE = 4;
+const MAX_RELEVANCE_SCORE = 5;
 const TYPE_ORDER = {
   Language: 3,
   Framework: 2,
@@ -8,6 +8,7 @@ const TYPE_ORDER = {
 } as const satisfies Record<Skill["type"], number>;
 
 export const filterAndSortSkills = (skills: Skill[], query: string) => {
+  const sanitize = (s: string) => s.replaceAll(/[.\s]+/g, "").toLowerCase();
   const allKeywords = query
     .split(/\s+/)
     .filter((kw) => !!kw)
@@ -28,113 +29,80 @@ export const filterAndSortSkills = (skills: Skill[], query: string) => {
     skills
       // Filter
       .flatMap((skill) => {
+        const { name, type, tags, subsetFrameworkLikeSkills, subsetLanguageLikeSkills } = skill;
+        // In targetsByLevel, the elements at the top have higher relevance scores.
+        const targetsByLevel = [
+          name.split(/\s+/).map(sanitize),
+          [type].map(sanitize),
+          tags.map((tag) => sanitize(`#${tag}`)),
+          (subsetFrameworkLikeSkills ?? []).flatMap((skill) => skill.split(/\+s/).map(sanitize)),
+          (subsetLanguageLikeSkills ?? []).flatMap((skill) => skill.split(/\+s/).map(sanitize)),
+        ] as const;
+        const NUM_TARGET_LEVELS = targetsByLevel.length satisfies typeof MAX_RELEVANCE_SCORE;
         const relevanceScoreToCount: number[] = new Array(MAX_RELEVANCE_SCORE + 1).fill(0);
 
-        // Filter by complete keywords
-        const { name, type, tags, subsetFrameworkLikeSkills, subsetLanguageLikeSkills } = skill;
+        // Filter by complete keywords.
         for (const keyword of completeKeywords) {
-          if ([...name.split(/\s+/), type].map(sanitize).includes(keyword)) {
-            ++relevanceScoreToCount[3];
-            continue;
+          let found = false;
+          let relevanceScore = NUM_TARGET_LEVELS - 1;
+          for (const targets of targetsByLevel) {
+            if (targets.includes(keyword)) {
+              ++relevanceScoreToCount[relevanceScore];
+              found = true;
+              break;
+            }
+            relevanceScore--;
           }
-          if (tags.map((tag) => sanitize(`#${tag}`)).includes(keyword)) {
-            ++relevanceScoreToCount[2];
-            continue;
+          if (!found) {
+            return [];
           }
-          if (
-            (subsetFrameworkLikeSkills ?? [])
-              .flatMap((skill) => skill.split(/\+s/).map(sanitize))
-              .includes(keyword)
-          ) {
-            ++relevanceScoreToCount[1];
-            continue;
-          }
-          if (
-            (subsetLanguageLikeSkills ?? [])
-              .flatMap((skill) => skill.split(/\+s/).map(sanitize))
-              .includes(keyword)
-          ) {
-            ++relevanceScoreToCount[0];
-            continue;
-          }
-          return [];
         }
         if (!incompleteKeyword) {
           return [{ relevanceScoreToCount, skill }];
         }
 
-        // Filter by incomplete keywords
-        const { personalYear, internshipYear } = skill;
-        const relevanceScore =
-          calcRelevanceScore(name, incompleteKeyword, 3 * 5 + 1) ||
-          calcRelevanceScore(type, incompleteKeyword, 3 * 4 + 1) ||
-          calcRelevanceScoreArray(
-            tags.map((tag) => `#${tag}`) ?? [],
-            incompleteKeyword,
-            3 * 3 + 1
-          ) ||
-          calcRelevanceScoreArray(subsetFrameworkLikeSkills ?? [], incompleteKeyword, 3 * 2 + 1) ||
-          calcRelevanceScoreArray(subsetLanguageLikeSkills ?? [], incompleteKeyword, 3 * 1 + 1) ||
-          (personalYear &&
-          sanitize(`Personal ${personalYear > 0.5 ? personalYear : "- 0.5"} yr.`).includes(
-            incompleteKeyword
-          )
-            ? 1
-            : 0) ||
-          (internshipYear &&
-          sanitize(`Internship ${internshipYear > 0.5 ? internshipYear : "- 0.5"} yr.`).includes(
-            incompleteKeyword
-          )
-            ? 1
-            : 0);
-        if (relevanceScore === 0) {
-          return [];
-        }
-        relevanceScoreToCount[MAX_RELEVANCE_SCORE] = relevanceScore;
+        // Filter by incomplete keywords.
+        type RelevanceFunc = (keyword: string, target: string) => boolean;
+        // In relevanceFuncsByLevel, the elements at the top have higher relevance scores.
+        const relevanceFuncsByLevel: RelevanceFunc[] = [
+          (k, t) => t === k, // match
+          (k, t) => t.startsWith(k), // starts with
+          (k, t) => t.includes(k), // includes
+        ];
+        const NUM_FUNC_LEVELS = relevanceFuncsByLevel.length;
 
-        return [{ relevanceScoreToCount, skill }];
+        // If found, set relevanceScore to relevanceScoreToCount[MAX_RELEVANCE_SCORE].
+        // relevanceScore should be between 1 and (NUM_FUNC_LEVELS * NUM_TARGET_LEVELS).
+        let relevanceScore = NUM_FUNC_LEVELS * NUM_TARGET_LEVELS;
+        // Search from higher-level functions first.
+        for (const relevanceFunc of relevanceFuncsByLevel) {
+          // Search from higher-level targets first.
+          for (const targets of targetsByLevel) {
+            if (targets.some((target) => relevanceFunc(incompleteKeyword, target))) {
+              // Found.
+              relevanceScoreToCount[MAX_RELEVANCE_SCORE] = relevanceScore;
+              return [{ relevanceScoreToCount, skill }];
+            }
+            relevanceScore--;
+          }
+        }
+        return [];
       })
 
       // Sort
       .sort(
         (a, b) =>
-          // sort by relevance
+          // Sort by relevance.
           [...new Array(MAX_RELEVANCE_SCORE + 1).keys()].reduceRight(
             (acc, score) => acc || b.relevanceScoreToCount[score] - a.relevanceScoreToCount[score],
             0
           ) ||
-          // sort by non-relevance-related factors
+          // Sort by non-relevance-related factors.
           TYPE_ORDER[b.skill.type] - TYPE_ORDER[a.skill.type] ||
           a.skill.name.localeCompare(b.skill.name)
       )
 
       // Convert to array
       .map(({ skill }) => skill)
-  );
-};
-
-const sanitize = (s: string) => s.replaceAll(/[.\s]+/g, "").toLowerCase();
-
-const calcRelevanceScore = (target: string, sanitizedKw: string, maxScore: number) => {
-  const sanitizedTarget = sanitize(target);
-  if (sanitizedTarget === sanitizedKw) {
-    return maxScore;
-  }
-  if (sanitizedTarget.startsWith(sanitizedKw)) {
-    return maxScore - 1;
-  }
-  if (sanitizedTarget.includes(sanitizedKw)) {
-    return maxScore - 2;
-  }
-  return 0;
-};
-
-const calcRelevanceScoreArray = (targets: string[], sanitizedKw: string, maxScore: number) => {
-  return targets.reduce(
-    (acc, unsanitizedTarget) =>
-      acc === maxScore
-        ? acc
-        : Math.max(acc, calcRelevanceScore(unsanitizedTarget, sanitizedKw, maxScore)),
-    0
   );
 };
