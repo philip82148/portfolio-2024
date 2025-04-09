@@ -1,46 +1,35 @@
 import clsx from "clsx";
+import type React from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { MdClear } from "react-icons/md";
 
-import type { Skill, Stat } from "~/api/interface";
+import type { Skill } from "~/api/interface";
 import { SKILL_ICONS } from "~/frontend-static-data";
 
 const NUM_SKILLS_TO_ADD = 10;
 
-export const Skills: React.FC<{ stats: Stat[]; skills: Skill[] }> = ({ stats, skills }) => {
+export const LanguagesAndFrameworks: React.FC<{ skills: Skill[] }> = ({
+  skills: originalSkills,
+}) => {
+  // Skill Filter
   const [filterInput, originalSetFilterInput] = useState<string>("");
   const [displayLimit, setDisplayLimit] = useState<number>(NUM_SKILLS_TO_ADD);
   const setFilterInput = useCallback((arg: Parameters<typeof originalSetFilterInput>[0]) => {
     originalSetFilterInput(arg);
     setDisplayLimit(NUM_SKILLS_TO_ADD);
   }, []);
-
-  const filteredSkills = useMemo(
-    () => filterAndSort(skills, filterInput.split(/\s+/)),
-    [filterInput, skills]
+  const skills = useMemo(
+    () => filterAndSort(originalSkills, filterInput.split(/\s+/)),
+    [filterInput, originalSkills]
   );
 
-  const addKeywordToFilterInput = (keyword: string) => {
+  // Keyword Click
+  const onKeywordClick = (keyword: string) => {
     setFilterInput((prev) => (prev ? `${prev} ${keyword}` : keyword));
   };
 
   return (
-    <div className="mb-8">
-      <h2 className="font-bold text-3xl mb-8">Skills</h2>
-      <h3 className="font-bold text-xl mb-8">Stats</h3>
-      <div className="flex flex-wrap items-start gap-4 mb-8">
-        {stats.map((stat) => (
-          <a key={stat.id} href={stat.providerHref} target="_blank" rel="noopener noreferrer">
-            <img
-              src={stat.imgSrc}
-              alt={`${stat.name} Stats`}
-              className="h-40 w-auto"
-              width="400"
-              height="160"
-            />
-          </a>
-        ))}
-      </div>
+    <div>
       <h3 className="font-bold text-xl mb-8">Languages & Frameworks</h3>
       <div className="px-1.5">
         <LazyTextInput
@@ -51,8 +40,8 @@ export const Skills: React.FC<{ stats: Stat[]; skills: Skill[] }> = ({ stats, sk
         />
       </div>
       <p className="px-3 mt-5 font-medium">
-        {`${filterInput.trim() ? "Found" : "Total"} ${filteredSkills.length} skills, `}
-        {`showing ${Math.min(displayLimit, filteredSkills.length)} of them.`}
+        {`${filterInput.trim() ? "Found" : "Total"} ${skills.length} skills, `}
+        {`showing ${Math.min(displayLimit, skills.length)} of them.`}
       </p>
       <div
         className={clsx(
@@ -63,67 +52,16 @@ export const Skills: React.FC<{ stats: Stat[]; skills: Skill[] }> = ({ stats, sk
           "max-sm:grid-rows-[repeat(5,132px)]"
         )}
       >
-        {filteredSkills.slice(0, displayLimit).map((skill) => (
-          <div
+        {skills.slice(0, displayLimit).map((skill) => (
+          <SkillCard
             key={`${filterInput}-${skill.id}`}
-            className="card card-bordered border-2 bg-base-100 rounded flip-in-hor-bottom"
-          >
-            <div
-              className={clsx(
-                "card-body flex flex-row items-center gap-6",
-                "max-2xl:p-6 max-xl:p-8",
-                "max-sm:py-7 max-sm:px-5 max-sm:gap-5"
-              )}
-            >
-              <div className="size-16 flex justify-center">{SKILL_ICONS[skill.skillIconKey]}</div>
-              <div className="w-64 flex-grow -mt-[2px] mb-[2px]">
-                <div className="flex items-center gap-2">
-                  <h4 className="card-title">
-                    <button
-                      onClick={() => addKeywordToFilterInput(skill.name)}
-                      className="line-clamp-1"
-                    >
-                      {skill.name}
-                    </button>
-                  </h4>
-                  <button
-                    className="badge badge-neutral"
-                    onClick={() => addKeywordToFilterInput(skill.type)}
-                  >
-                    {skill.type}
-                  </button>
-                </div>
-                <p className="my-0.5 font-medium text-sm text-slate-500 line-clamp-1">
-                  {skill.personalYear && (
-                    <span>
-                      Personal {skill.personalYear > 0.5 ? skill.personalYear : "- 0.5"} yr.
-                    </span>
-                  )}
-                  {skill.personalYear && skill.internshipYear && <span className="mr-2">,</span>}
-                  {skill.internshipYear && (
-                    <span>
-                      Internship {skill.internshipYear > 0.5 ? skill.internshipYear : "- 0.5"} yr.
-                    </span>
-                  )}
-                </p>
-                <div className="flex flex-wrap gap-x-2 gap-y-1 font-medium text-sm">
-                  {skill.tags.map((tag, i) => (
-                    <button
-                      key={i}
-                      className="link link-hover"
-                      onClick={() => addKeywordToFilterInput(`#${tag}`)}
-                    >
-                      #{tag}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
+            skill={skill}
+            onKeywordClick={onKeywordClick}
+          />
         ))}
       </div>
       <div className="flex justify-center mt-6 h-12">
-        {displayLimit < filteredSkills.length && (
+        {displayLimit < skills.length && (
           <button
             className="btn flip-in-hor-bottom"
             onClick={() => setDisplayLimit((limit) => limit + NUM_SKILLS_TO_ADD)}
@@ -131,6 +69,55 @@ export const Skills: React.FC<{ stats: Stat[]; skills: Skill[] }> = ({ stats, sk
             Display More
           </button>
         )}
+      </div>
+    </div>
+  );
+};
+
+const SkillCard: React.FC<{ skill: Skill; onKeywordClick: (keyword: string) => void }> = ({
+  skill,
+  onKeywordClick,
+}) => {
+  return (
+    <div className="card card-bordered border-2 bg-base-100 rounded flip-in-hor-bottom">
+      <div
+        className={clsx(
+          "card-body flex flex-row items-center gap-6",
+          "max-2xl:p-6 max-xl:p-8",
+          "max-sm:py-7 max-sm:px-5 max-sm:gap-5"
+        )}
+      >
+        <div className="size-16 flex justify-center">{SKILL_ICONS[skill.skillIconKey]}</div>
+        <div className="w-64 flex-grow -mt-[2px] mb-[2px]">
+          <div className="flex items-center gap-2">
+            <h4 className="card-title">
+              <button onClick={() => onKeywordClick(skill.name)} className="line-clamp-1">
+                {skill.name}
+              </button>
+            </h4>
+            <button className="badge badge-neutral" onClick={() => onKeywordClick(skill.type)}>
+              {skill.type}
+            </button>
+          </div>
+          <p className="my-0.5 font-medium text-sm text-slate-500 line-clamp-1">
+            {skill.personalYear && (
+              <span>Personal {skill.personalYear > 0.5 ? skill.personalYear : "- 0.5"} yr.</span>
+            )}
+            {skill.personalYear && skill.internshipYear && <span className="mr-2">,</span>}
+            {skill.internshipYear && (
+              <span>
+                Internship {skill.internshipYear > 0.5 ? skill.internshipYear : "- 0.5"} yr.
+              </span>
+            )}
+          </p>
+          <div className="flex flex-wrap gap-x-2 gap-y-1 font-medium text-sm">
+            {skill.tags.map((tag, i) => (
+              <button key={i} className="link link-hover" onClick={() => onKeywordClick(`#${tag}`)}>
+                #{tag}
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -152,7 +139,9 @@ const LazyTextInput: React.FC<{
   const inputRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
     setRealValue(value);
-    if (value) inputRef.current?.focus();
+    if (value) {
+      inputRef.current?.focus();
+    }
   }, [value]);
 
   return (
@@ -191,9 +180,15 @@ const filterAndSort = (skills: Skill[], keywords: string[]) => {
     baseScore: number
   ) => {
     const sanitizedTarget = sanitize(unsanitizedTarget);
-    if (sanitizedTarget === sanitizedKw) return baseScore;
-    if (sanitizedTarget.startsWith(sanitizedKw)) return baseScore - 1;
-    if (sanitizedTarget.includes(sanitizedKw)) return baseScore - 2;
+    if (sanitizedTarget === sanitizedKw) {
+      return baseScore;
+    }
+    if (sanitizedTarget.startsWith(sanitizedKw)) {
+      return baseScore - 1;
+    }
+    if (sanitizedTarget.includes(sanitizedKw)) {
+      return baseScore - 2;
+    }
     return 0;
   };
   const calcRelevanceScoreArray = (
@@ -229,7 +224,9 @@ const filterAndSort = (skills: Skill[], keywords: string[]) => {
       } = skill;
       const relevanceScoreToCount = new Array(3 * 5 + 1).fill(0);
       for (const sanitizedKw of sanitizedKeywords) {
-        if (sanitizedKw === "") continue;
+        if (sanitizedKw === "") {
+          continue;
+        }
         const relevanceScore =
           calcRelevanceScore(name, sanitizedKw, 3 * 5 + 1) ||
           calcRelevanceScore(type, sanitizedKw, 3 * 4 + 1) ||
@@ -248,7 +245,9 @@ const filterAndSort = (skills: Skill[], keywords: string[]) => {
           )
             ? 1
             : 0);
-        if (relevanceScore === 0) return [];
+        if (relevanceScore === 0) {
+          return [];
+        }
         ++relevanceScoreToCount[relevanceScore - 1];
       }
       return [{ relevanceScoreToCount, skill }];

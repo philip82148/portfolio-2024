@@ -1,9 +1,10 @@
-import { SvgCache } from "../cache";
-import type { Stat } from "../interface";
+import type { Stat } from "../../interface";
+
+import { SvgCache } from "./SvgCache";
 
 import { STATS } from "~/api-static-data";
 
-export class StatController {
+export class StatService {
   private svgCache: SvgCache;
 
   constructor(env: Env) {
@@ -11,8 +12,9 @@ export class StatController {
   }
 
   async getStats(): Promise<Stat[]> {
-    if (process.env.NODE_ENV === "development") return STATS.map((stat, i) => ({ ...stat, id: i }));
-
+    if (process.env.NODE_ENV === "development") {
+      return STATS.map((stat, i) => ({ ...stat, id: i }));
+    }
     return await Promise.all(
       STATS.map(async ({ name, imgSrc, ...rest }, i) => {
         const key = `${name.toLowerCase()}-stats`;

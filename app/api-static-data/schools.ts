@@ -1,3 +1,5 @@
+import type { OmitId } from "./OmitId";
+
 import type { School } from "~/api/interface";
 import type { Multilingual } from "~/multilingual";
 
@@ -26,4 +28,4 @@ export const SCHOOLS = [
     start: { ja: "2017/03", en: "03/2017" },
     major: { ja: "普通科", en: "" },
   },
-] as const satisfies Multilingual<Omit<School, "id">>[];
+] as const satisfies Multilingual<OmitId<School>>[];

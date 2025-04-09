@@ -1,3 +1,5 @@
+import type { OmitId } from "./OmitId";
+
 import type { Project } from "~/api/interface";
 import type { Multilingual } from "~/multilingual";
 
@@ -487,4 +489,4 @@ export const PROJECTS = [
     ],
     imgSrc: "/projects/other/first-boat.jpg",
   },
-] as const satisfies Multilingual<Omit<Project, "id" | "starCount" | "forkCount">>[];
+] as const satisfies Multilingual<Omit<OmitId<Project>, "starCount" | "forkCount">>[];

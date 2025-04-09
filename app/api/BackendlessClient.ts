@@ -1,5 +1,5 @@
-import { StatController, ProjectController } from "./controllers";
 import type { Account, Internship, Profile, Project, School, Skill, Stat } from "./interface";
+import { StatService, ProjectService } from "./services";
 
 import { ACCOUNTS, INTERNSHIPS, PROFILE, SCHOOLS, SKILLS } from "~/api-static-data";
 import { monolingual } from "~/multilingual";
@@ -7,13 +7,13 @@ import type { Language } from "~/multilingual";
 
 export class BackendlessClient {
   private lang: Language;
-  private statController: StatController;
-  private projectController: ProjectController;
+  private statService: StatService;
+  private projectService: ProjectService;
 
   constructor(env: Env, lang: Language) {
     this.lang = lang;
-    this.statController = new StatController(env);
-    this.projectController = new ProjectController(env, lang);
+    this.statService = new StatService(env);
+    this.projectService = new ProjectService(env, lang);
   }
 
   async getProfile(): Promise<Profile> {
@@ -35,7 +35,7 @@ export class BackendlessClient {
   }
 
   async getStats(): Promise<Stat[]> {
-    return await this.statController.getStats();
+    return await this.statService.getStats();
   }
 
   async getSkills(): Promise<Skill[]> {
@@ -43,6 +43,6 @@ export class BackendlessClient {
   }
 
   async getProjects(): Promise<Project[]> {
-    return await this.projectController.getProjects();
+    return await this.projectService.getProjects();
   }
 }

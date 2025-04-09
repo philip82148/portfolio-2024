@@ -1,3 +1,5 @@
+import type { OmitId } from "./OmitId";
+
 import type { Skill } from "~/api/interface";
 
 export const SKILLS = [
@@ -251,7 +253,7 @@ export const SKILLS = [
     tags: ["Electronics"],
   },
   // Self-referencing & enum constraints implemented in code
-] as const satisfies (Omit<Skill, "id"> & {
+] as const satisfies (OmitId<Skill> & {
   name: SkillName;
   tags: Tag[];
   subsetFrameworkLikeSkills?: FrameworkLikeSkillName[];

@@ -17,9 +17,15 @@ export type Multilingual<T> = T extends string[]
   : T;
 
 export const monolingual = <T>(obj: Multilingual<T>, lang: Language): T => {
-  if (obj instanceof Array) return obj.map((item) => monolingual(item, lang)) as T;
-  if (!(obj instanceof Object)) return obj as T;
-  if (isMultilingualObject<T>(obj)) return obj[lang];
+  if (obj instanceof Array) {
+    return obj.map((item) => monolingual(item, lang)) as T;
+  }
+  if (!(obj instanceof Object)) {
+    return obj as T;
+  }
+  if (isMultilingualObject<T>(obj)) {
+    return obj[lang];
+  }
   return Object.fromEntries(
     Object.entries(obj).map(([key, value]) => [key, monolingual(value, lang)])
   ) as T;
