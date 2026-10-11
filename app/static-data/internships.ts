@@ -1,6 +1,6 @@
 import type { OmitId } from "./OmitId";
 
-import type { Internship } from "~/api/interface";
+import type { Internship } from "~/content-loader/interface";
 import type { Multilingual } from "~/multilingual";
 
 export const INTERNSHIPS = [

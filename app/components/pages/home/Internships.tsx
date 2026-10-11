@@ -1,6 +1,6 @@
 import type React from "react";
 
-import type { Internship } from "~/api/interface";
+import type { Internship } from "~/content-loader/interface";
 
 export const Internships: React.FC<{ internships: Internship[] }> = ({ internships }) => {
   return (

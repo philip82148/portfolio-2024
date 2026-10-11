@@ -2,7 +2,7 @@ import type { Stat } from "../../interface";
 
 import { SvgCache } from "./SvgCache";
 
-import { STATS } from "~/api-static-data";
+import { STATS } from "~/static-data";
 
 export class StatService {
   private svgCache: SvgCache;

@@ -1,4 +1,4 @@
-import { SvgCache } from "~/api/services/stat/SvgCache";
+import { SvgCache } from "~/content-loader/services/stat/SvgCache";
 
 export const onRequestGet: PagesFunction<Env> = async (context) => {
   const {

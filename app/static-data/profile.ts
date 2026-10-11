@@ -1,4 +1,4 @@
-import type { Profile } from "~/api/interface";
+import type { Profile } from "~/content-loader/interface";
 import type { Multilingual } from "~/multilingual";
 
 export const PROFILE = {

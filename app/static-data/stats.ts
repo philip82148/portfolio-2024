@@ -1,6 +1,6 @@
 import type { OmitId } from "./OmitId";
 
-import type { Stat } from "~/api/interface";
+import type { Stat } from "~/content-loader/interface";
 
 export const STATS = [
   {

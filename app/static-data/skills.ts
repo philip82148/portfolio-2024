@@ -1,6 +1,6 @@
 import type { OmitId } from "./OmitId";
 
-import type { Skill } from "~/api/interface";
+import type { Skill } from "~/content-loader/interface";
 
 export const SKILLS = [
   {

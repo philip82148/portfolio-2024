@@ -1,4 +1,4 @@
-import type { Skill } from "~/api/interface";
+import type { Skill } from "~/content-loader/interface";
 
 const MAX_RELEVANCE_SCORE = 5;
 const TYPE_ORDER = {

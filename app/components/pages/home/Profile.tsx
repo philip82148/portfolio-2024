@@ -1,6 +1,6 @@
 import type React from "react";
 
-import type { Profile as IProfile } from "~/api/interface";
+import type { Profile as IProfile } from "~/content-loader/interface";
 
 export const Profile: React.FC<{ profile: IProfile }> = ({ profile }) => {
   return (

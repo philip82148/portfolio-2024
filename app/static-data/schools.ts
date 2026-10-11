@@ -1,6 +1,6 @@
 import type { OmitId } from "./OmitId";
 
-import type { School } from "~/api/interface";
+import type { School } from "~/content-loader/interface";
 import type { Multilingual } from "~/multilingual";
 
 export const SCHOOLS = [

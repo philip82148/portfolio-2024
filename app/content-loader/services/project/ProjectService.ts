@@ -1,22 +1,22 @@
 import type { Project } from "../../interface";
 
-import type { GitHubRepository } from "./GitHubRepositoryCache";
-import { GitHubRepositoryCache } from "./GitHubRepositoryCache";
+import type { GitHubRepo } from "./GitHubRepoCache";
+import { GitHubRepoCache } from "./GitHubRepoCache";
 
-import { PROJECTS } from "~/api-static-data";
 import type { Language } from "~/multilingual";
 import { monolingual } from "~/multilingual";
+import { PROJECTS } from "~/static-data";
 
 export class ProjectService {
   private lang: Language;
-  private githubRepositoryCache: GitHubRepositoryCache;
-  private githubRepositoryCacheReady: Promise<void>;
+  private githubRepoCache: GitHubRepoCache;
+  private githubRepoCacheReady: Promise<void>;
 
   constructor(env: Env, lang: Language) {
     this.lang = lang;
-    this.githubRepositoryCache = new GitHubRepositoryCache(env);
-    const githubCache = this.githubRepositoryCache;
-    this.githubRepositoryCacheReady = (async () => {
+    this.githubRepoCache = new GitHubRepoCache(env);
+    const githubCache = this.githubRepoCache;
+    this.githubRepoCacheReady = (async () => {
       const updatedAt = await githubCache.getUpdatedAt();
       const now = new Date();
       if (updatedAt && now.getTime() - updatedAt.getTime() < 24 * 60 * 60 * 1000) {
@@ -30,14 +30,14 @@ export class ProjectService {
         return;
       }
 
-      const repos: ({ name: string } & GitHubRepository)[] = await res.json();
+      const repos: ({ name: string } & GitHubRepo)[] = await res.json();
       await githubCache.updateMany(repos.map(({ name, ...data }) => ({ name, data })));
       console.log("Updated GitHub Repository cache");
     })();
   }
 
   async getProjects(): Promise<Project[]> {
-    await this.githubRepositoryCacheReady;
+    await this.githubRepoCacheReady;
     return await Promise.all(
       PROJECTS.map(async (projectMultilingual, i) => {
         const project = monolingual<Project>({ ...projectMultilingual, id: i }, this.lang);
@@ -50,7 +50,7 @@ export class ProjectService {
           return project;
         }
 
-        const repo = await this.githubRepositoryCache.get(repoName);
+        const repo = await this.githubRepoCache.get(repoName);
         return {
           ...project,
           starCount: repo?.stargazers_count,

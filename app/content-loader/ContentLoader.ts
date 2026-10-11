@@ -1,11 +1,11 @@
 import type { Account, Internship, Profile, Project, School, Skill, Stat } from "./interface";
-import { StatService, ProjectService } from "./services";
+import { ProjectService, StatService } from "./services";
 
-import { ACCOUNTS, INTERNSHIPS, PROFILE, SCHOOLS, SKILLS } from "~/api-static-data";
-import { monolingual } from "~/multilingual";
 import type { Language } from "~/multilingual";
+import { monolingual } from "~/multilingual";
+import { ACCOUNTS, INTERNSHIPS, PROFILE, SCHOOLS, SKILLS } from "~/static-data";
 
-export class BackendlessClient {
+export class ContentLoader {
   private lang: Language;
   private statService: StatService;
   private projectService: ProjectService;
@@ -16,19 +16,19 @@ export class BackendlessClient {
     this.projectService = new ProjectService(env, lang);
   }
 
-  async getProfile(): Promise<Profile> {
+  getProfile(): Profile {
     return monolingual<Profile>(PROFILE, this.lang);
   }
 
-  async getAccounts(): Promise<Account[]> {
+  getAccounts(): Account[] {
     return ACCOUNTS.map((account, i) => ({ ...account, id: i }));
   }
 
-  async getSchools(): Promise<School[]> {
+  getSchools(): School[] {
     return SCHOOLS.map((school, i) => monolingual<School>({ ...school, id: i }, this.lang));
   }
 
-  async getInternships(): Promise<Internship[]> {
+  getInternships(): Internship[] {
     return INTERNSHIPS.map((internship, i) =>
       monolingual<Internship>({ ...internship, id: i }, this.lang)
     );
@@ -38,7 +38,7 @@ export class BackendlessClient {
     return await this.statService.getStats();
   }
 
-  async getSkills(): Promise<Skill[]> {
+  getSkills(): Skill[] {
     return SKILLS.map((skill, i) => ({ ...skill, id: i }));
   }
 

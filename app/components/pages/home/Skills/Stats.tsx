@@ -1,4 +1,4 @@
-import type { Stat } from "~/api/interface";
+import type { Stat } from "~/content-loader/interface";
 
 export const Stats: React.FC<{ stats: Stat[] }> = ({ stats }) => {
   return (

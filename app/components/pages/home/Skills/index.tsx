@@ -1,7 +1,7 @@
 import { LanguagesAndFrameworks } from "./LanguagesAndFrameworks";
 import { Stats } from "./Stats";
 
-import type { Skill, Stat } from "~/api/interface";
+import type { Skill, Stat } from "~/content-loader/interface";
 
 export const Skills: React.FC<{ stats: Stat[]; skills: Skill[] }> = ({ stats, skills }) => {
   return (

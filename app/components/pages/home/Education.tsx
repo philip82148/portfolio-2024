@@ -1,6 +1,6 @@
 import type React from "react";
 
-import type { School } from "~/api/interface";
+import type { School } from "~/content-loader/interface";
 
 export const Education: React.FC<{ schools: School[] }> = ({ schools }) => {
   return (

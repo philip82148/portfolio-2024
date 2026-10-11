@@ -5,7 +5,7 @@ import { FaCalendarDays, FaCode, FaCodeFork, FaMicrochip, FaStar } from "react-i
 import { IoClose } from "react-icons/io5";
 import { MdOutlineImageNotSupported } from "react-icons/md";
 
-import type { Project } from "~/api/interface";
+import type { Project } from "~/content-loader/interface";
 
 export const PersonalProjects: React.FC<{ projects: Project[] }> = ({ projects }) => {
   // Project Grouping

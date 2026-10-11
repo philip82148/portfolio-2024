@@ -1,5 +1,5 @@
-import type { Account } from "~/api/interface";
-import { SITE_ICONS } from "~/frontend-static-data";
+import type { Account } from "~/content-loader/interface";
+import { SITE_ICONS } from "~/icons";
 
 export const Accounts: React.FC<{ accounts: Account[] }> = ({ accounts }) => {
   return (

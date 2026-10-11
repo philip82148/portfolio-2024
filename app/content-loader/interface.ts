@@ -1,4 +1,4 @@
-import type { SITE_ICONS, SKILL_ICONS } from "~/frontend-static-data";
+import type { SITE_ICONS, SKILL_ICONS } from "~/icons";
 
 export type Profile = {
   aBitAboutMe: string;

@@ -1,7 +1,6 @@
 import type { LoaderFunctionArgs } from "@remix-run/cloudflare";
 import { json, useLoaderData } from "@remix-run/react";
 
-import { BackendlessClient } from "~/api/BackendlessClient";
 import {
   Accounts,
   Education,
@@ -10,6 +9,7 @@ import {
   Profile,
   Skills,
 } from "~/components/pages/home";
+import { ContentLoader } from "~/content-loader/ContentLoader";
 import { isLanguage } from "~/multilingual";
 
 export const loader = async ({ params, context }: LoaderFunctionArgs) => {
@@ -19,16 +19,13 @@ export const loader = async ({ params, context }: LoaderFunctionArgs) => {
   }
   const lang = paramLang || "ja";
 
-  const client = new BackendlessClient(context.cloudflare.env, lang);
-  const [profile, accounts, schools, internships, stats, skills, projects] = await Promise.all([
-    client.getProfile(),
-    client.getAccounts(),
-    client.getSchools(),
-    client.getInternships(),
-    client.getStats(),
-    client.getSkills(),
-    client.getProjects(),
-  ]);
+  const cLoader = new ContentLoader(context.cloudflare.env, lang);
+  const profile = cLoader.getProfile();
+  const accounts = cLoader.getAccounts();
+  const schools = cLoader.getSchools();
+  const internships = cLoader.getInternships();
+  const skills = cLoader.getSkills();
+  const [stats, projects] = await Promise.all([cLoader.getStats(), cLoader.getProjects()]);
 
   return json({ profile, accounts, schools, internships, stats, skills, projects });
 };

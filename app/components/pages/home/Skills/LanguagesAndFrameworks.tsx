@@ -5,8 +5,8 @@ import { MdClear } from "react-icons/md";
 
 import { filterAndSortSkills } from "./filterAndSortSkills";
 
-import type { Skill } from "~/api/interface";
-import { SKILL_ICONS } from "~/frontend-static-data";
+import type { Skill } from "~/content-loader/interface";
+import { SKILL_ICONS } from "~/icons";
 
 const NUM_SKILLS_TO_ADD = 10;
 

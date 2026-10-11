@@ -1,6 +1,6 @@
 import type { OmitId } from "./OmitId";
 
-import type { Account } from "~/api/interface";
+import type { Account } from "~/content-loader/interface";
 
 export const ACCOUNTS = [
   {

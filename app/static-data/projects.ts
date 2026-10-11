@@ -1,6 +1,6 @@
 import type { OmitId } from "./OmitId";
 
-import type { Project } from "~/api/interface";
+import type { Project } from "~/content-loader/interface";
 import type { Multilingual } from "~/multilingual";
 
 export const PROJECTS = [
