@@ -8,7 +8,7 @@ export const Profile: React.FC<{ profile: IProfile }> = ({ profile }) => {
       <div className="flex items-center justify-center gap-32 pt-32 pb-28 max-lg:flex-col max-lg:gap-20 max-lg:pt-20 max-lg:pb-0">
         <div className="avatar">
           <div className="size-80 max-md:size-60 rounded-full">
-            <img src="/me.jpg" alt="Ryota Sasaki" width="320" height="320" />
+            <img src={profile.imageUrl} alt="Ryota Sasaki" width="320" height="320" />
           </div>
         </div>
         <div className="w-2/5 max-lg:w-full">

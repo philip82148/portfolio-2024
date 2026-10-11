@@ -1,6 +1,7 @@
 import type { SITE_ICONS, SKILL_ICONS } from "~/icons";
 
 export type Profile = {
+  imageUrl: string;
   aBitAboutMe: string;
 };
 

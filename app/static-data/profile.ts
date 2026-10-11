@@ -2,6 +2,7 @@ import type { Profile } from "~/content-loader/interface";
 import type { Multilingual } from "~/multilingual";
 
 export const PROFILE = {
+  imageUrl: "/me.jpg?v=2",
   aBitAboutMe: {
     ja: [
       "小6から独学でJavaと回路設計を学び、メカ開発にあこがれ趣味として電⼦⼯作を始める。",
