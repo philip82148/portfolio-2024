@@ -4,8 +4,8 @@ import type { GitHubRepository } from "./GitHubRepositoryCache";
 import { GitHubRepositoryCache } from "./GitHubRepositoryCache";
 
 import { PROJECTS } from "~/api-static-data";
-import { monolingual } from "~/multilingual";
 import type { Language } from "~/multilingual";
+import { monolingual } from "~/multilingual";
 
 export class ProjectService {
   private lang: Language;
@@ -23,7 +23,7 @@ export class ProjectService {
         return;
       }
 
-      const res = await fetch("https://api.github.com/users/philip82148/repos", {
+      const res = await fetch("https://api.github.com/users/sassan-dev/repos", {
         headers: { "User-Agent": "Portfolio-2024" },
       });
       if (!res.ok) {
@@ -42,9 +42,9 @@ export class ProjectService {
       PROJECTS.map(async (projectMultilingual, i) => {
         const project = monolingual<Project>({ ...projectMultilingual, id: i }, this.lang);
         const githubLink = project.links?.find((link) =>
-          link.href.startsWith("https://github.com/philip82148/")
+          link.href.startsWith("https://github.com/sassan-dev/")
         )?.href;
-        const repoName = githubLink?.match(/^https:\/\/github.com\/philip82148\/(?<repo>[^/]*)/)
+        const repoName = githubLink?.match(/^https:\/\/github.com\/sassan-dev\/(?<repo>[^/]*)/)
           ?.groups?.repo;
         if (!repoName) {
           return project;

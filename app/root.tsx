@@ -42,7 +42,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         {children}
         <ScrollRestoration />
         <Scripts />
-        <script defer src="https://philip82148.dev/d/js.js" />
+        <script defer src="https://sassan.dev/d/js.js" />
       </body>
     </html>
   );

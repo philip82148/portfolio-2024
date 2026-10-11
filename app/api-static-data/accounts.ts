@@ -6,8 +6,8 @@ export const ACCOUNTS = [
   {
     siteName: "GitHub",
     siteIconKey: "github",
-    accountId: "@philip82148",
-    href: "https://github.com/philip82148",
+    accountId: "@sassan-dev",
+    href: "https://github.com/sassan-dev",
   },
   {
     siteName: "Zenn",
@@ -30,25 +30,25 @@ export const ACCOUNTS = [
   {
     siteName: "X",
     siteIconKey: "x",
-    accountId: "@philip82148",
-    href: "https://x.com/philip82148",
+    accountId: "@sassan_dev",
+    href: "https://x.com/sassan_dev",
   },
   {
     siteName: "DEV",
     siteIconKey: "dev",
-    accountId: "@philip82148",
-    href: "https://dev.to/philip82148",
+    accountId: "@sassan-dev",
+    href: "https://dev.to/sassan-dev",
   },
   {
     siteName: "Qiita",
     siteIconKey: "qiita",
-    accountId: "@philip82148",
-    href: "https://qiita.com/philip82148",
+    accountId: "@sassan-dev",
+    href: "https://qiita.com/sassan-dev",
   },
   {
     siteName: "Linkedin",
     siteIconKey: "linkedin",
-    accountId: "@ryota-sasaki-philip82148",
-    href: "https://www.linkedin.com/in/ryota-sasaki-philip82148",
+    accountId: "@ryotasasaki",
+    href: "https://www.linkedin.com/in/ryotasasaki",
   },
 ] as const satisfies OmitId<Account>[];

@@ -7,7 +7,7 @@ export const Footer: React.FC = () => {
         <div className="text-base font-medium pl-3">© 2024 Ryota Sasaki</div>
         <div className="flex items-center">
           <a
-            href="https://github.com/philip82148/"
+            href="https://github.com/sassan-dev"
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-square btn-ghost"
@@ -15,7 +15,7 @@ export const Footer: React.FC = () => {
             <FaGithub size={24} title="GitHub" />
           </a>
           <a
-            href="https://x.com/philip82148"
+            href="https://x.com/sassan_dev"
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-square btn-ghost"
@@ -23,7 +23,7 @@ export const Footer: React.FC = () => {
             <FaXTwitter size={24} title="X" />
           </a>
           <a
-            href="https://www.linkedin.com/in/ryota-sasaki-philip82148"
+            href="https://www.linkedin.com/in/ryotasasaki"
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-square btn-ghost"

@@ -38,8 +38,8 @@ export const PROJECTS = [
       "Cloudflare Pages",
     ],
     links: [
-      { label: "GitHub", href: "https://github.com/philip82148/portfolio-2024" },
-      { label: "Demo", href: "https://philip82148.dev/" },
+      { label: "GitHub", href: "https://github.com/sassan-dev/portfolio-2024" },
+      { label: "Demo", href: "https://sassan.dev/" },
     ],
   },
   {
@@ -127,7 +127,7 @@ export const PROJECTS = [
     ],
     links: [
       { label: "Book", href: "https://amzn.asia/d/daydn1j" },
-      { label: "GitHub", href: "https://github.com/philip82148/os-30days" },
+      { label: "GitHub", href: "https://github.com/sassan-dev/os-30days" },
       { label: "Zenn", href: "https://zenn.dev/sassan/scraps/28f5277ce2bda0" },
     ],
     imgSrc: "/projects/books/os-30days.jpg",
@@ -149,7 +149,7 @@ export const PROJECTS = [
         en: "I created manuals for environment setup and development procedures for people in my lab who have never done programming before.",
       },
     ],
-    links: [{ label: "GitHub", href: "https://github.com/philip82148/env-setup" }],
+    links: [{ label: "GitHub", href: "https://github.com/sassan-dev/env-setup" }],
   },
   {
     title: {
@@ -178,7 +178,7 @@ export const PROJECTS = [
     ],
     mainTechStacks: ["C++"],
     allTechStacks: ["C++", "CMake", "g++", "clang++", "MSVC", "GitHub Actions"],
-    links: [{ label: "GitHub", href: "https://github.com/philip82148/cpp-dump" }],
+    links: [{ label: "GitHub", href: "https://github.com/sassan-dev/cpp-dump" }],
     imgSrc: "/projects/other/cpp-dump.jpg",
   },
   {
@@ -200,7 +200,7 @@ export const PROJECTS = [
         en: "An Oh My Zsh theme that provides an at-a-glance view of Git information, such as the number of staged, changed, and untracked files, as well as information about how many commits ahead or behind the remote repository is. (Oh My Zsh is a tool for making Zsh more user-friendly.)",
       },
     ],
-    links: [{ label: "GitHub", href: "https://github.com/philip82148/simplerich-zsh-theme" }],
+    links: [{ label: "GitHub", href: "https://github.com/sassan-dev/simplerich-zsh-theme" }],
     imgSrc: "/projects/other/simplerich-zsh-theme.jpg",
   },
   {
@@ -227,8 +227,8 @@ export const PROJECTS = [
       "GitHub Pages",
     ],
     links: [
-      { label: "GitHub", href: "https://github.com/philip82148/portfolio-2023/" },
-      { label: "Demo", href: "https://philip82148.github.io/portfolio-2023/" },
+      { label: "GitHub", href: "https://github.com/sassan-dev/portfolio-2023/" },
+      { label: "Demo", href: "https://sassan.github.io/portfolio-2023/" },
     ],
     imgSrc: "/projects/web/portfolio-2023.jpg",
   },
@@ -276,8 +276,8 @@ export const PROJECTS = [
       "GitHub Pages",
     ],
     links: [
-      { label: "GitHub", href: "https://github.com/philip82148/kishukusha-meibo/" },
-      { label: "Demo", href: "https://philip82148.github.io/kishukusha-meibo/" },
+      { label: "GitHub", href: "https://github.com/sassan-dev/kishukusha-meibo/" },
+      { label: "Demo", href: "https://sassan.github.io/kishukusha-meibo/" },
     ],
     imgSrc: "/projects/web/kishukusha-meibo.jpg",
   },
@@ -305,7 +305,7 @@ export const PROJECTS = [
     mainTechStacks: ["PHP"],
     allTechStacks: ["PHP", "MySQL", "LINE Messaging API", "GCP"],
     links: [
-      { label: "GitHub", href: "https://github.com/philip82148/kishukusha-report-supporter/" },
+      { label: "GitHub", href: "https://github.com/sassan-dev/kishukusha-report-supporter/" },
     ],
     imgSrc: "/projects/web/kishukusha-supporter.jpg",
   },
@@ -332,7 +332,7 @@ export const PROJECTS = [
     ],
     mainTechStacks: ["jQuery", "JavaScript"],
     allTechStacks: ["jQuery", "JavaScript", "HTML", "CSS"],
-    links: [{ label: "GitHub", href: "https://github.com/philip82148/mention-generator/" }],
+    links: [{ label: "GitHub", href: "https://github.com/sassan-dev/mention-generator/" }],
     imgSrc: "/projects/web/m-gen.jpg",
   },
   {
@@ -366,7 +366,7 @@ export const PROJECTS = [
     ],
     mainTechStacks: ["WordPress", "PHP"],
     allTechStacks: ["WordPress", "PHP", "jQuery", "HTML", "CSS", "JavaScript", "Python"],
-    links: [{ label: "GitHub", href: "https://github.com/philip82148/selva/" }],
+    links: [{ label: "GitHub", href: "https://github.com/sassan-dev/selva/" }],
   },
   {
     title: {
@@ -413,7 +413,7 @@ export const PROJECTS = [
       },
     ],
     mainTechStacks: ["C"],
-    links: [{ label: "GitHub", href: "https://github.com/philip82148/SDCardLibrary/" }],
+    links: [{ label: "GitHub", href: "https://github.com/sassan-dev/SDCardLibrary/" }],
   },
   {
     title: { ja: "ボート3台目", en: "The Third Boat" },
