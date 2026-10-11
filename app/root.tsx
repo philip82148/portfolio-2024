@@ -15,6 +15,8 @@ import { useLang } from "./multilingual";
 
 import "./tailwind.css";
 
+const GA_TRACKING_ID = "G-1YSBEG33K6";
+
 export const links: LinksFunction = () => [
   { rel: "icon", href: "/favicon.ico" },
   { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
@@ -36,6 +38,20 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
+        {/* Google tag (gtag.js) */}
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`} />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${GA_TRACKING_ID}', {
+                send_page_view: false // 初回ロードとuseEffectでの二重送信を防ぐ場合
+              });
+            `,
+          }}
+        />
       </head>
       <body className="bg-inherit">
         {/* children will be the root Component, ErrorBoundary, or HydrateFallback */}
