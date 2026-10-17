@@ -1,4 +1,5 @@
 import type { LoaderFunctionArgs } from "@remix-run/cloudflare";
+import type { MetaFunction } from "@remix-run/react";
 import { json, useLoaderData } from "@remix-run/react";
 
 import {
@@ -28,6 +29,17 @@ export const loader = async ({ params, context }: LoaderFunctionArgs) => {
   const [stats, projects] = await Promise.all([cLoader.getStats(), cLoader.getProjects()]);
 
   return json({ profile, accounts, schools, internships, stats, skills, projects });
+};
+
+export const meta: MetaFunction<typeof loader> = ({ params }) => {
+  const lang = params.lang || "";
+  return [
+    {
+      tagName: "link",
+      rel: "canonical",
+      href: `https://sassan.dev/${lang}`,
+    },
+  ];
 };
 
 export default function Index() {
