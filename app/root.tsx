@@ -17,10 +17,7 @@ import "./tailwind.css";
 
 const GA_TRACKING_ID = "G-1YSBEG33K6";
 
-export const links: LinksFunction = () => [
-  { rel: "icon", href: "/favicon.ico" },
-  { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
-];
+export const links: LinksFunction = () => [{ rel: "icon", href: "/favicon.ico" }];
 
 export const meta: MetaFunction = () => {
   return [
